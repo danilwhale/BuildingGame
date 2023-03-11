@@ -19,6 +19,7 @@ internal class Program
     public static MenuScreen menuScreen = null!;
     public static GameScreen gameScreen = null!;
     public static WorldSelectScreen worldSelectScreen = null!;
+    public static CreateWorldScreen createWorldScreen = null!;
     public static Screen currentScreen = null!;
 
     private static void Main()
@@ -56,6 +57,9 @@ internal class Program
 
         worldSelectScreen = new WorldSelectScreen();
         worldSelectScreen.Initialize();
+
+        createWorldScreen = new CreateWorldScreen();
+        createWorldScreen.Initialize();
 
         currentScreen = menuScreen;
 

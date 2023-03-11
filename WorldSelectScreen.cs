@@ -17,8 +17,7 @@ public class WorldSelectScreen : Screen
         for (int i = 0; i < 10; i++)
         {
             var idx = i;
-            var worldButton = new HoverButton("world_" + i,
-                $"world {i + 1}{(!IsExistsWorld(i) ? " (new)" : "")}", new Vector2(0, y), 32
+            var worldButton = new HoverButton("world_" + i, FetchWorldName(idx), new Vector2(0, y), 32
             );
             worldButton.Clicked += () => LoadWorld(idx);
             worldButton.Color = Color.WHITE;
@@ -39,10 +38,31 @@ public class WorldSelectScreen : Screen
         Gui.PutControl(menuButton, this);
     }
 
+    private string FetchWorldName(int i)
+    {
+        if (IsExistsWorld(i))
+        {
+            if (File.Exists("saves/" + i + "/info.txt"))
+                return File.ReadAllText("saves/" + i + "/info.txt").Replace("\n", "");
+            else
+                return "world #" + (i + 1);
+        }
+        return "world #" + (i + 1) + " (new)";
+    }
+
     private void LoadWorld(int i)
     {
-        Program.gameScreen.World.Load("saves/" + i + "/level.dat");
-        Program.currentScreen = Program.gameScreen;
+        if (((HoverButton)Gui.GetControl("world_" + i)).Text!.EndsWith("(new)"))
+        {
+            Program.createWorldScreen.worldIndex = i;
+            Program.currentScreen = Program.createWorldScreen;
+        }
+        else
+        {
+            Program.gameScreen.World.Load("saves/" + i + "/level.dat");
+            Program.currentScreen = Program.gameScreen;
+        }
+        
     }
 
     private bool IsExistsWorld(int i)
@@ -60,7 +80,7 @@ public class WorldSelectScreen : Screen
         for (int i = 0; i < 10; i++)
         {
             int idx = i;
-            ((HoverButton)Gui.GetControl("world_" + i)).Text = $"world {idx + 1}{(!IsExistsWorld(idx) ? " (new)" : "")}";
+            ((HoverButton)Gui.GetControl("world_" + i)).Text = FetchWorldName(idx);
         }
     }
 }
