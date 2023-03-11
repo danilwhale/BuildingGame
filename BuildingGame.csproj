@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ApplicationIcon>assets/icon.ico</ApplicationIcon>
+    <TrimUnusedImports>true</TrimUnusedImports>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>0.0.3.0</Version>
+    <AssemblyVersion>0.0.3.0</AssemblyVersion>
+    <FileVersion>0.0.3-prealpha</FileVersion>
+    <Company>danilwhale</Company>
+    <Authors>danilwhale</Authors>
+    <Product>building game</Product>
+    <Description />
+    <Copyright>Copyright © 2023</Copyright>
+    <StripSymbols>true</StripSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="raylib-cs" Version="4.2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup> 
+    <Content Include="assets\**"> 
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> 
+    </Content> 
+    <Content Include="changelog.txt"> 
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> 
+    </Content> 
+  </ItemGroup>
+
+</Project>
