@@ -9,7 +9,7 @@ public class GameScreen : Screen
 
     static byte _currentType = 1;
 
-    Camera2D _camera;
+    public Camera2D camera;
     bool _cameraRunning;
 
     World _world = null!;
@@ -23,7 +23,7 @@ public class GameScreen : Screen
 
     public override void Draw()
     {
-        BeginMode2D(_camera);
+        BeginMode2D(camera);
         ClearBackground(Settings.SkyColor);
 
         DrawRectangleLinesEx(
@@ -41,10 +41,10 @@ public class GameScreen : Screen
     {
         _world = new World();
 
-        _camera = new Camera2D
+        camera = new Camera2D
         {
             offset = new Vector2(Program.WIDTH / 2, Program.HEIGHT / 2),
-            target = new Vector2(GetRandomValue(0, World.CHUNK_AREA * Chunk.SIZE * 48), GetRandomValue(0, World.CHUNK_AREA * Chunk.SIZE * 48)),
+            target = new Vector2(GetRandomValue(0, World.CHUNK_AREA * Chunk.SIZE * 48)),
             zoom = 1,
             rotation = 0
         };
@@ -60,12 +60,11 @@ public class GameScreen : Screen
         float vx = IsKeyDown(KeyboardKey.KEY_D) - IsKeyDown(KeyboardKey.KEY_A);
         float vy = IsKeyDown(KeyboardKey.KEY_S) - IsKeyDown(KeyboardKey.KEY_W);
 
-        _camera.target += new Vector2(vx, vy) * (_cameraRunning ? CAMERA_SPEED * 2 : CAMERA_SPEED);
-        _world.SpawnPos = _camera.target;
+        camera.target += new Vector2(vx, vy) * (_cameraRunning ? CAMERA_SPEED * 2 : CAMERA_SPEED);
         #endregion
 
         #region Tile Placement
-        Vector2 wmPos = GetScreenToWorld2D(GetMousePosition(), _camera);
+        Vector2 wmPos = GetScreenToWorld2D(GetMousePosition(), camera);
 
         mx = (int)(Math.Round((float)((wmPos.X) / 48)));
         my = (int)(Math.Round((float)((wmPos.Y) / 48)));
@@ -104,10 +103,10 @@ public class GameScreen : Screen
         var mdelta = Vector2Clamp(GetMouseWheelMoveV(), -Vector2.One, Vector2.One);
         if (IsKeyDown(KeyboardKey.KEY_LEFT_CONTROL))
         {
-            _camera.zoom += ((float)GetMouseWheelMove() * 0.05f);
+            camera.zoom += ((float)GetMouseWheelMove() * 0.05f);
 
-            if (_camera.zoom > 3.0f) _camera.zoom = 3.0f;
-            else if (_camera.zoom < 0.1f) _camera.zoom = 0.1f;
+            if (camera.zoom > 3.0f) camera.zoom = 3.0f;
+            else if (camera.zoom < 0.1f) camera.zoom = 0.1f;
 
         }
         #endregion

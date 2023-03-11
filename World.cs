@@ -9,7 +9,6 @@ public class World
     public string WorldFile { get; set; } = "level.dat";
     public const int CHUNK_AREA = 16;
     public Chunk[,] Chunks { get; private set; } = null!;
-    public Vector2 SpawnPos { get; set; }
 
     public World()
     {
@@ -230,8 +229,8 @@ public class World
 
             bw.Write(WORLD_SAVE_HEADER);
 
-            bw.Write(SpawnPos.X);
-            bw.Write(SpawnPos.Y);
+            bw.Write(Program.gameScreen.camera.target.X);
+            bw.Write(Program.gameScreen.camera.target.Y);
 
             for (int x = 0; x < World.CHUNK_AREA * Chunk.SIZE; x++)
             {
@@ -298,7 +297,7 @@ public class World
             else if (header != WORLD_SAVE_HEADER) throw new IOException("world header is invalid");
             else
             {
-                SpawnPos = new Vector2(br.ReadSingle(), br.ReadSingle());
+                Program.gameScreen.camera.target = new Vector2(br.ReadSingle(), br.ReadSingle());
                 for (int x = 0; x < World.CHUNK_AREA * Chunk.SIZE; x++)
                 {
                     for (int y = 0; y < World.CHUNK_AREA * Chunk.SIZE; y++)

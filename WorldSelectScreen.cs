@@ -43,7 +43,7 @@ public class WorldSelectScreen : Screen
         if (IsExistsWorld(i))
         {
             if (File.Exists("saves/" + i + "/info.txt"))
-                return File.ReadAllText("saves/" + i + "/info.txt").Replace("\n", "");
+                return File.ReadAllLines("saves/" + i + "/info.txt").First().Replace("\n", "");
             else
                 return "world #" + (i + 1);
         }
