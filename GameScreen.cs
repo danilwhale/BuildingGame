@@ -207,6 +207,7 @@ public class GameScreen : Screen
         var tileMenuTitle = new TextBlock("tileMenuTitle", "Select a tile", 
             new Vector2(bgPanel.Area.x, bgPanel.Area.y + 6), 32
         );
+        tileMenuTitle.Active = true;
         tileMenuTitle.Area = new Rectangle(bgPanel.Area.x, bgPanel.Area.y + 6, bgPanel.Area.width, 32);
         tileMenuTitle.Color = Color.WHITE;
         // Console.WriteLine(tileMenuTitle.Text);

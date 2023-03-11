@@ -20,7 +20,7 @@ public class TextBlock : Control
     public void Center()
     {
         Area = new Rectangle(
-            Area.x - Area.width / 2 - MeasureTextEx(Font, Text, Size, 1).X / 2,
+            Area.x + Area.width / 2 - MeasureTextEx(Font, Text, Size, 1).X / 2,
             Area.y,
             Area.width,
             Area.height
