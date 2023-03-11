@@ -29,6 +29,7 @@ public class MenuScreen : Screen
         };
         settingsPanel.ClientUpdate += () =>
         {
+            settingsPanel.Area = new Rectangle(50, 50, Program.WIDTH - 50 * 2, Program.HEIGHT - 50 * 2);
             Settings.SkyColor = bgColorLine.ExportColor();
             Settings.EnablePhysics = physicsCheckBox.Checked;
         };
@@ -38,6 +39,16 @@ public class MenuScreen : Screen
             new Vector2(settingsPanel.Area.x + 8, settingsPanel.Area.y + 16),
             18
         );
+        bgColorTitle.ClientUpdate += () =>
+        {
+            var point = new Vector2(settingsPanel.Area.x + 8, settingsPanel.Area.y + 16);
+            bgColorTitle.Area = new Rectangle(
+                point.X,
+                point.Y,
+                bgColorTitle.Area.width,
+                bgColorTitle.Area.height
+            );
+        };
         bgColorTitle.Color = Color.WHITE;
         settingsPanel.Children.Add(bgColorTitle);
 
@@ -52,15 +63,39 @@ public class MenuScreen : Screen
             new Vector2(settingsPanel.Area.x + 8, settingsPanel.Area.y + 16 + 8 + 18),
             18
         );
+        physicsCheckBox.ClientUpdate += () =>
+        {
+            var point = new Vector2(settingsPanel.Area.x + 8, settingsPanel.Area.y + 16 + 8 + 18);
+            physicsCheckBox.Area = new Rectangle(
+                point.X,
+                point.Y,
+                physicsCheckBox.Area.width,
+                physicsCheckBox.Area.height
+            );
+        };
         physicsCheckBox.Checked = Settings.EnablePhysics;
         settingsPanel.Children.Add(physicsCheckBox);
 
         var title = new TextBlock("title", "building game", new Vector2(12, CalculateYForButton(0)), 36);
+        title.ClientUpdate += () =>
+        {
+            title.Area = new Rectangle(
+                12, CalculateYForButton(0),
+                title.Area.width, title.Area.height
+            );
+        };
         title.Color = Color.WHITE;
 
         var playButton = new HoverButton("playButton", "play", 
             new Vector2(12, CalculateYForButton(1)), 24
         );
+        playButton.ClientUpdate += () =>
+        {
+            playButton.Area = new Rectangle(
+                12, CalculateYForButton(1),
+                playButton.Area.width, playButton.Area.height
+            );
+        };
         playButton.Color = Color.WHITE;
         playButton.Clicked += () =>
         {
@@ -71,6 +106,13 @@ public class MenuScreen : Screen
         var settingsButton = new HoverButton("settingsButton", "settings", 
             new Vector2(12, CalculateYForButton(2)), 24
         );
+        settingsButton.ClientUpdate += () =>
+        {
+            settingsButton.Area = new Rectangle(
+                12, CalculateYForButton(2),
+                settingsButton.Area.width, settingsButton.Area.height
+            );
+        };
         settingsButton.Color = Color.WHITE;
         settingsButton.Clicked += () =>
         {
@@ -83,6 +125,13 @@ public class MenuScreen : Screen
         var exitButton = new HoverButton("exitButton", "exit", 
             new Vector2(12, CalculateYForButton(3)), 24
         );
+        exitButton.ClientUpdate += () =>
+        {
+            exitButton.Area = new Rectangle(
+                12, CalculateYForButton(3),
+                exitButton.Area.width, exitButton.Area.height
+            );
+        };
         exitButton.Color = Color.WHITE;
         exitButton.Clicked += () =>
         {
@@ -100,6 +149,13 @@ public class MenuScreen : Screen
         var versionBlock = new TextBlock("versionBlock", $"v{ver}",
             new Vector2(8, Program.HEIGHT - 8 - 18), 18
         );
+        versionBlock.ClientUpdate += () =>
+        {
+            versionBlock.Area = new Rectangle(
+                8, Program.HEIGHT - 8 - 18,
+                versionBlock.Area.width, versionBlock.Area.height
+            );
+        };
         versionBlock.Color = Color.WHITE;
 
         Gui.PutControl(settingsPanel, this, true);

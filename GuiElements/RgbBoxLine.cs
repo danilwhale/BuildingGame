@@ -19,6 +19,7 @@ public class RgbBoxLine : Control
         : base(name)
     {
         DefaultColor = defaultColor;
+        Area = new Rectangle(position.X, position.Y, (48 + 4) * 5, 18);
         _colorPreview = new BackgroundBlock(Name + "_colorprev", (ColorBrush)Color.WHITE)
         {
             Area = new Rectangle(position.X, position.Y, 32, 18)
@@ -63,6 +64,12 @@ public class RgbBoxLine : Control
     {
         base.Update();
 
+        _colorPreview.Area = new Rectangle(Area.x, Area.y, _colorPreview.Area.width, _colorPreview.Area.height);
+        _rBox.Area = new Rectangle(Area.x + 48 + 4, Area.y, _rBox.Area.width, _rBox.Area.height);
+        _gBox.Area = new Rectangle(Area.x + (48 + 4) * 2, Area.y, _gBox.Area.width, _gBox.Area.height);
+        _bBox.Area = new Rectangle(Area.x + (48 + 4) * 3, Area.y, _bBox.Area.width, _bBox.Area.height);
+        _resetButton.Area = new Rectangle(Area.x + (48 + 4) * 4, Area.y, _resetButton.Area.width, _resetButton.Area.height);
+
         if (byte.TryParse(_rBox.Text, out var r)) R = r;
         if (byte.TryParse(_gBox.Text, out var g)) G = g;
         if (byte.TryParse(_bBox.Text, out var b)) B = b;
@@ -75,7 +82,7 @@ public class RgbBoxLine : Control
     {
         R = color.r;
         G = color.g;
-        B = color.g;
+        B = color.b;
 
         _rBox.Text = R.ToString();
         _gBox.Text = G.ToString();

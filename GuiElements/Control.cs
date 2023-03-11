@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+
 namespace BuildingGame.GuiElements;
 
 public class Control
@@ -9,6 +11,7 @@ public class Control
     public event Action? ClientUpdate;
     public bool Active { get; set; }
     public int ZIndex { get; set; }
+    public Expression<Func<Vector2>>? Position { get; set; }
     private bool _pressed = false;
     private bool _oldPressed = false;
 

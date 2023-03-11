@@ -2,13 +2,16 @@
 global using Raylib_cs;
 global using static Raylib_cs.Raylib;
 global using static Raylib_cs.Raymath;
+using BuildingGame.GuiElements;
 
 namespace BuildingGame;
 
 internal class Program
 {
-    public const int WIDTH = 800;
-    public const int HEIGHT = 600;
+    public static int WIDTH = 800;
+    static int preWidth = 800;
+    public static int HEIGHT = 600;
+    static int preHeight = 600;
 
 
     public static Texture2D atlas;
@@ -29,8 +32,10 @@ internal class Program
             File.WriteAllText("crash.txt", ev.ExceptionObject.ToString());
         };
         InitWindow(WIDTH, HEIGHT, "BuildingGame");
-        SetTargetFPS(60);
         SetExitKey(KeyboardKey.KEY_NULL);
+        SetWindowState(ConfigFlags.FLAG_WINDOW_RESIZABLE);
+        SetWindowState(ConfigFlags.FLAG_VSYNC_HINT);
+        SetWindowMinSize(800, 600);
 
         Gui.SetGuiFont("assets/font.ttf");
 
@@ -43,6 +48,8 @@ internal class Program
 
         atlas = LoadTexture("assets/atlas.png");
         check = LoadTexture("assets/check.png");
+        SetTextureFilter(atlas, TextureFilter.TEXTURE_FILTER_POINT);
+        SetTextureFilter(check, TextureFilter.TEXTURE_FILTER_POINT);
 
         Image icon = LoadImage("assets/icon.png");
         SetWindowIcon(icon);
@@ -67,6 +74,37 @@ internal class Program
         {
             // SetWindowTitle("BuldingGame - " + GetFPS() + " FPS");
             if (mustClose) break;
+            if (IsKeyPressed(KeyboardKey.KEY_F11) ||
+                (IsKeyPressed(KeyboardKey.KEY_LEFT_ALT) && IsKeyPressed(KeyboardKey.KEY_ENTER)))
+            {
+                if (IsWindowFullscreen())
+                {
+                    WIDTH = preWidth;
+                    HEIGHT = preHeight;
+                }
+                else
+                {
+                    preWidth = WIDTH;
+                    preHeight = HEIGHT;
+
+                    WIDTH = GetMonitorWidth(GetCurrentMonitor());
+                    HEIGHT = GetMonitorHeight(GetCurrentMonitor());
+                }
+                SetWindowSize(WIDTH, HEIGHT);
+
+                ToggleFullscreen();
+                
+            }
+
+
+            WIDTH = GetScreenWidth();
+            HEIGHT = GetScreenHeight();
+            if (IsWindowResized())
+            {
+                var bgPanel = (BackgroundBlock)Gui.GetControl("bgPanel");
+                var tooltip = (Tooltip)Gui.GetControl("tileTooltip");
+                Program.gameScreen.RecreateTileMenu(bgPanel, tooltip);
+            }
 
             currentScreen.Update();
 

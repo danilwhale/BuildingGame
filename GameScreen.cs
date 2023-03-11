@@ -120,24 +120,26 @@ public class GameScreen : Screen
             new GradientBrush(new Color(0, 0, 25, 100), new Color(0, 0, 0, 200))
         )
         {
-            Area = new Rectangle(60, 90, Program.WIDTH - 60 * 2, Program.HEIGHT - 90 * 2),
+            Area = new Rectangle(Program.WIDTH / 2 - 340, Program.HEIGHT / 2 - 210, 680, 420),
             Active = false
         };
         bgPanel.ClientUpdate += () =>
         {
             if (IsKeyPressed(KeyboardKey.KEY_ESCAPE)) bgPanel.Active = false;
+            bgPanel.Area = new Rectangle(Program.WIDTH / 2 - 340, Program.HEIGHT / 2 - 210, 680, 420);
         };
 
         var pausePanel = new BackgroundBlock("pausePanel", bgPanel.Background)
         {
             Area = new Rectangle(0, 0, Program.WIDTH, Program.HEIGHT),
-            Active = false
+            Active = false,
+            ZIndex = 50
         };
         pausePanel.ClientUpdate += () =>
         {
             if (Gui.GetControl("settingsPanel").Active && IsKeyPressed(KeyboardKey.KEY_ESCAPE)) Gui.GetControl("settingsPanel").Active = false;
             else if (IsKeyPressed(KeyboardKey.KEY_ESCAPE) && !bgPanel.Active) pausePanel.Active = !pausePanel.Active;
-            
+            pausePanel.Area = new Rectangle(0, 0, Program.WIDTH, Program.HEIGHT);
         };
 
         var resumeGameButton = new HoverButton("resumeGameButton", "resume", Vector2.Zero, 24)
@@ -191,7 +193,8 @@ public class GameScreen : Screen
         texImg.ClientUpdate += () =>
         {
             var tile = Tile.DefaultTiles[_currentType - 1];
-            texImg.ImageSourceRect = new Rectangle(tile.AtlasOffset.X * 16, tile.AtlasOffset.Y * 16, 16, 16);;
+            texImg.ImageSourceRect = new Rectangle(tile.AtlasOffset.X * 16, tile.AtlasOffset.Y * 16, 16, 16);
+            texImg.Area = new Rectangle(Program.WIDTH - 64 - 16, 16, 64, 64);
         };
         texImg.Clicked += () =>
         {
@@ -200,41 +203,64 @@ public class GameScreen : Screen
         #endregion
 
         #region Tile Menu Generation
-        float x = bgPanel.Area.x + 20;
-        float y = bgPanel.Area.y + 60;
+        
 
-        var tileMenuTitle = new TextBlock("tileMenuTitle", "Select a tile", 
-            new Vector2(bgPanel.Area.x, bgPanel.Area.y + 6), 32
+        RecreateTileMenu(bgPanel, tooltip);
+        #endregion
+
+        Gui.PutControl(bgPanel, this);
+        Gui.PutControl(tooltip, this);
+        Gui.PutControl(texImg, this);
+        Gui.PutControl(pausePanel, this);
+    }
+
+    public void RecreateTileMenu(BackgroundBlock bgPanel, Tooltip tooltip)
+    {
+        bgPanel.Children.Clear();
+        tooltip.Triggers.Clear();
+
+        float sx = Program.WIDTH / 2 - 340 + 20;
+        float sy = Program.HEIGHT / 2 - 210 + 60;
+        float x = sx;
+        float y = sy;
+
+        _ = Gui.PopControl("tileMenuTitle");
+        var tileMenuTitle = new TextBlock("tileMenuTitle", "Select a tile",
+            new Vector2(bgPanel.Area.x, Program.HEIGHT / 2 - 210 + 6), 32
         );
         tileMenuTitle.Active = true;
-        tileMenuTitle.Area = new Rectangle(bgPanel.Area.x, bgPanel.Area.y + 6, bgPanel.Area.width, 32);
+        // tileMenuTitle.Area = new Rectangle(bgPanel.Area.x, bgPanel.Area.y + 6, bgPanel.Area.width, 32);
         tileMenuTitle.Color = Color.WHITE;
         // Console.WriteLine(tileMenuTitle.Text);
-        tileMenuTitle.Center();
+        tileMenuTitle.CenterScreen();
         bgPanel.Children.Add(tileMenuTitle);
+        Gui.PutControl(tileMenuTitle, this);
 
         for (byte i = 0; i < Tile.DefaultTiles.Length; i++)
         {
+            _ = Gui.PopControl("tile_" + i);
             var tile = Tile.DefaultTiles[i];
             byte idx = (byte)(i + 1);
-            var btn = new ImageArea("tile_" + i, Program.atlas, 
+            var btn = new ImageArea("tile_" + i, Program.atlas,
                 new Rectangle(tile.AtlasOffset.X * 16, tile.AtlasOffset.Y * 16, 16, 16), Color.WHITE
             )
             {
                 Area = new Rectangle(x, y, 48, 48),
             };
+            
             btn.Clicked += () =>
             {
                 _currentType = idx;
                 bgPanel.Active = false;
             };
 
+            Gui.PutControl(btn, this);
             bgPanel.Children.Add(btn);
             tooltip.Triggers.Add(btn, Tile.GetTile(idx).DisplayName);
 
-            if (x >= bgPanel.Area.x + bgPanel.Area.width - 20 * 4)
+            if (x >= Program.WIDTH / 2 + 250)
             {
-                x = bgPanel.Area.x + 20;
+                x = sx;
                 y += 48 + 5;
                 continue;
             }
@@ -243,13 +269,5 @@ public class GameScreen : Screen
 
             x += 48 + 5;
         }
-        #endregion
-
-        Gui.PutControl(texImg, this);
-        Gui.PutControl(bgPanel, this);
-        Gui.PutControl(tooltip, this);
-        Gui.PutControl(pausePanel, this);
     }
-
-
 }
