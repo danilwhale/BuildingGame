@@ -3,7 +3,7 @@ using System.Reflection;
 using BuildingGame.GuiElements;
 using BuildingGame.GuiElements.Brushes;
 
-namespace BuildingGame;
+namespace BuildingGame.Screens;
 
 public class MenuScreen : Screen
 {

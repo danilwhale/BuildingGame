@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.IO.Compression;
 
-namespace BuildingGame;
+namespace BuildingGame.Tiles;
 
 public class World
 {

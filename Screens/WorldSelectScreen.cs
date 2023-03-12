@@ -1,6 +1,6 @@
 using BuildingGame.GuiElements;
 
-namespace BuildingGame;
+namespace BuildingGame.Screens;
 
 public class WorldSelectScreen : Screen
 {

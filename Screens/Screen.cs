@@ -1,4 +1,4 @@
-namespace BuildingGame;
+namespace BuildingGame.Screens;
 
 public abstract class Screen
 {

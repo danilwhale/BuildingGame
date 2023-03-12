@@ -1,7 +1,8 @@
 using BuildingGame.GuiElements;
 using BuildingGame.GuiElements.Brushes;
+using BuildingGame.Tiles;
 
-namespace BuildingGame;
+namespace BuildingGame.Screens;
 
 public class GameScreen : Screen
 {

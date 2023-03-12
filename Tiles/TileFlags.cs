@@ -1,4 +1,4 @@
-namespace BuildingGame;
+namespace BuildingGame.Tiles;
 
 public struct TileFlags
 {
