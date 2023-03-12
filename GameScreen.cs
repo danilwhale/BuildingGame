@@ -103,15 +103,10 @@ public class GameScreen : Screen
         #endregion
 
         #region Camera Zoom
-        var mdelta = Vector2Clamp(GetMouseWheelMoveV(), -Vector2.One, Vector2.One);
-        if (IsKeyDown(KeyboardKey.KEY_LEFT_CONTROL))
-        {
-            camera.zoom += ((float)GetMouseWheelMove() * 0.05f);
+        camera.zoom += ((float)GetMouseWheelMove() * 0.05f);
 
-            if (camera.zoom > 3.0f) camera.zoom = 3.0f;
-            else if (camera.zoom < 0.1f) camera.zoom = 0.1f;
-
-        }
+        if (camera.zoom > 3.0f) camera.zoom = 3.0f;
+        else if (camera.zoom < 0.1f) camera.zoom = 0.1f;
         #endregion
 
         _world.Update();
@@ -119,7 +114,7 @@ public class GameScreen : Screen
 
     void CreateGui()
     {
-        var bgPanel = new BackgroundBlock("bgPanel", 
+        var bgPanel = new BackgroundBlock("bgPanel",
             new GradientBrush(new Color(0, 0, 25, 100), new Color(0, 0, 0, 200))
         )
         {
@@ -206,7 +201,7 @@ public class GameScreen : Screen
         #endregion
 
         #region Tile Menu Generation
-        
+
 
         RecreateTileMenu(bgPanel, tooltip);
         #endregion
@@ -250,7 +245,7 @@ public class GameScreen : Screen
             {
                 Area = new Rectangle(x, y, 48, 48),
             };
-            
+
             btn.Clicked += () =>
             {
                 _currentType = idx;
