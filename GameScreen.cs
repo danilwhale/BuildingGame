@@ -15,6 +15,9 @@ public class GameScreen : Screen
     World _world = null!;
     public World World => _world;
 
+    // toggles tile that will show when you move mouse over world
+    public bool showPreTile = true;
+
     bool flipTile = false;
     float tileRot = 0;
 
@@ -31,7 +34,7 @@ public class GameScreen : Screen
             2f, Color.RED
         );
         _world.Draw();
-        if (!Gui.IsMouseOverControl)
+        if (!Gui.IsMouseOverControl && showPreTile)
             Tile.DefaultTiles[_currentType - 1].Draw(mx, my, new TileFlags(tileRot, flipTile), new Color(255, 255, 255, 120));
 
         EndMode2D();

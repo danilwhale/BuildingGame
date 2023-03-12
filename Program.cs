@@ -96,6 +96,14 @@ internal class Program
                 
             }
 
+            // take screenshot ONLY if player is in game right now
+            if (IsKeyPressed(KeyboardKey.KEY_F2) && currentScreen == gameScreen) Screenshot.Create();
+            // toggle gui only if player is in game right now
+            if (IsKeyPressed(KeyboardKey.KEY_F1) && currentScreen == gameScreen)
+            {
+                Gui.ProcessGui = !Gui.ProcessGui;
+                gameScreen.showPreTile = !gameScreen.showPreTile;
+            }
 
             WIDTH = GetScreenWidth();
             HEIGHT = GetScreenHeight();

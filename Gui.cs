@@ -5,6 +5,7 @@ namespace BuildingGame;
 public static class Gui
 {
     public static Font GuiFont => _font;
+    public static bool ProcessGui { get; set; } = true;
     private static Font _font;
 
     private static List<(Control control, Screen holder, bool multiscreen)> _controls = 
@@ -56,6 +57,8 @@ public static class Gui
 
     public static void Update()
     {
+        if (!ProcessGui) return;
+        
         var curControls = _controls;
         foreach (var control in curControls)
         {
@@ -66,6 +69,8 @@ public static class Gui
 
     public static void Draw()
     {
+        if (!ProcessGui) return;
+
         var curControls = _controls;
         curControls.Sort((x, y) => x.control.ZIndex.CompareTo(y.control.ZIndex));
         foreach (var control in curControls)
