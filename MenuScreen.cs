@@ -17,6 +17,7 @@ public class MenuScreen : Screen
     TextBlock bgColorTitle = null!;
     RgbBoxLine bgColorLine = null!;
     CheckBox physicsCheckBox = null!;
+    CheckBox enableInfectionCheckBox = null!;
 
     public override void Initialize()
     {
@@ -32,6 +33,7 @@ public class MenuScreen : Screen
             settingsPanel.Area = new Rectangle(50, 50, Program.WIDTH - 50 * 2, Program.HEIGHT - 50 * 2);
             Settings.SkyColor = bgColorLine.ExportColor();
             Settings.EnablePhysics = physicsCheckBox.Checked;
+            Settings.EnableInfectionBlock = enableInfectionCheckBox.Checked;
         };
 
         bgColorTitle = new TextBlock(
@@ -75,6 +77,23 @@ public class MenuScreen : Screen
         };
         physicsCheckBox.Checked = Settings.EnablePhysics;
         settingsPanel.Children.Add(physicsCheckBox);
+
+        enableInfectionCheckBox = new CheckBox("enableInfectionCheckBox", "enable infection tiles",
+            new Vector2(settingsPanel.Area.x + 8, settingsPanel.Area.y + (16 + 8 + 18) * 2),
+            18
+        );
+        enableInfectionCheckBox.ClientUpdate += () =>
+        {
+            var point = new Vector2(settingsPanel.Area.x + 8, settingsPanel.Area.y + (16 + 8 + 18) * 2);
+            enableInfectionCheckBox.Area = new Rectangle(
+                point.X,
+                point.Y,
+                enableInfectionCheckBox.Area.width,
+                enableInfectionCheckBox.Area.height
+            );
+        };
+        enableInfectionCheckBox.Checked = Settings.EnableInfectionBlock;
+        settingsPanel.Children.Add(enableInfectionCheckBox);
 
         var title = new TextBlock("title", "building game", new Vector2(12, CalculateYForButton(0)), 36);
         title.ClientUpdate += () =>

@@ -38,3 +38,4 @@ black_wool:7,3:Black Wool
 dark_gray_wool:8,3:Dark Gray Wool
 gray_wool:9,3:Gray Wool
 sponge:0,4:Sponge
+infection_block:1,4:Infection

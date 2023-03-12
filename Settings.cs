@@ -7,11 +7,7 @@ public class Settings
 {
     public static Color SkyColor = Color.SKYBLUE;
     public static bool EnablePhysics = false;
-
-    public byte skyColorR { get; set; }
-    public byte skyColorG { get; set; }
-    public byte skyColorB { get; set; }
-    public bool enablePhysics { get; set; }
+    public static bool EnableInfectionBlock = false;
 
     public static void Save()
     {
@@ -22,7 +18,8 @@ public class Settings
                 { "skyColorR", SkyColor.r.ToString() },
                 { "skyColorG", SkyColor.g.ToString() },
                 { "skyColorB", SkyColor.b.ToString() },
-                { "enablePhysics", EnablePhysics.ToString() }
+                { "enablePhysics", EnablePhysics.ToString() },
+                { "enableInfectionBlock", EnableInfectionBlock.ToString() }
             });
         }
         catch (Exception ex) { Console.WriteLine(ex); }
@@ -42,6 +39,8 @@ public class Settings
 
             if (bool.TryParse(data["enablePhysics"], out bool enablePhysics))
                 EnablePhysics = enablePhysics;
+            if (bool.TryParse(data["enableInfectionBlock"], out bool enableInfectionBlock))
+                EnableInfectionBlock = enableInfectionBlock;
         }
         catch (Exception ex) { Console.WriteLine(ex); }
     }

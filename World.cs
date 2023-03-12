@@ -63,25 +63,24 @@ public class World
 
     public void UpdateObsidian()
     {
-        string id = "lava";
-        var waterBlocks = new List<(int x, int y)>();
+        var lavaBlocks = new List<(int x, int y)>();
         for (int x = 0; x < CHUNK_AREA * Chunk.SIZE; x++)
         {
             for (int y = 0; y < CHUNK_AREA * Chunk.SIZE; y++)
             {
                 if (GetTile(x, y) == 0) continue;
 
-                if (IsTileA(x, y, id))
+                if (IsTileA(x, y, "lava"))
                 {
-                    waterBlocks.Add((x, y));
+                    lavaBlocks.Add((x, y));
                 }
             }
         }
 
-        foreach (var waterBlock in waterBlocks)
+        foreach (var lavaBlock in lavaBlocks)
         {
-            int x = waterBlock.x;
-            int y = waterBlock.y;
+            int x = lavaBlock.x;
+            int y = lavaBlock.y;
 
             if (!IsTileA(x, y - 1, 0) && IsTileA(x, y - 1, "water"))
                 PlaceTile(x, y, Tile.GetNId("obsidian"));
@@ -96,25 +95,24 @@ public class World
 
     public void UpdateSand()
     {
-        string id = "sand";
-        var waterBlocks = new List<(int x, int y)>();
+        var sandBlocks = new List<(int x, int y)>();
         for (int x = 0; x < CHUNK_AREA * Chunk.SIZE; x++)
         {
             for (int y = 0; y < CHUNK_AREA * Chunk.SIZE; y++)
             {
                 if (GetTile(x, y) == 0) continue;
 
-                if (IsTileA(x, y, id))
+                if (IsTileA(x, y, "sand"))
                 {
-                    waterBlocks.Add((x, y));
+                    sandBlocks.Add((x, y));
                 }
             }
         }
 
-        foreach (var waterBlock in waterBlocks)
+        foreach (var sandBlock in sandBlocks)
         {
-            int x = waterBlock.x;
-            int y = waterBlock.y;
+            int x = sandBlock.x;
+            int y = sandBlock.y;
 
             if (IsTileA(x, y + 1, 0) || IsTileA(x, y + 1, "water"))
             {
@@ -128,13 +126,33 @@ public class World
         }
     }
 
-    // public void UpdatePhysics()
-    // {
-    //     string sandId = "sand";
-    //     string waterId = "water";
-    //     string lavaId = "lava";
-    //     string obisdianId = "obsidian";
-    // }
+    public void UpdateInfection()
+    {
+        var infectionBlocks = new List<(int x, int y)>();
+        for (int x = 0; x < CHUNK_AREA * Chunk.SIZE; x++)
+        {
+            for (int y = 0; y < CHUNK_AREA * Chunk.SIZE; y++)
+            {
+                if (GetTile(x, y) == 0) continue;
+
+                if (IsTileA(x, y, "infection_block"))
+                {
+                    infectionBlocks.Add((x, y));
+                }
+            }
+        }
+
+        foreach (var infectionBlock in infectionBlocks)
+        {
+            int x = infectionBlock.x;
+            int y = infectionBlock.y;
+
+            if (!IsTileA(x - 1, y, 0)) PlaceTile(x - 1, y, Tile.GetNId("infection_block"));
+            if (!IsTileA(x + 1, y, 0)) PlaceTile(x + 1, y, Tile.GetNId("infection_block"));
+            if (!IsTileA(x, y - 1, 0)) PlaceTile(x, y - 1, Tile.GetNId("infection_block"));
+            if (!IsTileA(x, y + 1, 0)) PlaceTile(x, y + 1, Tile.GetNId("infection_block"));
+        }
+    }
 
     public void Update()
     {
@@ -144,6 +162,7 @@ public class World
         if (!Settings.EnablePhysics) return;
 
         if (tick == 7) UpdateObsidian();
+        if (tick == 9 && Settings.EnableInfectionBlock) UpdateInfection();
         if (tick == 15) UpdateSand();
         if (tick == 10) UpdateLiqiud("water");
         if (tick == 20) UpdateLiqiud("lava");
