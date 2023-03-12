@@ -111,7 +111,8 @@ internal class Program
             {
                 var bgPanel = (BackgroundBlock)Gui.GetControl("bgPanel");
                 var tooltip = (Tooltip)Gui.GetControl("tileTooltip");
-                Program.gameScreen.RecreateTileMenu(bgPanel, tooltip);
+                gameScreen.RecreateTileMenu(bgPanel, tooltip);
+                gameScreen.camera.offset = new Vector2(Program.WIDTH / 2, Program.HEIGHT);
             }
 
             currentScreen.Update();
