@@ -43,7 +43,12 @@ public class WorldSelectScreen : Screen
         if (IsExistsWorld(i))
         {
             if (File.Exists("saves/" + i + "/info.txt"))
-                return File.ReadAllLines("saves/" + i + "/info.txt").First().Replace("\n", "");
+            {
+                var lines = File.ReadAllLines("saves/" + i + "/info.txt");
+                if (lines.Length < 1) return "world #" + (i + 1);
+                return lines.First().Replace("\n", "");
+            }
+                
             else
                 return "world #" + (i + 1);
         }
@@ -62,7 +67,7 @@ public class WorldSelectScreen : Screen
             Program.gameScreen.World.Load("saves/" + i + "/level.dat");
             Program.currentScreen = Program.gameScreen;
         }
-        
+
     }
 
     private bool IsExistsWorld(int i)

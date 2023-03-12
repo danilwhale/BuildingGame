@@ -18,12 +18,15 @@ public class CreateWorldScreen : Screen
         {
             Area = new Rectangle(Program.WIDTH / 2 - 300 / 2, Program.HEIGHT / 3, 300, 24)
         };
+        worldNameBox.ClientUpdate += () => worldNameBox.Area = new Rectangle(Program.WIDTH / 2 - 300 / 2, Program.HEIGHT / 3, 300, 24);
+
         var worldNameBoxSubtitle = new TextBlock("worldNameBoxSubtitle", "(max. 16 characters)",
-            new Vector2(worldNameBox.Area.x, worldNameBox.Area.y + 18 + 5), 18);
+            new Vector2(worldNameBox.Area.x, worldNameBox.Area.y + 24), 18);
+        worldNameBoxSubtitle.ClientUpdate += () => worldNameBoxSubtitle.Area = new Rectangle(worldNameBox.Area.x, worldNameBox.Area.y + 18 + 5, 0, 0);
         worldNameBoxSubtitle.Color = Color.WHITE;
 
         var createWorldButton = new HoverButton("createWorldButton", "create",
-            new Vector2(0, Program.HEIGHT / 3 + (24 + 5) * 2), 24);
+            new Vector2(0, worldNameBox.Area.y + (24 + 5) * 3), 24);
         createWorldButton.CenterScreen();
         createWorldButton.Color = Color.WHITE;
         createWorldButton.Clicked += () =>
@@ -34,7 +37,7 @@ public class CreateWorldScreen : Screen
         };
 
         var backButton = new HoverButton("backButton", "back",
-            new Vector2(0, Program.HEIGHT / 3 + (24 + 5) * 3), 24);
+            new Vector2(0, worldNameBox.Area.y + (24 + 5) * 4), 24);
         backButton.CenterScreen();
         backButton.Color = Color.WHITE;
         backButton.Clicked += () =>

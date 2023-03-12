@@ -261,9 +261,9 @@ public class World
         try
         {
             WorldFile = path;
-            if (!File.Exists(path)) return;
-
+            
             FlushChunks();
+            if (!File.Exists(path)) return;
 
             using FileStream fs = File.OpenRead(path);
             using GZipStream gs = new GZipStream(fs, CompressionMode.Decompress);
