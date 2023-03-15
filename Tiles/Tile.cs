@@ -2,7 +2,7 @@ namespace BuildingGame.Tiles;
 
 public class Tile
 {
-    public static Tile[] DefaultTiles = GenerateTiles();
+    internal static Tile[] DefaultTiles = GenerateTiles();
 
     public static Tile GetTile(byte type) => DefaultTiles[type - 1];
     public static Tile GetTile(string id) => DefaultTiles.First(t => t.Id.ToLower() == id.ToLower());
@@ -47,19 +47,20 @@ public class Tile
         );
     }
 
-    public static Tile[] GenerateTiles(string atlasText = "assets/atlas.txt")
+    internal static Tile[] GenerateTiles(string atlasText = "assets/atlas.txt")
     {
         List<Tile> tiles = new List<Tile>();
-        var ids = ConfigParser.ParseTriple(atlasText);
+        var ids = ConfigParser.ParseFourth(atlasText);
         
         for (int i = 0; i < ids.Count; i++)
         {
             var id = ids.Keys.ToArray()[i];
             var kv = ids[id];
-            var coords = ConfigParser.ToVector2i(kv.m);
-            var dn = kv.r;
+            var coords = ConfigParser.ToVector2i(kv.left);
+            var size = ConfigParser.ToVector2i(kv.middle);
+            var dn = kv.right;
 
-            tiles.Add(new Tile(coords, id, dn));
+            tiles.Add(new Tile(coords, size, id, dn));
         }
 
         return tiles.ToArray();
