@@ -11,7 +11,7 @@ public class Control
     public event Action? ClientUpdate;
     public bool Active { get; set; }
     public int ZIndex { get; set; }
-    public Expression<Func<Vector2>>? Position { get; set; }
+    public string? Tooltip { get; set; }
     private bool _pressed = false;
     private bool _oldPressed = false;
 
@@ -34,7 +34,8 @@ public class Control
         foreach (var child in Children)
         {
             child.Active = Active;
-            child.ZIndex = ZIndex + 1;
+            if (child.ZIndex < ZIndex)
+                child.ZIndex = ZIndex + 1;
         }
 
         ClientUpdate?.Invoke();
@@ -48,5 +49,22 @@ public class Control
     public bool IsMouseHovered()
     {
         return CheckCollisionPointRec(GetMousePosition(), Area) && Active;
+    }
+
+    public void Adapt(Func<Vector2, Vector2> position)
+    {
+        ClientUpdate += () =>
+        {
+            var pos = position.Invoke(new Vector2(Program.WIDTH, Program.HEIGHT));
+            Area = new Rectangle(pos.X, pos.Y, Area.width, Area.height);
+        };
+    }
+
+    public void Adapt(Func<Vector2, Rectangle> area)
+    {
+        ClientUpdate += () =>
+        {
+            Area = area.Invoke(new Vector2(Program.WIDTH, Program.HEIGHT));
+        };
     }
 }

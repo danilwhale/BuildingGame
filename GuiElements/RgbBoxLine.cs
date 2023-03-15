@@ -52,6 +52,12 @@ public class RgbBoxLine : Control
             ImportColor(DefaultColor);
         };
 
+        _colorPreview.Adapt(_ => new Vector2(Area.x, Area.y));
+        _rBox.Adapt(_ => new Vector2(Area.x + 48 + 4, Area.y));
+        _gBox.Adapt(_ => new Vector2(Area.x + (48 + 4) * 2, Area.y));
+        _bBox.Adapt(_ => new Vector2(Area.x + (48 + 4) * 3, Area.y));
+        _resetButton.Adapt(_ => new Vector2(Area.x + (48 + 4) * 4, Area.y));
+
         Children.Add(_colorPreview);
         Children.Add(_rBox);
         Children.Add(_gBox);
@@ -63,12 +69,6 @@ public class RgbBoxLine : Control
     public override void Update()
     {
         base.Update();
-
-        _colorPreview.Area = new Rectangle(Area.x, Area.y, _colorPreview.Area.width, _colorPreview.Area.height);
-        _rBox.Area = new Rectangle(Area.x + 48 + 4, Area.y, _rBox.Area.width, _rBox.Area.height);
-        _gBox.Area = new Rectangle(Area.x + (48 + 4) * 2, Area.y, _gBox.Area.width, _gBox.Area.height);
-        _bBox.Area = new Rectangle(Area.x + (48 + 4) * 3, Area.y, _bBox.Area.width, _bBox.Area.height);
-        _resetButton.Area = new Rectangle(Area.x + (48 + 4) * 4, Area.y, _resetButton.Area.width, _resetButton.Area.height);
 
         if (byte.TryParse(_rBox.Text, out var r)) R = r;
         if (byte.TryParse(_gBox.Text, out var g)) G = g;

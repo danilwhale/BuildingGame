@@ -29,47 +29,46 @@ public class World
         }
     }
 
-    int tick = 0;
+    List<(int x, int y)> liquidBlocks = new List<(int x, int y)>();
     private void UpdateLiqiud(string id)
     {
-        var waterBlocks = new List<(int x, int y)>();
+        
         for (int x = 0; x < CHUNK_AREA * Chunk.SIZE; x++)
         {
             for (int y = 0; y < CHUNK_AREA * Chunk.SIZE; y++)
             {
-                if (GetTile(x, y) == 0) continue;
-
                 if (IsTileA(x, y, id))
                 {
-                    waterBlocks.Add((x, y));
+                    liquidBlocks.Add((x, y));
                 }
             }
         }
 
-        foreach (var waterBlock in waterBlocks)
+        foreach (var liquidBlock in liquidBlocks)
         {
-            int x = waterBlock.x;
-            int y = waterBlock.y;
+            int x = liquidBlock.x;
+            int y = liquidBlock.y;
 
-            if (IsTileA(x - 1, y, 0) && !IsTileA(x, y + 1, 0) && !IsTileA(x, y + 1, id))
-                PlaceTile(x - 1, y, Tile.GetNId(id));
-            if (IsTileA(x + 1, y, 0) && !IsTileA(x, y + 1, 0) && !IsTileA(x, y + 1, id))
-                PlaceTile(x + 1, y, Tile.GetNId(id));
-
-            if (IsTileA(x, y + 1, 0))
-                PlaceTile(x, y + 1, Tile.GetNId(id));
+            if (IsTileA(x - 1, y, 0) && !IsTileAOrAir(x, y + 1, id))
+                PlaceTile(x - 1, y, id);
+            else if (IsTileA(x + 1, y, 0) && !IsTileAOrAir(x, y + 1, id))
+                PlaceTile(x + 1, y, id);
+            else if (IsTileA(x, y + 1, 0))
+                PlaceTile(x, y + 1, id);
         }
+
+        liquidBlocks.Clear();
     }
+
+    List<(int x, int y)> lavaBlocks = new List<(int x, int y)>();
 
     public void UpdateObsidian()
     {
-        var lavaBlocks = new List<(int x, int y)>();
+        
         for (int x = 0; x < CHUNK_AREA * Chunk.SIZE; x++)
         {
             for (int y = 0; y < CHUNK_AREA * Chunk.SIZE; y++)
             {
-                if (GetTile(x, y) == 0) continue;
-
                 if (IsTileA(x, y, "lava"))
                 {
                     lavaBlocks.Add((x, y));
@@ -82,26 +81,22 @@ public class World
             int x = lavaBlock.x;
             int y = lavaBlock.y;
 
-            if (!IsTileA(x, y - 1, 0) && IsTileA(x, y - 1, "water"))
-                PlaceTile(x, y, Tile.GetNId("obsidian"));
-            if (!IsTileA(x, y + 1, 0) && IsTileA(x, y + 1, "water"))
-                PlaceTile(x, y, Tile.GetNId("obsidian"));
-            if (!IsTileA(x - 1, y, 0) && IsTileA(x - 1, y, "water"))
-                PlaceTile(x, y, Tile.GetNId("obsidian"));
-            if (!IsTileA(x + 1, y, 0) && IsTileA(x + 1, y, "water"))
-                PlaceTile(x, y, Tile.GetNId("obsidian"));
+            if (CanBeCooked(x, y, "water", "lava"))
+                PlaceTile(x, y, "obsidian");
         }
+
+        lavaBlocks.Clear();
     }
+
+    List<(int x, int y)> sandBlocks = new List<(int x, int y)>();
 
     public void UpdateSand()
     {
-        var sandBlocks = new List<(int x, int y)>();
+        
         for (int x = 0; x < CHUNK_AREA * Chunk.SIZE; x++)
         {
             for (int y = 0; y < CHUNK_AREA * Chunk.SIZE; y++)
             {
-                if (GetTile(x, y) == 0) continue;
-
                 if (IsTileA(x, y, "sand"))
                 {
                     sandBlocks.Add((x, y));
@@ -114,27 +109,28 @@ public class World
             int x = sandBlock.x;
             int y = sandBlock.y;
 
-            if (IsTileA(x, y + 1, 0) || IsTileA(x, y + 1, "water"))
+            if (IsTileAOrAir(x, y + 1, "water"))
             {
                 PlaceTile(x, y + 1, Tile.GetNId("sand"));
                 PlaceTile(x, y, 0);
             }
-            if (IsTileA(x, y + 1, "lava"))
+            if (CanBeCooked(x, y, "lava", "sand"))
             {
                 PlaceTile(x, y, Tile.GetNId("glass"));
             }
         }
+
+        sandBlocks.Clear();
     }
+
+    List<(int x, int y)> infectionBlocks = new List<(int x, int y)>();
 
     public void UpdateInfection()
     {
-        var infectionBlocks = new List<(int x, int y)>();
         for (int x = 0; x < CHUNK_AREA * Chunk.SIZE; x++)
         {
             for (int y = 0; y < CHUNK_AREA * Chunk.SIZE; y++)
             {
-                if (GetTile(x, y) == 0) continue;
-
                 if (IsTileA(x, y, "infection_block"))
                 {
                     infectionBlocks.Add((x, y));
@@ -147,12 +143,29 @@ public class World
             int x = infectionBlock.x;
             int y = infectionBlock.y;
 
-            if (!IsTileA(x - 1, y, 0)) PlaceTile(x - 1, y, Tile.GetNId("infection_block"));
-            if (!IsTileA(x + 1, y, 0)) PlaceTile(x + 1, y, Tile.GetNId("infection_block"));
-            if (!IsTileA(x, y - 1, 0)) PlaceTile(x, y - 1, Tile.GetNId("infection_block"));
-            if (!IsTileA(x, y + 1, 0)) PlaceTile(x, y + 1, Tile.GetNId("infection_block"));
+            if (!IsTileAOrAir(x - 1, y, "infection_block")) 
+                PlaceTile(x - 1, y, Tile.GetNId("infection_block"));
+            if (!IsTileAOrAir(x + 1, y, "infection_block")) 
+                PlaceTile(x + 1, y, Tile.GetNId("infection_block"));
+            if (!IsTileAOrAir(x, y - 1, "infection_block")) 
+                PlaceTile(x, y - 1, Tile.GetNId("infection_block"));
+            if (!IsTileAOrAir(x, y + 1, "infection_block")) 
+                PlaceTile(x, y + 1, Tile.GetNId("infection_block"));
         }
+
+        infectionBlocks.Clear();
     }
+
+    private bool CanBeCooked(int x, int y, string idSecond, string idMain)
+    {
+        if (((IsTileA(x - 1, y, idSecond) || IsTileA(x + 1, y, idSecond))  ||
+             (IsTileA(x, y - 1, idSecond) || IsTileA(x, y + 1, idSecond))) &&
+            IsTileA(x, y, idMain))
+            return true;
+        return false;
+    }
+
+    byte tick = 0;
 
     public void Update()
     {
@@ -170,12 +183,22 @@ public class World
 
     public bool IsTileA(int x, int y, string id)
     {
-        return IsTileA(x, y, Tile.GetNId(id));
+        return IsValidTile(x, y) && GetTile(x, y) == id;
     }
 
-    public bool IsTileA(int x, int y, byte id)
+    public bool IsTileA(int x, int y, byte nid)
     {
-        return IsValidTile(x, y) && GetTile(x, y) == id;
+        return IsValidTile(x, y) && GetTile(x, y) == nid;
+    }
+
+    public bool IsTileAOrAir(int x, int y, string id)
+    {
+        return IsValidTile(x, y) && (GetTile(x, y) == id || GetTile(x, y) == 0);
+    }
+
+    public bool IsTileAOrAir(int x, int y, byte nid)
+    {
+        return IsValidTile(x, y) && (GetTile(x, y) == nid || GetTile(x, y) == 0);
     }
 
     public void PlaceTile(int x, int y, TileInfo tile)

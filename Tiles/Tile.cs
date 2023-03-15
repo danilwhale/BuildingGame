@@ -2,10 +2,10 @@ namespace BuildingGame.Tiles;
 
 public class Tile
 {
-    public static readonly Tile[] DefaultTiles = GenerateTiles(new Vector2(9, 0));
+    public static Tile[] DefaultTiles = GenerateTiles();
 
     public static Tile GetTile(byte type) => DefaultTiles[type - 1];
-    public static Tile GetTile(string id) => DefaultTiles.First(t => t.Id == id.ToLower());
+    public static Tile GetTile(string id) => DefaultTiles.First(t => t.Id.ToLower() == id.ToLower());
     public static byte GetNId(string id) => (byte)((byte)Array.IndexOf(DefaultTiles, GetTile(id)) + 1);
     public static string GetId(byte id) => GetTile(id).Id;
 
@@ -47,10 +47,10 @@ public class Tile
         );
     }
 
-    private static Tile[] GenerateTiles(Vector2 doorCoords)
+    public static Tile[] GenerateTiles(string atlasText = "assets/atlas.txt")
     {
         List<Tile> tiles = new List<Tile>();
-        var ids = ConfigParser.ParseTriple("assets/atlas.txt");
+        var ids = ConfigParser.ParseTriple(atlasText);
         
         for (int i = 0; i < ids.Count; i++)
         {
@@ -62,7 +62,9 @@ public class Tile
             tiles.Add(new Tile(coords, id, dn));
         }
 
-        tiles.Add(new Tile(doorCoords, new Vector2(1, 2), "door", "Door"));
         return tiles.ToArray();
     }
+
+    public static implicit operator Tile(string id) => Tile.GetTile(id);
+    public static implicit operator Tile(byte nid) => Tile.GetTile(nid);
 }

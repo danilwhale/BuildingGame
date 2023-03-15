@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using System.Reflection;
-using BuildingGame.GuiElements;
-using BuildingGame.GuiElements.Brushes;
+
 
 namespace BuildingGame.Screens;
 
@@ -62,59 +61,26 @@ public class MenuScreen : Screen
         settingsPanel.Children.Add(bgColorLine);
 
         physicsCheckBox = new CheckBox("physicsCheckBox", "enable dynamic tiles (can cause fps drops)",
-            new Vector2(settingsPanel.Area.x + 8, settingsPanel.Area.y + 16 + 8 + 18),
+            Vector2.Zero,
             18
         );
-        physicsCheckBox.ClientUpdate += () =>
-        {
-            var point = new Vector2(settingsPanel.Area.x + 8, settingsPanel.Area.y + 16 + 8 + 18);
-            physicsCheckBox.Area = new Rectangle(
-                point.X,
-                point.Y,
-                physicsCheckBox.Area.width,
-                physicsCheckBox.Area.height
-            );
-        };
+        physicsCheckBox.Adapt(_ => new Vector2(settingsPanel.Area.x + 8, settingsPanel.Area.y + 16 + 8 + 18));
         physicsCheckBox.Checked = Settings.EnablePhysics;
         settingsPanel.Children.Add(physicsCheckBox);
 
         enableInfectionCheckBox = new CheckBox("enableInfectionCheckBox", "enable infection tiles",
-            new Vector2(settingsPanel.Area.x + 8, settingsPanel.Area.y + (16 + 8 + 18) * 2),
-            18
-        );
-        enableInfectionCheckBox.ClientUpdate += () =>
-        {
-            var point = new Vector2(settingsPanel.Area.x + 8, settingsPanel.Area.y + (16 + 8 + 18) * 2);
-            enableInfectionCheckBox.Area = new Rectangle(
-                point.X,
-                point.Y,
-                enableInfectionCheckBox.Area.width,
-                enableInfectionCheckBox.Area.height
-            );
-        };
+            Vector2.Zero, 18);
+        enableInfectionCheckBox.Adapt(_ => new Vector2(settingsPanel.Area.x + 8, settingsPanel.Area.y + (16 + 8 + 18) * 2));
         enableInfectionCheckBox.Checked = Settings.EnableInfectionBlock;
         settingsPanel.Children.Add(enableInfectionCheckBox);
 
-        var title = new TextBlock("title", "building game", new Vector2(12, CalculateYForButton(0)), 36);
-        title.ClientUpdate += () =>
-        {
-            title.Area = new Rectangle(
-                12, CalculateYForButton(0),
-                title.Area.width, title.Area.height
-            );
-        };
+        var title = new TextBlock("title", "building game", Vector2.Zero, 36);
+        title.Adapt((windowSize) => new Vector2(12, CalculateYForButton(windowSize, 0)));
         title.Color = Color.WHITE;
 
         var playButton = new HoverButton("playButton", "play", 
-            new Vector2(12, CalculateYForButton(1)), 24
-        );
-        playButton.ClientUpdate += () =>
-        {
-            playButton.Area = new Rectangle(
-                12, CalculateYForButton(1),
-                playButton.Area.width, playButton.Area.height
-            );
-        };
+            Vector2.Zero, 24);
+        playButton.Adapt((windowSize) => new Vector2(12, CalculateYForButton(windowSize, 1)));
         playButton.Color = Color.WHITE;
         playButton.Clicked += () =>
         {
@@ -123,15 +89,8 @@ public class MenuScreen : Screen
         };
 
         var settingsButton = new HoverButton("settingsButton", "settings", 
-            new Vector2(12, CalculateYForButton(2)), 24
-        );
-        settingsButton.ClientUpdate += () =>
-        {
-            settingsButton.Area = new Rectangle(
-                12, CalculateYForButton(2),
-                settingsButton.Area.width, settingsButton.Area.height
-            );
-        };
+            Vector2.Zero, 24);
+        settingsButton.Adapt((windowSize) => new Vector2(12, CalculateYForButton(windowSize, 2)));
         settingsButton.Color = Color.WHITE;
         settingsButton.Clicked += () =>
         {
@@ -141,44 +100,34 @@ public class MenuScreen : Screen
             }
         };
 
+        var packsButton = new HoverButton("packsButton", "packs",
+            Vector2.Zero, 24);
+        packsButton.Adapt((windowSize) => new Vector2(12, CalculateYForButton(windowSize, 3)));
+        packsButton.Color = Color.WHITE;
+        packsButton.Clicked += () => Program.currentScreen = Program.selectPackScreen;
+
         var exitButton = new HoverButton("exitButton", "exit", 
-            new Vector2(12, CalculateYForButton(3)), 24
+            Vector2.Zero, 24
         );
-        exitButton.ClientUpdate += () =>
-        {
-            exitButton.Area = new Rectangle(
-                12, CalculateYForButton(3),
-                exitButton.Area.width, exitButton.Area.height
-            );
-        };
+        exitButton.Adapt((windowSize) => new Vector2(12, CalculateYForButton(windowSize, 4)));
         exitButton.Color = Color.WHITE;
         exitButton.Clicked += () =>
         {
             Program.mustClose = true;
         };
 
+        string dir = Path.Join(AppContext.BaseDirectory, "BuildingGame.exe");
 
-        string dir = AppContext.BaseDirectory;
-#if DEBUG
-        dir = Path.Join(dir, "BuildingGame.dll");
-#else
-        dir = Path.Join(dir, "BuildingGame.exe");
-#endif
         var ver = FileVersionInfo.GetVersionInfo(dir).FileVersion!;
         var versionBlock = new TextBlock("versionBlock", $"v{ver}",
-            new Vector2(8, Program.HEIGHT - 8 - 18), 18
+            Vector2.Zero, 18
         );
-        versionBlock.ClientUpdate += () =>
-        {
-            versionBlock.Area = new Rectangle(
-                8, Program.HEIGHT - 8 - 18,
-                versionBlock.Area.width, versionBlock.Area.height
-            );
-        };
+        versionBlock.Adapt((windowSize) => new Vector2(8, windowSize.Y - 8 - 18));
         versionBlock.Color = Color.WHITE;
 
         Gui.PutControl(settingsPanel, this, true);
         Gui.PutControl(settingsButton, this);
+        Gui.PutControl(packsButton, this);
         Gui.PutControl(playButton, this);
         Gui.PutControl(exitButton, this);
         Gui.PutControl(title, this);
@@ -191,8 +140,8 @@ public class MenuScreen : Screen
 
     }
 
-    private float CalculateYForButton(int buttonNumber)
+    private float CalculateYForButton(Vector2 windowSize, int buttonNumber)
     {
-        return Program.HEIGHT / 3 + 36 + (20 + 24 / 2) * buttonNumber;
+        return windowSize.Y / 3 + 36 + (20 + 24 / 2) * buttonNumber;
     }
 }

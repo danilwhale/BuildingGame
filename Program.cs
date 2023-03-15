@@ -1,12 +1,16 @@
 ﻿global using System.Numerics;
+global using BuildingGame.GuiElements;
+global using BuildingGame.GuiElements.Brushes;
+global using BuildingGame.Screens;
+global using BuildingGame.TilePacks;
+global using BuildingGame.Tiles;
 global using Raylib_cs;
 global using static Raylib_cs.Raylib;
 global using static Raylib_cs.Raymath;
-using BuildingGame.GuiElements;
-using BuildingGame.Screens;
 
 namespace BuildingGame;
 
+#nullable disable
 internal class Program
 {
     public static int WIDTH = 800;
@@ -14,17 +18,20 @@ internal class Program
     public static int HEIGHT = 600;
     static int preHeight = 600;
 
-
+    public static Texture2D origAtlas;
     public static Texture2D atlas;
     public static Texture2D check;
 
     public static bool mustClose = false;
 
-    public static MenuScreen menuScreen = null!;
-    public static GameScreen gameScreen = null!;
-    public static WorldSelectScreen worldSelectScreen = null!;
-    public static CreateWorldScreen createWorldScreen = null!;
-    public static Screen currentScreen = null!;
+    public static MenuScreen menuScreen;
+    public static GameScreen gameScreen;
+    public static WorldSelectScreen worldSelectScreen;
+    public static CreateWorldScreen createWorldScreen;
+    public static Screen currentScreen;
+    public static SelectPackScreen selectPackScreen;
+
+
 
     private static void Main()
     {
@@ -47,7 +54,8 @@ internal class Program
 
         EndDrawing();
 
-        atlas = LoadTexture("assets/atlas.png");
+        origAtlas = LoadTexture("assets/atlas.png");
+        atlas = origAtlas;
         check = LoadTexture("assets/check.png");
         SetTextureFilter(atlas, TextureFilter.TEXTURE_FILTER_POINT);
         SetTextureFilter(check, TextureFilter.TEXTURE_FILTER_POINT);
@@ -56,6 +64,11 @@ internal class Program
         SetWindowIcon(icon);
 
         Settings.Load();
+        TilePackManager.LoadPacks();
+        if (Settings.CurrentPack != "default")
+            TilePackManager.ApplyPack(Settings.CurrentPack);
+        else
+            TilePackManager.SetDefaultPack();
 
         gameScreen = new GameScreen();
         gameScreen.Initialize();
@@ -68,6 +81,9 @@ internal class Program
 
         createWorldScreen = new CreateWorldScreen();
         createWorldScreen.Initialize();
+
+        selectPackScreen = new SelectPackScreen();
+        selectPackScreen.Initialize();
 
         currentScreen = menuScreen;
 
@@ -94,7 +110,7 @@ internal class Program
                 SetWindowSize(WIDTH, HEIGHT);
 
                 ToggleFullscreen();
-                
+
             }
 
             // take screenshot ONLY if player is in game right now
@@ -112,7 +128,7 @@ internal class Program
             {
                 var bgPanel = (BackgroundBlock)Gui.GetControl("bgPanel");
                 var tooltip = (Tooltip)Gui.GetControl("tileTooltip");
-                gameScreen.RecreateTileMenu(bgPanel, tooltip);
+                // gameScreen.RecreateTileMenu(bgPanel, tooltip);
                 gameScreen.camera.offset = new Vector2(Program.WIDTH / 2, Program.HEIGHT);
             }
 
@@ -125,6 +141,7 @@ internal class Program
             currentScreen.Draw();
 
             Gui.Draw();
+            DrawTextEx(Gui.GuiFont, GetFPS().ToString(), Vector2.Zero, 18, 1, Color.LIME);
 
             EndDrawing();
         }
@@ -134,7 +151,8 @@ internal class Program
 
         UnloadImage(icon);
         UnloadTexture(check);
-        UnloadTexture(atlas);
+        UnloadTexture(origAtlas);
+        TilePackManager.UnloadPacks();
         CloseWindow();
     }
 

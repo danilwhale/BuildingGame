@@ -1,7 +1,3 @@
-using BuildingGame.GuiElements;
-using BuildingGame.GuiElements.Brushes;
-using BuildingGame.Tiles;
-
 namespace BuildingGame.Screens;
 
 public class GameScreen : Screen
@@ -96,7 +92,7 @@ public class GameScreen : Screen
         #endregion
 
         #region Tile Menu shortcut
-        if (IsKeyPressed(KeyboardKey.KEY_B))
+        if (IsKeyPressed(KeyboardKey.KEY_B) && !Gui.GetControl("pausePanel").Active)
         {
             var bgPanel = Gui.GetControl("bgPanel");
             bgPanel.Active = !bgPanel.Active;
@@ -120,12 +116,13 @@ public class GameScreen : Screen
         )
         {
             Area = new Rectangle(Program.WIDTH / 2 - 340, Program.HEIGHT / 2 - 210, 680, 420),
-            Active = false
+            Active = false,
+            ZIndex = 40
         };
+        bgPanel.Adapt(windowSize => new Rectangle(windowSize.X / 2 - 340, windowSize.Y / 2 - 210, 680, 420));
         bgPanel.ClientUpdate += () =>
         {
             if (IsKeyPressed(KeyboardKey.KEY_ESCAPE)) bgPanel.Active = false;
-            bgPanel.Area = new Rectangle(Program.WIDTH / 2 - 340, Program.HEIGHT / 2 - 210, 680, 420);
         };
 
         var pausePanel = new BackgroundBlock("pausePanel", bgPanel.Background)
@@ -134,11 +131,11 @@ public class GameScreen : Screen
             Active = false,
             ZIndex = 50
         };
+        pausePanel.Adapt(windowSize => new Rectangle(0, 0, windowSize.X, windowSize.Y));
         pausePanel.ClientUpdate += () =>
         {
             if (Gui.GetControl("settingsPanel").Active && IsKeyPressed(KeyboardKey.KEY_ESCAPE)) Gui.GetControl("settingsPanel").Active = false;
             else if (IsKeyPressed(KeyboardKey.KEY_ESCAPE) && !bgPanel.Active) pausePanel.Active = !pausePanel.Active;
-            pausePanel.Area = new Rectangle(0, 0, Program.WIDTH, Program.HEIGHT);
         };
 
         var resumeGameButton = new HoverButton("resumeGameButton", "resume", Vector2.Zero, 24)
@@ -189,15 +186,17 @@ public class GameScreen : Screen
         {
             Area = new Rectangle(Program.WIDTH - 64 - 16, 16, 64, 64)
         };
+        texImg.Adapt(windowSize => new Vector2(windowSize.X - 64 - 16, 16));
         texImg.ClientUpdate += () =>
         {
             var tile = Tile.DefaultTiles[_currentType - 1];
             texImg.ImageSourceRect = new Rectangle(tile.AtlasOffset.X * 16, tile.AtlasOffset.Y * 16, 16, 16);
-            texImg.Area = new Rectangle(Program.WIDTH - 64 - 16, 16, 64, 64);
+            texImg.Image = Program.atlas;
         };
         texImg.Clicked += () =>
         {
-            bgPanel.Active = !bgPanel.Active;
+            if (!pausePanel.Active)
+                bgPanel.Active = !bgPanel.Active;
         };
         #endregion
 
@@ -213,31 +212,28 @@ public class GameScreen : Screen
         Gui.PutControl(pausePanel, this);
     }
 
-    public void RecreateTileMenu(BackgroundBlock bgPanel, Tooltip tooltip)
+    private void RecreateTileMenu(BackgroundBlock bgPanel, Tooltip tooltip)
     {
         bgPanel.Children.Clear();
-        tooltip.Triggers.Clear();
 
-        float sx = Program.WIDTH / 2 - 340 + 20;
-        float sy = Program.HEIGHT / 2 - 210 + 60;
-        float x = sx;
-        float y = sy;
+        var sx = (float width) => width / 2 - 340 + 20;
+        var sy = (float height) => height / 2 - 210 + 20;
+        float x = 20;
+        float y = 20;
 
-        _ = Gui.PopControl("tileMenuTitle");
+        Gui.RemoveControl("tileMenuTitle");
         var tileMenuTitle = new TextBlock("tileMenuTitle", "Select a tile",
-            new Vector2(bgPanel.Area.x, Program.HEIGHT / 2 - 210 + 6), 32
+            Vector2.Zero, 32
         );
+        tileMenuTitle.Adapt((windowSize) => new Vector2(bgPanel.Area.x + 250 , windowSize.Y / 2 - 210 + 6));
         tileMenuTitle.Active = true;
-        // tileMenuTitle.Area = new Rectangle(bgPanel.Area.x, bgPanel.Area.y + 6, bgPanel.Area.width, 32);
         tileMenuTitle.Color = Color.WHITE;
-        // Console.WriteLine(tileMenuTitle.Text);
         tileMenuTitle.CenterScreen();
         bgPanel.Children.Add(tileMenuTitle);
-        Gui.PutControl(tileMenuTitle, this);
 
         for (byte i = 0; i < Tile.DefaultTiles.Length; i++)
         {
-            _ = Gui.PopControl("tile_" + i);
+            Gui.RemoveControl("tile_" + i);
             var tile = Tile.DefaultTiles[i];
             byte idx = (byte)(i + 1);
             var btn = new ImageArea("tile_" + i, Program.atlas,
@@ -245,6 +241,15 @@ public class GameScreen : Screen
             )
             {
                 Area = new Rectangle(x, y, 48, 48),
+                ZIndex = 45
+            };
+            float lx = x;
+            float ly = y;
+            btn.Adapt((windowSize) => new Rectangle(sx.Invoke(windowSize.X) + lx, sy.Invoke(windowSize.Y) + ly, 48, 48));
+            btn.ClientUpdate += () =>
+            {
+                btn.Tooltip = Tile.GetTile(idx).DisplayName;
+                btn.Image = Program.atlas;
             };
 
             btn.Clicked += () =>
@@ -253,13 +258,12 @@ public class GameScreen : Screen
                 bgPanel.Active = false;
             };
 
-            Gui.PutControl(btn, this);
+            // Gui.PutControl(btn, this);
             bgPanel.Children.Add(btn);
-            tooltip.Triggers.Add(btn, Tile.GetTile(idx).DisplayName);
 
-            if (x >= Program.WIDTH / 2 + 250)
+            if (x > 800 / 2 + 100)
             {
-                x = sx;
+                x = 20;
                 y += 48 + 5;
                 continue;
             }

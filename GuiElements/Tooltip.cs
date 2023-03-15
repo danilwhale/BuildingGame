@@ -5,7 +5,6 @@ namespace BuildingGame.GuiElements;
 public class Tooltip : Control
 {
     public IBrush? Background { get; set; }
-    public Dictionary<Control, string> Triggers = new Dictionary<Control, string>();
     public float TextSize { get; set; }
     private string _currentTrigger;
 
@@ -32,14 +31,14 @@ public class Tooltip : Control
         );
 
         bool isTriggered = false;
-        foreach (var trigger in Triggers.Keys)
+        foreach (var trigger in Gui.GetControls())
         {
-            if (trigger.IsMouseHovered())
+            if (trigger.Control.Tooltip != null && trigger.Control.IsMouseHovered())
             {
-                _currentTrigger = Triggers[trigger];
+                _currentTrigger = trigger.Control.Tooltip;
                 isTriggered = true;
                 break;
-            } 
+            }
         }
         Active = isTriggered;
     }
