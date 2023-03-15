@@ -116,10 +116,7 @@ public class MenuScreen : Screen
             Program.mustClose = true;
         };
 
-        string dir = Path.Join(AppContext.BaseDirectory, "BuildingGame.exe");
-
-        var ver = FileVersionInfo.GetVersionInfo(dir).FileVersion!;
-        var versionBlock = new TextBlock("versionBlock", $"v{ver}",
+        var versionBlock = new TextBlock("versionBlock", $"v{Program.version}",
             Vector2.Zero, 18
         );
         versionBlock.Adapt((windowSize) => new Vector2(8, windowSize.Y - 8 - 18));

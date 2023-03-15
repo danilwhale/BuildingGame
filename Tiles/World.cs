@@ -282,7 +282,7 @@ public class World
                 }
             }
         }
-        catch (Exception ex) { Console.WriteLine(ex); }
+        catch (Exception ex) { Log.Information(ex.ToString()); }
     }
 
     private void FlushChunks()
@@ -315,14 +315,14 @@ public class World
 
             if (header == "LVL")
             {
-                Console.WriteLine("world using old format, reading it using it");
-                Console.WriteLine("creating backup");
+                Log.Information("world using old format, reading it using it");
+                Log.Information("creating backup");
 
                 using FileStream backupFs = File.OpenWrite(path + ".old");
                 using BinaryWriter backupBw = new BinaryWriter(backupFs);
                 backupBw.Write("LVL");
 
-                Console.WriteLine("reading world");
+                Log.Information("reading world");
 
                 for (int x = 0; x < World.CHUNK_AREA * Chunk.SIZE; x++)
                 {
@@ -334,7 +334,7 @@ public class World
                     }
                 }
 
-                Console.WriteLine("success");
+                Log.Information("success");
             }
             else if (header != WORLD_SAVE_HEADER) throw new IOException("world header is invalid");
             else
@@ -350,8 +350,8 @@ public class World
             }
 
         }
-        catch (IOException ex) { Console.WriteLine("bad world file\n" + ex); }
-        catch (Exception ex) { Console.WriteLine(ex); }
+        catch (IOException ex) { Log.Information("bad world file\n" + ex); }
+        catch (Exception ex) { Log.Information(ex.ToString()); }
     }
 
     private void WriteTile(BinaryWriter bw, TileInfo tile)

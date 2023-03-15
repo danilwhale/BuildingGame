@@ -22,7 +22,7 @@ public class Settings
                 { "currentTilePack", CurrentPack }
             });
         }
-        catch (Exception ex) { Console.WriteLine(ex); }
+        catch (Exception ex) { Log.Information(ex.ToString()); }
     }
     public static void Load()
     {
@@ -45,7 +45,7 @@ public class Settings
             if (data.TryGetValue("currentTilePack", out var currentPack))
                 CurrentPack = currentPack;
         }
-        catch (Exception ex) { Console.WriteLine(ex); }
+        catch (Exception ex) { Log.Information(ex.ToString()); }
     }
 
     private static bool TryParseColor(string str, out Color color)

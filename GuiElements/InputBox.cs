@@ -44,7 +44,7 @@ public class InputBox : Control
         if (IsKeyPressed(KeyboardKey.KEY_BACKSPACE) && Text != null && Text.Length != 0 && _focused)
         {
             Text = Text.Remove(Text.Length - 1);
-            Console.WriteLine(Text);
+            Log.Information(Text);
         }
     }
 

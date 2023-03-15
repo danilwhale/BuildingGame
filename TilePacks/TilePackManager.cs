@@ -19,7 +19,9 @@ public static class TilePackManager
 
         foreach (var packFolder in Directory.GetDirectories(root).Where(s => TilePack.Check(s)))
         {
-            TilePacks.Add(new TilePack(packFolder));
+            var pack = new TilePack(packFolder);
+            Log.Information(pack.ToString());
+            TilePacks.Add(pack);
         }
     }
 

@@ -5,31 +5,35 @@ global using BuildingGame.Screens;
 global using BuildingGame.TilePacks;
 global using BuildingGame.Tiles;
 global using Raylib_cs;
+global using Serilog;
 global using static Raylib_cs.Raylib;
 global using static Raylib_cs.Raymath;
+using System.Diagnostics;
 
 namespace BuildingGame;
 
 #nullable disable
 internal class Program
 {
-    public static int WIDTH = 800;
+    internal static int WIDTH = 800;
     static int preWidth = 800;
-    public static int HEIGHT = 600;
+    internal static int HEIGHT = 600;
     static int preHeight = 600;
 
-    public static Texture2D origAtlas;
-    public static Texture2D atlas;
-    public static Texture2D check;
+    internal static Texture2D origAtlas;
+    internal static Texture2D atlas;
+    internal static Texture2D check;
 
-    public static bool mustClose = false;
+    internal static bool mustClose = false;
 
-    public static MenuScreen menuScreen;
-    public static GameScreen gameScreen;
-    public static WorldSelectScreen worldSelectScreen;
-    public static CreateWorldScreen createWorldScreen;
-    public static Screen currentScreen;
-    public static SelectPackScreen selectPackScreen;
+    internal static MenuScreen menuScreen;
+    internal static GameScreen gameScreen;
+    internal static WorldSelectScreen worldSelectScreen;
+    internal static CreateWorldScreen createWorldScreen;
+    internal static Screen currentScreen;
+    internal static SelectPackScreen selectPackScreen;
+
+    internal static string version = "";
 
     private static bool _isFullScreen = false;
 
@@ -53,6 +57,15 @@ internal class Program
         DrawTextEx(Gui.GuiFont, "Loading assets...", new Vector2(16, HEIGHT - 18 - 16), 18, 1, Color.WHITE);
 
         EndDrawing();
+
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .WriteTo.Console()
+            .WriteTo.File("logs/latest.log", rollingInterval: RollingInterval.Minute)
+            .CreateLogger();
+
+        var versionInfo = FileVersionInfo.GetVersionInfo(Path.Join(AppContext.BaseDirectory, "buildinggame.exe"));
+        version = versionInfo.FileVersion;
 
         origAtlas = LoadTexture("assets/atlas.png");
         atlas = origAtlas;
@@ -98,7 +111,7 @@ internal class Program
                     WIDTH = preWidth;
                     HEIGHT = preHeight;
                     ClearWindowState(ConfigFlags.FLAG_WINDOW_UNDECORATED);
-                    SetWindowPosition(GetMonitorWidth(GetCurrentMonitor()) / 2 - WIDTH / 2, 
+                    SetWindowPosition(GetMonitorWidth(GetCurrentMonitor()) / 2 - WIDTH / 2,
                                       GetMonitorHeight(GetCurrentMonitor()) / 2 - HEIGHT / 2);
                 }
                 else
@@ -110,11 +123,12 @@ internal class Program
                     HEIGHT = GetMonitorHeight(GetCurrentMonitor());
 
                     SetWindowPosition(0, 0);
+                    SetWindowState(ConfigFlags.FLAG_WINDOW_UNDECORATED);
                 }
                 SetWindowSize(WIDTH, HEIGHT);
                 _isFullScreen = !_isFullScreen;
 
-                SetWindowState(ConfigFlags.FLAG_WINDOW_UNDECORATED);
+
 
             }
 
@@ -160,6 +174,4 @@ internal class Program
         TilePackManager.UnloadPacks();
         CloseWindow();
     }
-
-
 }

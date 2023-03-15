@@ -4,7 +4,8 @@ public static class ConfigParser
 {
     public static Dictionary<string, string> Parse(string fileName)
     {
-        Dictionary<string, string> dict = new Dictionary<string, string>();
+        var dict = new Dictionary<string, string>();
+        if (!File.Exists(fileName)) return dict;
 
         foreach (var line in File.ReadAllLines(fileName))
         {
@@ -16,15 +17,31 @@ public static class ConfigParser
         return dict;
     }
 
-    public static Dictionary<string, (string m, string r)> ParseTriple(string fileName)
+    public static Dictionary<string, (string left, string right)> ParseTriple(string fileName)
     {
-        Dictionary<string, (string, string)> dict = new Dictionary<string, (string, string)>();
+        var dict = new Dictionary<string, (string, string)>();
+        if (!File.Exists(fileName)) return dict;
 
         foreach (var line in File.ReadAllLines(fileName))
         {
             string[] kv = line.Split(':');
-            if (kv.Length > 3 || kv.Length < 3) continue;
+            if (kv.Length != 3) continue;
             dict.Add(kv[0].Trim(), (kv[1].Trim(), kv[2].Trim()));
+        }
+
+        return dict;
+    }
+
+    public static Dictionary<string, (string left, string middle, string right)> ParseFourth(string fileName)
+    {
+        var dict = new Dictionary<string, (string, string, string)>();
+        if (!File.Exists(fileName)) return dict;
+
+        foreach (var line in File.ReadAllLines(fileName))
+        {
+            string[] kv = line.Split(':');
+            if (kv.Length != 4) continue;
+            dict.Add(kv[0].Trim(), (kv[1].Trim(), kv[2].Trim(), kv[3].Trim()));
         }
 
         return dict;

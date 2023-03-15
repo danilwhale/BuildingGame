@@ -1,41 +1,41 @@
-smooth_stone:0,0:Smooth Stone
-wooden_planks:1,0:Wooden Planks
-dirt:2,0:Dirt
-grass_block:3,0:Grass Block
-grass:4,0:Grass
-sand:5,0:Sand
-water:6,0:Water
-lava:7,0:Lava
-obsidian:8,0:Obsidian
-door:9,0:Door
-nature_stone:0,1:Nature Stone
-white_plate:1,1:White Plate
-green_plate:2,1:Green Plate
-red_plate:3,1:Red Plate
-blue_plate:4,1:Blue Plate
-chamomile:5,1:Chamomile
-red_tulip:6,1:Red Tulip
-chamomile_pot:7,1:Chamomile in a Pot
-red_tulip_pot:8,1:Red Tulip in a Pot
-wooden_stairs:0,2:Wooden Stairs
-wooden_slab:1,2:Wooden Slab
-stone_stairs:2,2:Stone Stairs
-stone_slab:3,2:Stone Slab
-wooden_pole:4,2:Wooden Pole
-wooden_pole_handle:5,2:Wooden Pole Handle
-stone_pole:6,2:Stone Pole
-stone_pole_handle:7,2:Stone Pole Handle
-log:8,2:Log
-log_top:9,2:Log Top
-foliage:0,3:Foliage
-glass:1,3:Glass
-white_wool:2,3:White Wool
-red_wool:3,3:Red Wool
-green_wool:4,3:Green Wool
-blue_wool:5,3:Blue Wool
-yellow_wool:6,3:Yellow Wool
-black_wool:7,3:Black Wool
-dark_gray_wool:8,3:Dark Gray Wool
-gray_wool:9,3:Gray Wool
-sponge:0,4:Sponge
-infection_block:1,4:Infection
+smooth_stone:0,0:1,1:Smooth Stone
+wooden_planks:1,0:1,1:Wooden Planks
+dirt:2,0:1,1:Dirt
+grass_block:3,0:1,1:Grass Block
+grass:4,0:1,1:Grass
+sand:5,0:1,1:Sand
+water:6,0:1,1:Water
+lava:7,0:1,1:Lava
+obsidian:8,0:1,1:Obsidian
+door:9,0:1,2:Door
+nature_stone:0,1:1,1:Nature Stone
+white_plate:1,1:1,1:White Plate
+green_plate:2,1:1,1:Green Plate
+red_plate:3,1:1,1:Red Plate
+blue_plate:4,1:1,1:Blue Plate
+chamomile:5,1:1,1:Chamomile
+red_tulip:6,1:1,1:Red Tulip
+chamomile_pot:7,1:1,1:Chamomile in a Pot
+red_tulip_pot:8,1:1,1:Red Tulip in a Pot
+wooden_stairs:0,2:1,1:Wooden Stairs
+wooden_slab:1,2:1,1:Wooden Slab
+stone_stairs:2,2:1,1:Stone Stairs
+stone_slab:3,2:1,1:Stone Slab
+wooden_pole:4,2:1,1:Wooden Pole
+wooden_pole_handle:5,2:1,1:Wooden Pole Handle
+stone_pole:6,2:1,1:Stone Pole
+stone_pole_handle:7,2:1,1:Stone Pole Handle
+log:8,2:1,1:Log
+log_top:9,2:1,1:Log Top
+foliage:0,3:1,1:Foliage
+glass:1,3:1,1:Glass
+white_wool:2,3:1,1:White Wool
+red_wool:3,3:1,1:Red Wool
+green_wool:4,3:1,1:Green Wool
+blue_wool:5,3:1,1:Blue Wool
+yellow_wool:6,3:1,1:Yellow Wool
+black_wool:7,3:1,1:Black Wool
+dark_gray_wool:8,3:1,1:Dark Gray Wool
+gray_wool:9,3:1,1:Gray Wool
+sponge:0,4:1,1:Sponge
+infection_block:1,4:1,1:Infection
