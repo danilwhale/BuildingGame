@@ -31,7 +31,7 @@ internal class Program
     public static Screen currentScreen;
     public static SelectPackScreen selectPackScreen;
 
-
+    private static bool _isFullScreen = false;
 
     private static void Main()
     {
@@ -91,13 +91,15 @@ internal class Program
         {
             // SetWindowTitle("BuldingGame - " + GetFPS() + " FPS");
             if (mustClose) break;
-            if (IsKeyPressed(KeyboardKey.KEY_F11) ||
-                (IsKeyPressed(KeyboardKey.KEY_LEFT_ALT) && IsKeyPressed(KeyboardKey.KEY_ENTER)))
+            if (IsKeyPressed(KeyboardKey.KEY_F11))
             {
-                if (IsWindowFullscreen())
+                if (_isFullScreen)
                 {
                     WIDTH = preWidth;
                     HEIGHT = preHeight;
+                    ClearWindowState(ConfigFlags.FLAG_WINDOW_UNDECORATED);
+                    SetWindowPosition(GetMonitorWidth(GetCurrentMonitor()) / 2 - WIDTH / 2, 
+                                      GetMonitorHeight(GetCurrentMonitor()) / 2 - HEIGHT / 2);
                 }
                 else
                 {
@@ -106,10 +108,13 @@ internal class Program
 
                     WIDTH = GetMonitorWidth(GetCurrentMonitor());
                     HEIGHT = GetMonitorHeight(GetCurrentMonitor());
+
+                    SetWindowPosition(0, 0);
                 }
                 SetWindowSize(WIDTH, HEIGHT);
+                _isFullScreen = !_isFullScreen;
 
-                ToggleFullscreen();
+                SetWindowState(ConfigFlags.FLAG_WINDOW_UNDECORATED);
 
             }
 
