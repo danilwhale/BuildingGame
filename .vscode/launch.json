@@ -12,6 +12,7 @@
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/bin/Debug/net6.0-windows/BuildingGame.dll",
             "args": [],
+            "requireExactSource": false,
             "cwd": "${workspaceFolder}/bin/Debug/net6.0-windows/",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
