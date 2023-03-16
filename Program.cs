@@ -39,9 +39,15 @@ internal class Program
 
     private static void Main()
     {
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .WriteTo.Console()
+            .WriteTo.File("logs/latest.log", rollingInterval: RollingInterval.Minute)
+            .CreateLogger();
+        
         AppDomain.CurrentDomain.UnhandledException += (sender, ev) =>
         {
-            File.WriteAllText("crash.txt", ev.ExceptionObject.ToString());
+            Log.Fatal("something fatal happened on code side.\nexception: " + ev.ExceptionObject.ToString());
         };
         InitWindow(WIDTH, HEIGHT, "BuildingGame");
         SetExitKey(KeyboardKey.KEY_NULL);
@@ -58,11 +64,7 @@ internal class Program
 
         EndDrawing();
 
-        Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Debug()
-            .WriteTo.Console()
-            .WriteTo.File("logs/latest.log", rollingInterval: RollingInterval.Minute)
-            .CreateLogger();
+        Log.Information("loading assets...");
 
         var versionInfo = FileVersionInfo.GetVersionInfo(Path.Join(AppContext.BaseDirectory, "buildinggame.exe"));
         version = versionInfo.FileVersion;
@@ -78,10 +80,12 @@ internal class Program
 
         Settings.Load();
         TilePackManager.LoadPacks();
+        Log.Information("loaded packs and settings");
         if (Settings.CurrentPack != "default")
             TilePackManager.ApplyPack(Settings.CurrentPack);
         else
             TilePackManager.SetDefaultPack();
+        Log.Information("toggled pack to 'currentPack' value in settings (" + Settings.CurrentPack + ")");
 
         gameScreen = new GameScreen();
         gameScreen.Initialize();
@@ -99,6 +103,9 @@ internal class Program
         selectPackScreen.Initialize();
 
         currentScreen = menuScreen;
+
+        Log.Information("initialized screens");
+        Log.Information("going to the event loop");
 
         while (!WindowShouldClose())
         {
@@ -165,13 +172,17 @@ internal class Program
             EndDrawing();
         }
 
+        Log.Information("saving world...");
         gameScreen.World.Save();
+        Log.Information("saving settings...");
         Settings.Save();
 
+        Log.Information("unloading textures...");
         UnloadImage(icon);
         UnloadTexture(check);
         UnloadTexture(origAtlas);
         TilePackManager.UnloadPacks();
+        Log.Information("goodbye!");
         CloseWindow();
     }
 }
