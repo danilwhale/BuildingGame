@@ -50,7 +50,7 @@ public class Tile
         {
             DrawTexturePro(
                 Unknown,
-                new Rectangle(0, 0, 48, 48),
+                new Rectangle(0.25f, 0.25f, 48 - 0.25f, 48 - 0.25f),
                 new Rectangle(x * 48, y * 48, Size.X * 48, Size.Y * 48),
                 new Vector2(24, 24),
                 flags.Rotation,
@@ -60,7 +60,7 @@ public class Tile
         }
         DrawTexturePro(
             Program.atlas,
-            new Rectangle(AtlasOffset.X * 16, AtlasOffset.Y * 16, Size.X * 16, Size.Y * 16),
+            new Rectangle(AtlasOffset.X * 16 + 0.25f, AtlasOffset.Y * 16 + 0.25f, Size.X * 16 - 0.25f, Size.Y * 16 - 0.25f),
             new Rectangle(x * 48, y * 48, Size.X * 48, Size.Y * 48),
             new Vector2(24, 24),
             flags.Rotation,
