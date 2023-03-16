@@ -211,8 +211,8 @@ public class GameScreen : Screen
         #region Tile Menu Generation
 
 
-        RecreateTileMenu(bgPanel, tooltip);
-        TilePackManager.PackChanged += () => RecreateTileMenu(bgPanel, tooltip);
+        RecreateTileMenu(bgPanel);
+        TilePackManager.PackChanged += () => RecreateTileMenu(bgPanel);
         #endregion
 
         Gui.PutControl(bgPanel, this);
@@ -221,7 +221,7 @@ public class GameScreen : Screen
         Gui.PutControl(pausePanel, this);
     }
 
-    private void RecreateTileMenu(BackgroundBlock bgPanel, Tooltip tooltip)
+    private void RecreateTileMenu(BackgroundBlock bgPanel)
     {
         bgPanel.Children.Clear();
 
