@@ -63,9 +63,9 @@ public struct TilePack
     {
         if (Version != PACK_FORMAT)
         {
-            Log.Warning("|-------\n" + 
+            Log.Warning("\n|-------\n" + 
                         $"|> {Name} is not supported for this version.\n" +
-                         "|> if you're sure, that it's supports this version\n" + 
+                         "|> if you're sure, that it supports this version\n" + 
                          "|> try changing 'supportedVersion' value to " + PACK_FORMAT + 
                          "\n|-------");
             return;
