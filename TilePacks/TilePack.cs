@@ -77,6 +77,7 @@ public struct TilePack
         if (TileAtlasPath != string.Empty && !IsVanilla)
         {
             Tile.DefaultTiles = Tile.GenerateTiles(TileAtlasPath);
+            
         }
     }
 

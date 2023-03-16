@@ -32,7 +32,7 @@ public class GameScreen : Screen
         );
         _world.Draw();
         if (!Gui.IsMouseOverControl && showPreTile)
-            Tile.DefaultTiles[_currentType - 1].Draw(mx, my, new TileFlags(tileRot, flipTile), new Color(255, 255, 255, 120));
+            Tile.GetTile(_currentType).Draw(mx, my, new TileFlags(tileRot, flipTile), new Color(255, 255, 255, 120));
 
         EndMode2D();
     }
@@ -189,9 +189,17 @@ public class GameScreen : Screen
         texImg.Adapt(windowSize => new Vector2(windowSize.X - 64 - 16, 16));
         texImg.ClientUpdate += () =>
         {
-            var tile = Tile.DefaultTiles[_currentType - 1];
-            texImg.ImageSourceRect = new Rectangle(tile.AtlasOffset.X * 16, tile.AtlasOffset.Y * 16, 16, 16);
-            texImg.Image = Program.atlas;
+            var tile = Tile.GetTile(_currentType);
+            if (tile.IsUnknown)
+            {
+                texImg.ImageSourceRect = new Rectangle(0, 0, 48, 48);
+                texImg.Image = Tile.Unknown;
+            }
+            else
+            {
+                texImg.ImageSourceRect = new Rectangle(tile.AtlasOffset.X * 16, tile.AtlasOffset.Y * 16, 16, 16);
+                texImg.Image = Program.atlas;
+            }
         };
         texImg.Clicked += () =>
         {
@@ -204,6 +212,7 @@ public class GameScreen : Screen
 
 
         RecreateTileMenu(bgPanel, tooltip);
+        TilePackManager.PackChanged += () => RecreateTileMenu(bgPanel, tooltip);
         #endregion
 
         Gui.PutControl(bgPanel, this);

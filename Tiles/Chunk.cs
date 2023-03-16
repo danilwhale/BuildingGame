@@ -27,9 +27,9 @@ public class Chunk
             {
                 TileInfo tile = Tiles[x, y];
 
-                if (tile != null && tile > 0 && tile <= Tile.DefaultTiles.Length)
+                if (tile != null && tile > 0)
                 {
-                    Tile.DefaultTiles[tile - 1].Draw(wx + x, wy + y, tile.Flags);
+                    Tile.GetTile(tile.Type).Draw(wx + x, wy + y, tile.Flags);
                 }
                     
             }
