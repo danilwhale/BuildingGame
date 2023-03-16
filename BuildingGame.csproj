@@ -6,7 +6,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ApplicationIcon>assets/icon.ico</ApplicationIcon>
-    <TrimUnusedImports>true</TrimUnusedImports>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -16,7 +15,7 @@
     <Company>danilwhale</Company>
     <Authors>danilwhale</Authors>
     <Product>building game</Product>
-    <Description />
+    <Description>building game</Description>
     <Copyright>Copyright © 2023</Copyright>
     <StripSymbols>true</StripSymbols>
   </PropertyGroup>
