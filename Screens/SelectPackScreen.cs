@@ -18,8 +18,12 @@ public class SelectPackScreen : Screen
 
     public override void Initialize()
     {
+        var bg = new BackgroundBlock("spsBg", (ColorBrush)new Color(20, 20, 20, 255));
+        bg.Adapt((windowSize) => new Rectangle(0, windowSize.Y - 115, windowSize.X, 115));
+        bg.ZIndex = 2;
         _currentPackLabel = new TextBlock("currentPackLabel", "Current pack: default", Vector2.Zero, 24);
         _currentPackLabel.Color = Color.WHITE;
+        _currentPackLabel.ZIndex = 3;
         _currentPackLabel.Adapt((windowSize) => 
             new Vector2(
                 windowSize.X / 2 - MeasureTextEx(_currentPackLabel.Font, _currentPackLabel.Text, 24, 1).X / 2, 
@@ -51,15 +55,18 @@ public class SelectPackScreen : Screen
         }
 
         _backButton = new HoverButton("spsBackButton", "back", Vector2.Zero, 24);
+        _backButton.ZIndex = 3;
         _backButton.Color = Color.WHITE;
         _backButton.CenterScreen();
         _backButton.Adapt(windowSize => new Vector2(_backButton.Area.x, windowSize.Y - 100));
+        
         _backButton.Clicked += () =>
         {
             Program.currentScreen = Program.menuScreen;
         };
 
         Gui.PutControl(_packListView, this);
+        Gui.PutControl(bg, this);
         Gui.PutControl(_backButton, this);
         Gui.PutControl(_currentPackLabel, this);
     }
