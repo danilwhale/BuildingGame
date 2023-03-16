@@ -61,23 +61,13 @@ public struct TilePack
 
     public void Apply()
     {
-        if (Version != PACK_FORMAT)
-        {
-            Log.Warning("\n|-------\n" + 
-                        $"|> {Name} is not supported for this version.\n" +
-                         "|> if you're sure, that it supports this version\n" + 
-                         "|> try changing 'supportedVersion' value to " + PACK_FORMAT + 
-                         "\n|-------");
-            return;
-        }
         if (AtlasPath != string.Empty)
         {
             Program.atlas = Atlas;
         }
         if (TileAtlasPath != string.Empty && !IsVanilla)
         {
-            Tile.DefaultTiles = Tile.GenerateTiles(TileAtlasPath);
-            
+            Tile.DefaultTiles = Tile.GenerateTiles(TileAtlasPath);   
         }
     }
 
