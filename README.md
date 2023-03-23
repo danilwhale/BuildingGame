@@ -5,10 +5,9 @@
 # tasks
 ✓ add infection block (and it's toggle) <br/>
 ✓ add tile packs (custom atlas.png + atlas.txt w/o changing game assets) <br/>
-(see commits, rn i'll add more random things and fixes) <br/>
 
 # build
-you need .net 6 sdk to build the game
+you need .net 7 sdk to build the game
 ## cli
 - download source (download -> download zip)
 - unpack folder somewhere
