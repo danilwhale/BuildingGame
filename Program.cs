@@ -13,6 +13,8 @@ SetWindowIcon(icon);
 UnloadImage(icon);
 
 Player player = new Player(new Vector2(0), 50, 0.1f);
+World world = new World(256, 256);
+TileKind[] tiles = Enum.GetValues<TileKind>();
 
 while (!WindowShouldClose())
 {
@@ -23,7 +25,10 @@ while (!WindowShouldClose())
     
     BeginMode2D(player.Camera);
     {
-        DrawRectangle(0, 0, 128, 128, RED);
+        for (int i = 1; i < tiles.Length; i++)
+        {
+            Tiles.GetTile(tiles[i]).Draw(world, i, 0);
+        }
     }
     EndMode2D();
     

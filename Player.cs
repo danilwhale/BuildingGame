@@ -40,6 +40,8 @@ public class Player
         float speed = IsKeyDown(KeyboardKey.KEY_LEFT_CONTROL) || IsKeyDown(KeyboardKey.KEY_LEFT_SHIFT)
             ? Speed * 1.25f
             : Speed * 0.5f;
+        speed /= Camera.zoom;
+        speed = Math.Clamp(speed, 0, Speed * 2);
         
         // move camera
         if (IsKeyDown(KeyboardKey.KEY_W)) Move(0, -speed);

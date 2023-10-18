@@ -20,6 +20,11 @@ public class Tile
         TexCoord = texCoord;
     }
 
+    public Tile(float tx, float ty)
+    {
+        TexCoord = new Vector2(tx, ty);
+    }
+
     public virtual void Update(World world, int x, int y)
     {
     }
