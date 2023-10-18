@@ -30,4 +30,5 @@ while (!WindowShouldClose())
     EndDrawing();
 }
 
+Resources.Free();
 CloseWindow();
