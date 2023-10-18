@@ -38,4 +38,8 @@
     </Content> 
   </ItemGroup>
 
+  <ItemGroup>
+    <_DeploymentManifestIconFile Remove="assets\icon.ico" />
+  </ItemGroup>
+
 </Project>
