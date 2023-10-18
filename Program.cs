@@ -14,21 +14,26 @@ UnloadImage(icon);
 
 Player player = new Player(new Vector2(0), 50, 0.1f);
 World world = new World(256, 256);
-TileKind[] tiles = Enum.GetValues<TileKind>();
+
+for (int x = 0; x < world.Width; x++)
+{
+    for (int y = 0; y < world.Height; y++)
+    {
+        world[x, y] = (TileKind)Random.Shared.Next(41);
+    }
+}
 
 while (!WindowShouldClose())
 {
     player.Update();
+    world.Update();
     
     BeginDrawing();
     ClearBackground(SKYBLUE);
     
     BeginMode2D(player.Camera);
     {
-        for (int i = 1; i < tiles.Length; i++)
-        {
-            Tiles.GetTile(tiles[i]).Draw(world, i, 0);
-        }
+        world.Draw(player);
     }
     EndMode2D();
     

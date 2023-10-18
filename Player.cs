@@ -33,8 +33,8 @@ public class Player
         
         // zoom in/zoom out camera
         float scrollDelta = GetMouseWheelMove();
-        if (scrollDelta < 0) ZoomOut(Speed * 0.1f);
-        if (scrollDelta > 0) ZoomIn(Speed * 0.1f);
+        if (scrollDelta < 0) ZoomOut(Speed * 0.075f);
+        if (scrollDelta > 0) ZoomIn(Speed * 0.075f);
         
         // get speed depending if user is sprinting or not
         float speed = IsKeyDown(KeyboardKey.KEY_LEFT_CONTROL) || IsKeyDown(KeyboardKey.KEY_LEFT_SHIFT)
@@ -76,5 +76,13 @@ public class Player
     public void Move(float x, float y)
     {
         _targetPosition += new Vector2(x, y) * Speed * GetFrameTime();
+    }
+
+    public Rectangle GetViewRectangle()
+    {
+        Vector2 min = GetScreenToWorld2D(new Vector2(0, 0), Camera);
+        Vector2 max = GetScreenToWorld2D(new Vector2(GetScreenWidth(), GetScreenHeight()), Camera);
+        
+        return new Rectangle(min.X, min.Y, max.X - min.X, max.Y - min.Y);
     }
 }
