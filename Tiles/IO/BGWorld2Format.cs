@@ -1,7 +1,7 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
+using BuildingGame.Tiles.Data;
 
-namespace BuildingGame.IO;
+namespace BuildingGame.Tiles.IO;
 
 /* Latest world format (BGWorld2)
  * 
@@ -14,13 +14,13 @@ namespace BuildingGame.IO;
  * 2. (float) Tile Flags: Rotation
  * 3. (bool) Tile Flags: Flip
  */ 
-public static class BGWorld2IO
+public static class BGWorld2Format
 {
     public const string Header = "BGWORLD2";
     
     public class Serializer : IWorldSerializer
     {
-        public string Header => BGWorld2IO.Header;
+        public string Header => BGWorld2Format.Header;
         
         public bool TrySerialize(BinaryWriter writer, World world, out string? log)
         {
@@ -42,7 +42,7 @@ public static class BGWorld2IO
 
     public class Deserializer : IWorldDeserializer
     {
-        public string Header => BGWorld2IO.Header;
+        public string Header => BGWorld2Format.Header;
         
         public bool TryDeserialize(BinaryReader reader, out World world, out string? log)
         {

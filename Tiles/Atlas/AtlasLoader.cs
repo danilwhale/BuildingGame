@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace BuildingGame.Atlas;
+namespace BuildingGame.Tiles.Atlas;
 
 public static class AtlasLoader
 {

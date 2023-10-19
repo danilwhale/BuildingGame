@@ -1,4 +1,4 @@
-namespace BuildingGame;
+namespace BuildingGame.Tiles.Data;
 
 public record ChunkPosition(int X, int Y)
 {

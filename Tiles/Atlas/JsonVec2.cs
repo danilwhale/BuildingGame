@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace BuildingGame.Atlas;
+namespace BuildingGame.Tiles.Atlas;
 
 public struct JsonVec2
 {

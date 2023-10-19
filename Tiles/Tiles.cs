@@ -1,6 +1,6 @@
-using BuildingGame.Atlas;
+using BuildingGame.Tiles.Atlas;
 
-namespace BuildingGame;
+namespace BuildingGame.Tiles;
 
 public static class Tiles
 {

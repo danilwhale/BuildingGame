@@ -1,15 +1,15 @@
-namespace BuildingGame.IO;
+namespace BuildingGame.Tiles.IO;
 
 /// <summary>
 /// WARNING: There's no implemented conversion for LVL format
 /// </summary>
-public static class LvlIO
+public static class LvlFormat
 {
     public const string Header = "LVL";
     
     public class Serializer : IWorldSerializer
     {
-        public string Header => LvlIO.Header;
+        public string Header => LvlFormat.Header;
         
         public bool TrySerialize(BinaryWriter writer, World world, out string? log)
         {
@@ -20,7 +20,7 @@ public static class LvlIO
 
     public class Deserializer : IWorldDeserializer
     {
-        public string Header => LvlIO.Header;
+        public string Header => LvlFormat.Header;
         
         public bool TryDeserialize(BinaryReader reader, out World world, out string? log)
         {

@@ -1,6 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
-
-namespace BuildingGame.IO;
+namespace BuildingGame.Tiles.IO;
 
 public interface IWorldDeserializer
 {

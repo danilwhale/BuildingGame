@@ -1,4 +1,6 @@
-namespace BuildingGame;
+using BuildingGame.Tiles.Data;
+
+namespace BuildingGame.Tiles;
 
 public struct Chunk
 {

@@ -1,4 +1,4 @@
-namespace BuildingGame.Atlas;
+namespace BuildingGame.Tiles.Atlas;
 
 public struct AtlasTileKey
 {

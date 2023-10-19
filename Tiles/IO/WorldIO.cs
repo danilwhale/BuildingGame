@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO.Compression;
 
-namespace BuildingGame.IO;
+namespace BuildingGame.Tiles.IO;
 
 public static class WorldIO
 {

@@ -1,4 +1,4 @@
-namespace BuildingGame.IO;
+namespace BuildingGame.Tiles.IO;
 
 public interface IWorldSerializer
 {

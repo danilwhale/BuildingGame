@@ -1,7 +1,8 @@
 using System.Numerics;
-using BuildingGame.IO;
+using BuildingGame.Tiles.Data;
+using BuildingGame.Tiles.IO;
 
-namespace BuildingGame;
+namespace BuildingGame.Tiles;
 
 public struct World
 {
@@ -89,7 +90,7 @@ public struct World
 
     public void Save()
     {
-        WorldIO.TrySerializeWorld<BGWorld2IO.Serializer>("level.dat", this);
+        WorldIO.TrySerializeWorld<BGWorld2Format.Serializer>("level.dat", this);
     }
 
     public TileInfo this[int x, int y]

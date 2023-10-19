@@ -1,6 +1,7 @@
 using System.Numerics;
+using BuildingGame.Tiles.Data;
 
-namespace BuildingGame;
+namespace BuildingGame.Tiles;
 
 public class Tile
 {
