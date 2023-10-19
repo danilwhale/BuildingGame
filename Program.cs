@@ -12,16 +12,8 @@ Image icon = LoadImage("Assets/Icon.png");
 SetWindowIcon(icon);
 UnloadImage(icon);
 
-Player player = new Player(new Vector2(0), 50, 0.1f);
 World world = new World(256, 256);
-
-for (int x = 0; x < world.Width; x++)
-{
-    for (int y = 0; y < world.Height; y++)
-    {
-        world[x, y] = (TileKind)Random.Shared.Next(41);
-    }
-}
+Player player = new Player(world, new Vector2(0), 50, 0.1f);
 
 while (!WindowShouldClose())
 {

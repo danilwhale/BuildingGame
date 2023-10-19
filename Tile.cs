@@ -6,6 +6,7 @@ public class Tile
 {
     public const int TileSize = 16;
     public const float TileUpscale = 3;
+    public const float RealTileSize = TileSize * TileUpscale;
     public const float AtlasFraction = 0.25f;
 
     public readonly Vector2 TexCoord;
@@ -46,6 +47,26 @@ public class Tile
                 TileSize * TileUpscale
             ),
             Vector2.Zero, 0, WHITE
+        );
+    }
+
+    public virtual void DrawPreview(float x, float y)
+    {
+        DrawTexturePro(Resources.GetTexture("Atlas.png"),
+            // we add a fraction to the source rectangle, so we wont see flickering parts of atlas
+            new Rectangle(
+                TexCoord.X * TileSize + AtlasFraction,
+                TexCoord.Y * TileSize + AtlasFraction,
+                TileSize - AtlasFraction,
+                TileSize - AtlasFraction
+            ),
+            new Rectangle(
+                x * TileSize * TileUpscale,
+                y * TileSize * TileUpscale,
+                TileSize * TileUpscale,
+                TileSize * TileUpscale
+            ),
+            Vector2.Zero, 0, new Color(255, 255, 255, 120)
         );
     }
 }

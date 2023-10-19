@@ -6,14 +6,18 @@ namespace BuildingGame;
 public class Player
 {
     public Camera2D Camera;
+    public World World;
     public float Speed;
     public float LerpSpeed;
 
     private Vector2 _targetPosition;
     private float _targetZoom;
 
-    public Player(Vector2 position, float speed, float lerpSpeed)
+    private TileKind _currentTile = TileKind.Stone;
+
+    public Player(World world, Vector2 position, float speed, float lerpSpeed)
     {
+        World = world;
         Camera = new Camera2D
         {
             offset = new Vector2(GetScreenWidth(), GetScreenHeight()) / 2,
@@ -53,6 +57,26 @@ public class Player
         if (IsWindowResized())
         {
             Camera.offset = new Vector2(GetScreenWidth(), GetScreenHeight()) / 2;
+        }
+        
+        UpdateTileControls();
+    }
+
+    private void UpdateTileControls()
+    {
+        Vector2 worldMousePos = GetScreenToWorld2D(GetMousePosition(), Camera);
+
+        int tx = (int)(worldMousePos.X / Tile.RealTileSize);
+        int ty = (int)(worldMousePos.Y / Tile.RealTileSize);
+
+        if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT))
+        {
+            World[tx, ty] = _currentTile;
+        }
+
+        if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_RIGHT))
+        {
+            World[tx, ty] = TileKind.Air;
         }
     }
 

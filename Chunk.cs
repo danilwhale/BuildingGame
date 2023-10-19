@@ -3,7 +3,7 @@ namespace BuildingGame;
 public struct Chunk
 {
     public const int Size = 16;
-    public const float ViewSize = Size * Tile.TileSize * Tile.TileUpscale;
+    public const float ViewSize = Size * Tile.RealTileSize;
 
     public World World;
     public readonly int X, Y;
