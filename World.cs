@@ -60,12 +60,12 @@ public struct World
         return new ChunkPosition(cx, cy);
     }
 
-    public TileKind this[int x, int y]
+    public byte this[int x, int y]
     {
         get
         {
             if (x < 0 || x >= Width || y < 0 || y >= Height)
-                return TileKind.Air;
+                return 0;
 
             ChunkPosition pos = WorldToChunk(x, y);
             pos.WorldToTile(x, y, out int tx, out int ty);

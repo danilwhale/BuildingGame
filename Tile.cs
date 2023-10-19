@@ -10,6 +10,7 @@ public class Tile
     public const float AtlasFraction = 0.25f;
 
     public readonly Vector2 TexCoord;
+    public readonly Vector2 Size = Vector2.One;
 
     public Tile()
     {
@@ -19,6 +20,12 @@ public class Tile
     public Tile(Vector2 texCoord)
     {
         TexCoord = texCoord;
+    }
+
+    public Tile(Vector2 texCoord, Vector2 size)
+    {
+        TexCoord = texCoord;
+        Size = size;
     }
 
     public Tile(float tx, float ty)
@@ -37,14 +44,14 @@ public class Tile
             new Rectangle(
                 TexCoord.X * TileSize + AtlasFraction,
                 TexCoord.Y * TileSize + AtlasFraction,
-                TileSize - AtlasFraction,
-                TileSize - AtlasFraction
+                Size.X * TileSize - AtlasFraction,
+                Size.Y * TileSize - AtlasFraction
             ),
             new Rectangle(
                 x * TileSize * TileUpscale,
                 y * TileSize * TileUpscale,
-                TileSize * TileUpscale,
-                TileSize * TileUpscale
+                Size.X * TileSize * TileUpscale,
+                Size.Y * TileSize * TileUpscale
             ),
             Vector2.Zero, 0, WHITE
         );

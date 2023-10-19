@@ -17,6 +17,9 @@ Player player = new Player(world, new Vector2(0), 50, 0.1f);
 
 while (!WindowShouldClose())
 {
+    if (IsKeyPressed(KeyboardKey.KEY_R))
+        Tiles.Reload();
+    
     player.Update();
     world.Update();
     

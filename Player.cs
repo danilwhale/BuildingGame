@@ -13,7 +13,7 @@ public class Player
     private Vector2 _targetPosition;
     private float _targetZoom;
 
-    private TileKind _currentTile = TileKind.Stone;
+    private byte _currentTile = 2;
 
     public Player(World world, Vector2 position, float speed, float lerpSpeed)
     {
@@ -76,7 +76,7 @@ public class Player
 
         if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_RIGHT))
         {
-            World[tx, ty] = TileKind.Air;
+            World[tx, ty] = 0;
         }
     }
 
