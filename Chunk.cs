@@ -8,7 +8,7 @@ public struct Chunk
     public World World;
     public readonly int X, Y;
 
-    private byte[][] _tiles;
+    private TileInfo[][] _tiles;
 
     public Chunk(World world, int x, int y)
     {
@@ -16,10 +16,14 @@ public struct Chunk
         X = x;
         Y = y;
 
-        _tiles = new byte[Size][];
+        _tiles = new TileInfo[Size][];
         for (int i = 0; i < Size; i++)
         {
-            _tiles[i] = new byte[Size];
+            _tiles[i] = new TileInfo[Size];
+            for (int j = 0; j < Size; j++)
+            {
+                _tiles[i][j] = 0;
+            }
         }
     }
 
@@ -29,9 +33,9 @@ public struct Chunk
         {
             for (int y = 0; y < Size; y++)
             {
-                byte tile = _tiles[x][y];
+                TileInfo tile = _tiles[x][y];
                 if (tile == 0) continue;
-                Tiles.GetTile(tile).Update(World, X * Size + x, Y * Size + y);
+                Tiles.GetTile(tile).Update(World, tile, X * Size + x, Y * Size + y);
             }
         }
     }
@@ -44,12 +48,12 @@ public struct Chunk
             {
                 byte tile = _tiles[x][y];
                 if (tile == 0) continue;
-                Tiles.GetTile(tile).Draw(World, X * Size + x, Y * Size + y);
+                Tiles.GetTile(tile).Draw(World, tile, X * Size + x, Y * Size + y);
             }
         }
     }
 
-    public byte this[int x, int y]
+    public TileInfo this[int x, int y]
     {
         get
         {

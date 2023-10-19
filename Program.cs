@@ -2,6 +2,7 @@
 global using ZeroElectric.Vinculum;
 using System.Numerics;
 using BuildingGame;
+using BuildingGame.IO;
 
 SetConfigFlags(ConfigFlags.FLAG_VSYNC_HINT);
 SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
@@ -12,8 +13,13 @@ Image icon = LoadImage("Assets/Icon.png");
 SetWindowIcon(icon);
 UnloadImage(icon);
 
+BGWorld2IO.Register();
+LvlIO.Register();
+
 World world = new World(256, 256);
-Player player = new Player(world, new Vector2(0), 50, 0.1f);
+world.Load();   
+
+Player player = new Player(world, world.PlayerPosition, 50, 0.1f);
 
 while (!WindowShouldClose())
 {
@@ -34,6 +40,9 @@ while (!WindowShouldClose())
     
     EndDrawing();
 }
+
+player.PushCameraPosition();
+world.Save();
 
 Resources.Free();
 CloseWindow();

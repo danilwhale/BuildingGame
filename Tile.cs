@@ -33,11 +33,11 @@ public class Tile
         TexCoord = new Vector2(tx, ty);
     }
 
-    public virtual void Update(World world, int x, int y)
+    public virtual void Update(World world, TileInfo info, int x, int y)
     {
     }
 
-    public virtual void Draw(World world, int x, int y)
+    public virtual void Draw(World world, TileInfo info, int x, int y)
     {
         DrawTexturePro(Resources.GetTexture("Atlas.png"),
             // we add a fraction to the source rectangle, so we wont see flickering parts of atlas

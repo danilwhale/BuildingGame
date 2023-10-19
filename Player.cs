@@ -102,6 +102,11 @@ public class Player
         _targetPosition += new Vector2(x, y) * Speed * GetFrameTime();
     }
 
+    public void PushCameraPosition()
+    {
+        World.PlayerPosition = Camera.target;
+    }
+
     public Rectangle GetViewRectangle()
     {
         Vector2 min = GetScreenToWorld2D(new Vector2(0, 0), Camera);

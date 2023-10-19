@@ -1,13 +1,26 @@
+using System.Numerics;
+using BuildingGame.IO;
+
 namespace BuildingGame;
 
 public struct World
 {
+    public const int DefaultSize = 256;
+    
     public readonly int Width;
     public readonly int Height;
     public readonly int ChunkWidth;
     public readonly int ChunkHeight;
 
+    public Vector2 PlayerPosition;
+
     private Chunk[][] _chunks;
+
+    public World()
+        : this(DefaultSize, DefaultSize)
+    {
+        
+    }
 
     public World(int width, int height)
     {
@@ -60,7 +73,26 @@ public struct World
         return new ChunkPosition(cx, cy);
     }
 
-    public byte this[int x, int y]
+    public void Load()
+    {
+        if (!WorldIO.TryDeserializeWorld("level.dat", out var world)) return;
+        if (Width != world.Value.Width || Height != world.Value.Height) return;
+        
+        for (int x = 0; x < Width; x++)
+        {
+            for (int y = 0; y < Height; y++)
+            {
+                this[x, y] = world.Value[x, y];
+            }
+        }
+    }
+
+    public void Save()
+    {
+        WorldIO.TrySerializeWorld<BGWorld2IO.Serializer>("level.dat", this);
+    }
+
+    public TileInfo this[int x, int y]
     {
         get
         {
