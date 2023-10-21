@@ -1,0 +1,212 @@
+# layer 0 (x: 0-9, y: 0)
+smooth_stone:
+  atlas:
+    x: 0
+    y: 0
+
+wooden_planks:
+  atlas:
+    x: 1
+    y: 0
+
+dirt:
+  atlas:
+    x: 2
+    y: 0
+
+grass_block:
+  atlas:
+    x: 3
+    y: 0
+
+grass:
+  atlas:
+    x: 4
+    y: 0
+
+sand:
+  atlas:
+    x: 5
+    y: 0
+
+water:
+  atlas:
+    x: 6
+    y: 0
+
+lava:
+  atlas:
+    x: 7
+    y: 0
+
+obsidian:
+  atlas:
+    x: 8
+    y: 0
+
+door:
+  atlas:
+    x: 9
+    y: 0
+  size:
+    x: 1
+    y: 2
+
+# layer 1 (x: 0-8, y: 1)
+nature_stone:
+  atlas:
+    x: 0
+    y: 1
+
+white_plate:
+  atlas:
+    x: 1
+    y: 1
+
+green_plate:
+  atlas:
+    x: 2
+    y: 1
+
+red_plate:
+  atlas:
+    x: 3
+    y: 1
+
+blue_plate:
+  atlas:
+    x: 4
+    y: 1
+
+chamomile:
+  atlas:
+    x: 5
+    y: 1
+
+red_tulip:
+  atlas:
+    x: 6
+    y: 1
+
+chamomile_pot:
+  atlas:
+    x: 7
+    y: 1
+
+red_tulip_pot:
+  atlas:
+    x: 8
+    y: 1
+
+# layer 2 (x: 0-9, y: 2)
+wooden_stairs:
+  atlas:
+    x: 0
+    y: 2
+
+wooden_slab:
+  atlas:
+    x: 1
+    y: 2
+
+stone_stairs:
+  atlas:
+    x: 2
+    y: 2
+
+stone_slab:
+  atlas:
+    x: 3
+    y: 2
+
+wooden_pole:
+  atlas:
+    x: 4
+    y: 2
+
+wooden_pole_handle:
+  atlas:
+    x: 5
+    y: 2
+
+stone_pole:
+  atlas:
+    x: 6
+    y: 2
+
+stone_pole_handle:
+  atlas:
+    x: 7
+    y: 2
+
+log:
+  atlas:
+    x: 8
+    y: 2
+
+log_top:
+  atlas:
+    x: 9
+    y: 2
+
+# layer 3 (x: 0-9, y: 3)
+foliage:
+  atlas:
+    x: 0
+    y: 3
+
+glass:
+  atlas:
+    x: 1
+    y: 3
+
+white_wool:
+  atlas:
+    x: 2
+    y: 3
+
+red_wool:
+  atlas:
+    x: 3
+    y: 3
+
+green_wool:
+  atlas:
+    x: 4
+    y: 3
+
+blue_wool:
+  atlas:
+    x: 5
+    y: 3
+
+yellow_wool:
+  atlas:
+    x: 6
+    y: 3
+
+black_wool:
+  atlas:
+    x: 7
+    y: 3
+
+dark_gray_wool:
+  atlas:
+    x: 8
+    y: 3
+
+gray_wool:
+  atlas:
+    x: 9
+    y: 3
+
+# layer 4 (x: 0-1, y: 4)
+sponge:
+  atlas:
+    x: 0
+    y: 4
+  
+infection_block:
+  atlas:
+    x: 1
+    y: 4

@@ -1,20 +1,26 @@
-using Newtonsoft.Json;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace BuildingGame.Tiles.Atlas;
 
 public static class AtlasLoader
 {
-    public const string AtlasFile = "Assets/Atlas.json";
+    public const string AtlasFile = "Assets/Atlas.yaml";
+
+    private static readonly IDeserializer _yaml = new DeserializerBuilder()
+        .WithNamingConvention(UnderscoredNamingConvention.Instance)
+        .IgnoreUnmatchedProperties()
+        .Build();
 
     public static Dictionary<string, AtlasTile> LoadTiles()
     {
         if (!File.Exists(AtlasFile))
             throw new InvalidOperationException("Can't load Atlas.json because it doesn't exists");
 
-        string json = File.ReadAllText(AtlasFile);
+        string yamlText = File.ReadAllText(AtlasFile);
 
-        return JsonConvert.DeserializeObject<Dictionary<string, AtlasTile>>(json) ??
-               throw new InvalidOperationException("Atlas.json is empty");
+        return _yaml.Deserialize<Dictionary<string, AtlasTile>>(yamlText) ??
+               throw new InvalidOperationException("Atlas.yaml is empty");;
     }
 
     public static Dictionary<AtlasTileKey, Tile> ConvertTiles(Dictionary<string, AtlasTile> tiles)
@@ -24,7 +30,7 @@ public static class AtlasLoader
 
         foreach (var kv in tiles)
         {
-            flatTiles.Add(new AtlasTileKey(kv.Key, i), new Tile(kv.Value.AtlasOffset, kv.Value.Size));
+            flatTiles.Add(new AtlasTileKey(kv.Key, i), new Tile(kv.Value.Atlas, kv.Value.Size));
             i++;
         }
 

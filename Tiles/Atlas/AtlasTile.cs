@@ -1,16 +1,16 @@
-using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace BuildingGame.Tiles.Atlas;
 
 public struct AtlasTile
 {
-    public JsonVec2 AtlasOffset { get; set; }
-    public JsonVec2 Size { get; set; }
-    
-    [JsonConstructor]
-    AtlasTile(JsonVec2 AtlasOffset, JsonVec2? Size)
+    public AtlasTile()
     {
-        this.AtlasOffset = AtlasOffset;
-        this.Size = Size ?? new JsonVec2() { X = 1, Y = 1 };
+        Atlas = default;
     }
+
+    public AtlasVec2 Atlas { get; set; }
+    public AtlasVec2 Size { get; set; } = new AtlasVec2(1, 1);
+    
+    
 }
