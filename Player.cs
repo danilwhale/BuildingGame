@@ -1,5 +1,6 @@
 using System.Numerics;
 using BuildingGame.Tiles;
+using BuildingGame.UI;
 using ZeroElectric.Vinculum;
 
 namespace BuildingGame;
@@ -37,7 +38,7 @@ public class Player
         Camera.zoom = (Camera.zoom * (1.0f - LerpSpeed)) + (_targetZoom * LerpSpeed); // lerp camera zoom to target zoom
         
         // zoom in/zoom out camera
-        float scrollDelta = GetMouseWheelMove();
+        float scrollDelta = GetMouseWheelMove() * (GuiManager.IsMouseOverElement() ? 0 : 1);
         if (scrollDelta < 0) ZoomOut(Speed * 0.075f);
         if (scrollDelta > 0) ZoomIn(Speed * 0.075f);
         
@@ -49,10 +50,10 @@ public class Player
         speed = Math.Clamp(speed, 0, Speed * 2);
         
         // move camera
-        if (IsKeyDown(KeyboardKey.KEY_W)) Move(0, -speed);
-        if (IsKeyDown(KeyboardKey.KEY_S)) Move(0, speed);
-        if (IsKeyDown(KeyboardKey.KEY_A)) Move(-speed, 0);
-        if (IsKeyDown(KeyboardKey.KEY_D)) Move(speed, 0);
+        if (IsKeyDown(KeyboardKey.KEY_W) && !GuiManager.IsFocused) Move(0, -speed);
+        if (IsKeyDown(KeyboardKey.KEY_S) && !GuiManager.IsFocused) Move(0, speed);
+        if (IsKeyDown(KeyboardKey.KEY_A) && !GuiManager.IsFocused) Move(-speed, 0);
+        if (IsKeyDown(KeyboardKey.KEY_D) && !GuiManager.IsFocused) Move(speed, 0);
         
         // adapt camera center when windows is resized
         if (IsWindowResized())
@@ -70,12 +71,12 @@ public class Player
         int tx = (int)(worldMousePos.X / Tile.RealTileSize);
         int ty = (int)(worldMousePos.Y / Tile.RealTileSize);
 
-        if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT))
+        if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT) && !GuiManager.IsMouseOverElement())
         {
             World[tx, ty] = _currentTile;
         }
 
-        if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_RIGHT))
+        if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_RIGHT) && !GuiManager.IsMouseOverElement())
         {
             World[tx, ty] = 0;
         }

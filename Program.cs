@@ -4,6 +4,9 @@ using System.Numerics;
 using BuildingGame;
 using BuildingGame.Tiles;
 using BuildingGame.Tiles.IO;
+using BuildingGame.UI;
+using BuildingGame.UI.Brushes;
+using BuildingGame.UI.Elements;
 
 SetConfigFlags(ConfigFlags.FLAG_VSYNC_HINT);
 SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
@@ -29,6 +32,7 @@ while (!WindowShouldClose())
     
     player.Update();
     world.Update();
+    GuiManager.Update();
     
     BeginDrawing();
     ClearBackground(SKYBLUE);
@@ -38,6 +42,8 @@ while (!WindowShouldClose())
         world.Draw(player);
     }
     EndMode2D();
+    
+    GuiManager.Draw();
     
     EndDrawing();
 }
