@@ -7,6 +7,7 @@ using BuildingGame.Tiles.IO;
 using BuildingGame.UI;
 using BuildingGame.UI.Brushes;
 using BuildingGame.UI.Elements;
+using BuildingGame.UI.Interfaces;
 
 SetConfigFlags(ConfigFlags.FLAG_VSYNC_HINT);
 SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
@@ -25,6 +26,11 @@ world.Load();
 
 Player player = new Player(world, world.PlayerPosition, 50, 0.1f);
 
+BlockMenu menu = new BlockMenu();
+GameHud hud = new GameHud(menu);
+
+UIInterfaceManager.Initialize();
+
 while (!WindowShouldClose())
 {
     if (IsKeyPressed(KeyboardKey.KEY_R))
@@ -33,6 +39,7 @@ while (!WindowShouldClose())
     player.Update();
     world.Update();
     GuiManager.Update();
+    UIInterfaceManager.Update();
     
     BeginDrawing();
     ClearBackground(SKYBLUE);
@@ -47,6 +54,8 @@ while (!WindowShouldClose())
     
     EndDrawing();
 }
+
+UIInterfaceManager.Destroy();
 
 player.PushCameraPosition();
 world.Save();
