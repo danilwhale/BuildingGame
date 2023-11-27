@@ -56,15 +56,10 @@ public class Element : IDisposable
     public void Draw()
     {
         BeginTextureMode(_controlTexture);
-        
-        RlGl.rlPushMatrix();
-        RlGl.rlTranslatef(-Area.x, -Area.y, 0);
-        
         ClearBackground(BLANK);
+
         Render();
-        
-        RlGl.rlPopMatrix();
-        
+
         EndTextureMode();
 
         Vector2 offset = Origin switch
@@ -84,8 +79,8 @@ public class Element : IDisposable
         DrawTexturePro(
             _controlTexture.texture,
             new Rectangle(
-                0, 0, 
-                _Area.width, -_Area.height // we need to negate render texture height because opengl uses bottom-left instead of top-left
+                -1, 0, 
+                _Area.width + 1, -_Area.height - 1 // we need to negate render texture height because opengl uses bottom-left instead of top-left
                 ), 
             _Area, offset, Rotation,
             WHITE

@@ -21,7 +21,7 @@ public class TextBox : TextElement
         {
             _focused = IsHovered();
             _brush.LineColor = _focused ? GRAY : BLACK;
-            _brush.LineThick = _focused ? 1.5f : 1;
+            // _brush.LineThick = _focused ? 1.5f : 1;
 
             GuiManager.IsFocused = _focused;
         }

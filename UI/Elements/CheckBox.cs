@@ -27,8 +27,8 @@ public class CheckBox : Element
     protected override void Render()
     {
         Rectangle boxArea = new Rectangle(
-            Area.x,
-            Area.y + Area.height / 2 - 18 * BoxScale / 2,
+            0,
+            0 + Area.height / 2 - 18 * BoxScale / 2,
             18 * BoxScale,
             18 * BoxScale
         );
@@ -42,6 +42,6 @@ public class CheckBox : Element
                 Vector2.Zero, 0, WHITE);
         }
 
-        DrawText(Text, Area.x + 8 + 18 * BoxScale, Area.y + Area.height / 2 - TextSize / 2f, TextSize, TextColor);
+        DrawText(Text, 8 + 18 * BoxScale, Area.height / 2 - TextSize / 2f, TextSize, TextColor);
     }
 }

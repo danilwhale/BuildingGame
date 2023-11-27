@@ -22,6 +22,11 @@ public static class Tiles
         return _Tiles.First(kv => string.Equals(kv.Key.Name, name, StringComparison.CurrentCultureIgnoreCase)).Value;
     }
 
+    public static Tile[] GetTiles()
+    {
+        return _Tiles.Values.ToArray();
+    }
+
     public static void RegisterCustomTile<T>(string name, T tile) where T : Tile
     {
         var key = _Tiles.Keys.First(k => string.Equals(k.Name, name, StringComparison.CurrentCultureIgnoreCase));

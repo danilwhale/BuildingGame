@@ -5,6 +5,7 @@ namespace BuildingGame.UI.Elements;
 public class Panel : Element
 {
     public IBrush? Brush;
+    public int Padding = 0;
     
     public Panel(string name) : base(name)
     {
@@ -12,6 +13,6 @@ public class Panel : Element
 
     protected override void Render()
     {
-        Brush?.FillArea(Area);
+        Brush?.FillArea(new Rectangle(Padding, Padding, Area.width - Padding - 1, Area.height - Padding - 1));
     }
 }

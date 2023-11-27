@@ -60,8 +60,8 @@ public class ListBox : Element
         for (int i = 0; i < Items.Count; i++)
         {
             Rectangle area = new Rectangle(
-                Area.x + ItemPadding, 
-                Area.y + i * ItemTextSize + ItemPadding + _scroll,
+                ItemPadding, 
+                i * ItemTextSize + ItemPadding + _scroll,
                 Area.width, 
                 ItemTextSize
                 );

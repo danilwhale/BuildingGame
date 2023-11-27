@@ -3,7 +3,8 @@ namespace BuildingGame.UI.Elements;
 public class Button : TextElement
 {
     public const string HoverText = "> ";
-    
+
+    public bool ShowHoverText = true;
     public event Action? OnClick;
     
     public Button(string name) : base(name)
@@ -17,7 +18,7 @@ public class Button : TextElement
             OnClick?.Invoke();
         }
 
-        if (IsHovered() && !Text.StartsWith(HoverText))
+        if (ShowHoverText && IsHovered() && !Text.StartsWith(HoverText))
         {
             Text = HoverText + Text;
         }
