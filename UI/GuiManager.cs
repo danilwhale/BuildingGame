@@ -46,7 +46,7 @@ public static class GuiManager
         var elements = _elements;
         foreach (var el in elements)
         {
-            if (el.IsHovered()) return true;
+            if (el.Active && el.Visible && el.IsHovered()) return true;
         }
 
         return false;

@@ -39,7 +39,7 @@ public class TextBox : TextElement
         if (c is >= 32 and <= 125 && Text.Length < MaxCharacters)
             Text += char.ConvertFromUtf32(c);
 
-        if (IsKeyPressed(KeyboardKey.KEY_BACKSPACE) && Text.Length > 0)
+        if (IsKeyPressedRepeat((int)KeyboardKey.KEY_BACKSPACE) && Text.Length > 0)
             Text = Text.Remove(Text.Length - 1);
     }
 }

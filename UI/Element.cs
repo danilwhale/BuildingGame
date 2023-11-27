@@ -95,17 +95,17 @@ public class Element : IDisposable
 
     public bool IsHovered()
     {
-        return CheckCollisionPointRec(GetMousePosition(), Area);
+        return CheckCollisionPointRec(GetMousePosition(), Area) && Visible && Active;
     }
 
     public bool IsClicked()
     {
-        return IsHovered() && IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT);
+        return IsHovered() && IsMouseButtonReleased(MouseButton.MOUSE_BUTTON_LEFT) && Visible && Active;
     }
 
     public bool IsPressed()
     {
-        return IsHovered() && IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT);
+        return IsHovered() && IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT) && Visible && Active;
     }
 
     public void Dispose()
