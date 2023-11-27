@@ -77,4 +77,14 @@ public class Tile
             Vector2.Zero, 0, new Color(255, 255, 255, 120)
         );
     }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Tile t && t.TexCoord == TexCoord && t.Size == Size;
+    }
+
+    public override int GetHashCode()
+    {
+        return TexCoord.GetHashCode() ^ Size.GetHashCode();
+    }
 }
