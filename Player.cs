@@ -7,6 +7,8 @@ namespace BuildingGame;
 
 public class Player
 {
+    public static byte CurrentTile = 2;
+
     public Camera2D Camera;
     public World World;
     public float Speed;
@@ -15,7 +17,6 @@ public class Player
     private Vector2 _targetPosition;
     private float _targetZoom;
 
-    private byte _currentTile = 2;
 
     public Player(World world, Vector2 position, float speed, float lerpSpeed)
     {
@@ -73,7 +74,7 @@ public class Player
 
         if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT) && !GuiManager.IsMouseOverElement())
         {
-            World[tx, ty] = _currentTile;
+            World[tx, ty] = CurrentTile;
         }
 
         if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_RIGHT) && !GuiManager.IsMouseOverElement())
