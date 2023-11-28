@@ -63,11 +63,10 @@ public static class BGWorld21Format
     {
         bw.Write(tile.Id);
         bw.Write((byte)tile.Flags.Rotation);
-        bw.Write(tile.Flags.Flip);
     }
 
     private static TileInfo PopTile(BinaryReader br)
     {
-        return new TileInfo(br.ReadByte(), new TileFlags((TileRotation)br.ReadByte(), br.ReadBoolean()));
+        return new TileInfo(br.ReadByte(), new TileFlags((TileRotation)br.ReadByte()));
     }
 }

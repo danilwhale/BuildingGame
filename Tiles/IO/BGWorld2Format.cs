@@ -61,11 +61,14 @@ public static class BGWorld2Format
     {
         bw.Write(tile.Id);
         bw.Write(tile.Flags.RotationAsFloat());
-        bw.Write(tile.Flags.Flip);
+        bw.Write(false); // we dont know if tile is flipped
     }
 
     private static TileInfo PopTile(BinaryReader br)
     {
-        return new TileInfo(br.ReadByte(), new TileFlags(br.ReadSingle(), br.ReadBoolean()));
+        TileFlags flags = new TileFlags(br.ReadSingle());
+        if (br.ReadBoolean()) flags.FlipRotation();
+        
+        return new TileInfo(br.ReadByte(), flags);
     }
 }

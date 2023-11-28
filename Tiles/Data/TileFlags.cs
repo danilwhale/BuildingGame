@@ -2,21 +2,18 @@ namespace BuildingGame.Tiles.Data;
 
 public struct TileFlags
 {
-    public static TileFlags Default => new TileFlags(TileRotation.Up, false);
+    public static TileFlags Default => new TileFlags(TileRotation.Up);
 
     public TileRotation Rotation;
-    public bool Flip;
     
-    public TileFlags(TileRotation rotation, bool flip)
+    public TileFlags(TileRotation rotation)
     {
         Rotation = rotation;
-        Flip = flip;
     }
 
-    public TileFlags(float rotation, bool flip)
+    public TileFlags(float rotation)
     {
         Rotation = FloatAsRotation(rotation);
-        Flip = flip;
     }
 
     public float RotationAsFloat()
@@ -27,6 +24,17 @@ public struct TileFlags
             TileRotation.Left => 90,
             TileRotation.Down => 180,
             TileRotation.Right => 270
+        };
+    }
+
+    public void FlipRotation()
+    {
+        Rotation = Rotation switch
+        {
+            TileRotation.Up => TileRotation.Down,
+            TileRotation.Down => TileRotation.Up,
+            TileRotation.Left => TileRotation.Right,
+            TileRotation.Right => TileRotation.Left
         };
     }
 
