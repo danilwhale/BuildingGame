@@ -54,7 +54,7 @@ public class Tile
                 Size.X * TileSize * TileUpscale,
                 Size.Y * TileSize * TileUpscale
             ),
-            Vector2.Zero, 0, tint
+            new Vector2(RealTileSize / 2), info.Flags.RotationAsFloat(), tint
         );
     }
 
