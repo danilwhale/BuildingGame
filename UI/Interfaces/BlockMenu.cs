@@ -120,6 +120,8 @@ public class BlockMenu : UIInterface
     {
         base.Update();
 
-        if (IsKeyPressed(KeyboardKey.KEY_B)) Visible = !Visible;
+        if (IsKeyReleased(KeyboardKey.KEY_B)) Visible = !Visible;
+        if (IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT) && !_background.IsHovered())
+            Visible = false;
     }
 }
