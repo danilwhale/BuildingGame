@@ -4,7 +4,7 @@ using BuildingGame.Tiles.IO;
 
 namespace BuildingGame.Tiles;
 
-public struct World
+public class World
 {
     public const int DefaultSize = 256;
     
@@ -14,6 +14,7 @@ public struct World
     public readonly int ChunkHeight;
 
     public Vector2 PlayerPosition;
+    public float PlayerZoom;
 
     private Chunk[][] _chunks;
 
@@ -77,20 +78,23 @@ public struct World
     public void Load()
     {
         if (!WorldIO.TryDeserializeWorld("level.dat", out var world)) return;
-        if (Width != world.Value.Width || Height != world.Value.Height) return;
+        if (Width != world.Width || Height != world.Height) return;
+
+        PlayerPosition = world.PlayerPosition;
+        PlayerZoom = world.PlayerZoom;
         
         for (int x = 0; x < Width; x++)
         {
             for (int y = 0; y < Height; y++)
             {
-                this[x, y] = world.Value[x, y];
+                this[x, y] = world[x, y];
             }
         }
     }
 
     public void Save()
     {
-        WorldIO.TrySerializeWorld<BGWorld2Format.Serializer>("level.dat", this);
+        WorldIO.TrySerializeWorld<BGWorld21Format.Serializer>("level.dat", this);
     }
 
     public TileInfo this[int x, int y]

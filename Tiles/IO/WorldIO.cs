@@ -8,6 +8,8 @@ public static class WorldIO
     private static List<IWorldDeserializer> _deserializers = new List<IWorldDeserializer>();
     private static List<IWorldSerializer> _serializers = new List<IWorldSerializer>();
 
+    private static List<IWorldDeserializer> _backupDeserializers = new List<IWorldDeserializer>();
+
     public static void RegisterDeserializer<T>(T deserializer) where T : IWorldDeserializer
     {
         if (_deserializers.Find(m => m.GetType() == typeof(T)) != null)
@@ -38,6 +40,11 @@ public static class WorldIO
                 _deserializers.Find(d => string.Equals(d.Header, header, StringComparison.CurrentCultureIgnoreCase))
                 ?? throw new IOException("Unknown or corrupted world header: " + header);
 
+            if (_backupDeserializers.FindIndex(d => d.GetType() == deserializer.GetType()) >= 0)
+            {
+                File.Copy(path, path + ".old");
+            }
+            
             if (deserializer.TryDeserialize(reader, out var outWorld, out var log))
             {
                 world = outWorld;
@@ -81,5 +88,11 @@ public static class WorldIO
             // TODO: implement exception logging
             return false;
         }
+    }
+
+    public static void AddDeserializerAsBackupable<TDeserializer>(TDeserializer deserializer)
+        where TDeserializer : IWorldDeserializer
+    {
+        _backupDeserializers.Add(deserializer);
     }
 }

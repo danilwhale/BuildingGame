@@ -18,13 +18,17 @@ Image icon = LoadImage("Assets/Icon.png");
 SetWindowIcon(icon);
 UnloadImage(icon);
 
+BGWorld21Format.Register();
 BGWorld2Format.Register();
 LvlFormat.Register();
 
-World world = new World(256, 256);
+WorldIO.AddDeserializerAsBackupable(new BGWorld2Format.Deserializer());
+WorldIO.AddDeserializerAsBackupable(new LvlFormat.Deserializer());
+
+World world = new World();
 world.Load();   
 
-Player player = new Player(world, world.PlayerPosition, 50, 0.1f);
+Player player = new Player(world, world.PlayerPosition, world.PlayerZoom, 50, 0.1f);
 
 BlockMenu menu = new BlockMenu();
 GameHud hud = new GameHud(menu);
@@ -57,7 +61,7 @@ while (!WindowShouldClose())
 
 UIInterfaceManager.Destroy();
 
-player.PushCameraPosition();
+player.PushCameraInfo();
 world.Save();
 
 Resources.Free();

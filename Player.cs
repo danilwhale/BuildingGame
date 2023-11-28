@@ -1,5 +1,6 @@
 using System.Numerics;
 using BuildingGame.Tiles;
+using BuildingGame.Tiles.Data;
 using BuildingGame.UI;
 using ZeroElectric.Vinculum;
 
@@ -7,8 +8,8 @@ namespace BuildingGame;
 
 public class Player
 {
-    public static byte CurrentTile = 2;
-
+    public static TileInfo CurrentTile = new TileInfo(1, TileFlags.Default);
+    
     public Camera2D Camera;
     public World World;
     public float Speed;
@@ -18,17 +19,17 @@ public class Player
     private float _targetZoom;
 
 
-    public Player(World world, Vector2 position, float speed, float lerpSpeed)
+    public Player(World world, Vector2 position, float zoom, float speed, float lerpSpeed)
     {
         World = world;
         Camera = new Camera2D
         {
             offset = new Vector2(GetScreenWidth(), GetScreenHeight()) / 2,
             target = position,
-            zoom = 1.0f
+            zoom = zoom
         };
         _targetPosition = position;
-        _targetZoom = 1.0f;
+        _targetZoom = zoom;
         Speed = speed;
         LerpSpeed = lerpSpeed;
     }
@@ -105,9 +106,10 @@ public class Player
         _targetPosition += new Vector2(x, y) * Speed * GetFrameTime();
     }
 
-    public void PushCameraPosition()
+    public void PushCameraInfo()
     {
         World.PlayerPosition = Camera.target;
+        World.PlayerZoom = Camera.zoom;
     }
 
     public Rectangle GetViewRectangle()
