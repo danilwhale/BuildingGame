@@ -50,7 +50,7 @@ public struct Chunk
             {
                 byte tile = _tiles[x][y];
                 if (tile == 0) continue;
-                Tiles.GetTile(tile).Draw(World, tile, X * Size + x, Y * Size + y);
+                Tiles.GetTile(tile).Draw(World, tile, X * Size + x, Y * Size + y, WHITE);
             }
         }
     }

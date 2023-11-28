@@ -38,7 +38,7 @@ public class Tile
     {
     }
 
-    public virtual void Draw(World world, TileInfo info, int x, int y)
+    public virtual void Draw(World world, TileInfo info, float x, float y, Color tint)
     {
         DrawTexturePro(Resources.GetTexture("Atlas.png"),
             // we add a fraction to the source rectangle, so we wont see flickering parts of atlas
@@ -54,28 +54,13 @@ public class Tile
                 Size.X * TileSize * TileUpscale,
                 Size.Y * TileSize * TileUpscale
             ),
-            Vector2.Zero, 0, WHITE
+            Vector2.Zero, 0, tint
         );
     }
 
-    public virtual void DrawPreview(float x, float y)
+    public virtual void DrawPreview(World world, TileInfo info, float x, float y)
     {
-        DrawTexturePro(Resources.GetTexture("Atlas.png"),
-            // we add a fraction to the source rectangle, so we wont see flickering parts of atlas
-            new Rectangle(
-                TexCoord.X * TileSize + AtlasFraction,
-                TexCoord.Y * TileSize + AtlasFraction,
-                TileSize - AtlasFraction,
-                TileSize - AtlasFraction
-            ),
-            new Rectangle(
-                x * TileSize * TileUpscale,
-                y * TileSize * TileUpscale,
-                TileSize * TileUpscale,
-                TileSize * TileUpscale
-            ),
-            Vector2.Zero, 0, new Color(255, 255, 255, 120)
-        );
+        Draw(world, info, x, y, new Color(255, 255, 255, 120));
     }
 
     public override bool Equals(object? obj)
