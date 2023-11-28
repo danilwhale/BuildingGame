@@ -48,7 +48,7 @@ public struct Chunk
         {
             for (int y = 0; y < Size; y++)
             {
-                byte tile = _tiles[x][y];
+                TileInfo tile = _tiles[x][y];
                 if (tile == 0) continue;
                 Tiles.GetTile(tile).Draw(World, tile, X * Size + x, Y * Size + y, WHITE);
             }
