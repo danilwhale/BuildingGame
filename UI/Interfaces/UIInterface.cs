@@ -40,12 +40,6 @@ public class UIInterface
         UIInterfaceManager.Add(this);
     }
 
-    public void Reload()
-    {
-        Destroy();
-        Initialize();
-    }
-
     public virtual void Initialize() { }
     
     public virtual void Configure() { }
@@ -60,11 +54,6 @@ public class UIInterface
     public virtual void Destroy()
     {
         DestroyElements();
-    }
-
-    protected void SetRelativePosition(ref Element element, Vector2 position)
-    {
-        element.Position = Position + position;
     }
     
     protected void DestroyElements()
