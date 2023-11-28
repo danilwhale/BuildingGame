@@ -51,6 +51,7 @@ while (!WindowShouldClose())
     BeginMode2D(player.Camera);
     {
         world.Draw(player);
+        player.Draw();
     }
     EndMode2D();
     

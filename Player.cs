@@ -17,7 +17,8 @@ public class Player
 
     private Vector2 _targetPosition;
     private float _targetZoom;
-
+    private int _tileX;
+    private int _tileY;
 
     public Player(World world, Vector2 position, float zoom, float speed, float lerpSpeed)
     {
@@ -66,21 +67,44 @@ public class Player
         UpdateTileControls();
     }
 
+    public void Draw()
+    {
+        if (!GuiManager.IsMouseOverElement())
+        {
+            Tiles.Tiles.GetTile(CurrentTile.Id).DrawPreview(
+                World, CurrentTile,
+                _tileX, _tileY
+            );
+        }
+    }
+
     private void UpdateTileControls()
     {
-        Vector2 worldMousePos = GetScreenToWorld2D(GetMousePosition(), Camera);
+        Vector2 worldMousePos = GetScreenToWorld2D(GetMousePosition(), Camera) + new Vector2(Tile.RealTileSize / 2);
 
-        int tx = (int)(worldMousePos.X / Tile.RealTileSize);
-        int ty = (int)(worldMousePos.Y / Tile.RealTileSize);
+        _tileX = (int)(worldMousePos.X / Tile.RealTileSize);
+        _tileY = (int)(worldMousePos.Y / Tile.RealTileSize);
 
         if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT) && !GuiManager.IsMouseOverElement())
         {
-            World[tx, ty] = CurrentTile;
+            World[_tileX, _tileY] = CurrentTile;
         }
 
         if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_RIGHT) && !GuiManager.IsMouseOverElement())
         {
-            World[tx, ty] = 0;
+            World[_tileX, _tileY] = 0;
+        }
+
+        if (IsKeyReleased(KeyboardKey.KEY_R))
+        {
+            CurrentTile.Flags.Rotation = (TileRotation)(CurrentTile.Flags.Rotation + 1);
+            if ((int)CurrentTile.Flags.Rotation > (int)TileRotation.Right)
+                CurrentTile.Flags.Rotation = TileRotation.Up;
+        }
+
+        if (IsKeyReleased(KeyboardKey.KEY_T))
+        {
+            CurrentTile.Flags.FlipRotation();
         }
     }
 
