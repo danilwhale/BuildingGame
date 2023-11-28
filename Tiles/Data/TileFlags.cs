@@ -1,12 +1,22 @@
 namespace BuildingGame.Tiles.Data;
 
-public record TileFlags(TileRotation Rotation, bool Flip)
+public struct TileFlags
 {
     public static TileFlags Default => new TileFlags(TileRotation.Up, false);
 
-    public TileFlags(float rotation, bool flip)
-        : this(FloatAsRotation(rotation), flip)
+    public TileRotation Rotation;
+    public bool Flip;
+    
+    public TileFlags(TileRotation rotation, bool flip)
     {
+        Rotation = rotation;
+        Flip = flip;
+    }
+
+    public TileFlags(float rotation, bool flip)
+    {
+        Rotation = FloatAsRotation(rotation);
+        Flip = flip;
     }
 
     public float RotationAsFloat()
