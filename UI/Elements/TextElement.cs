@@ -11,6 +11,7 @@ public class TextElement : Element
     public string Text = string.Empty;
     public float TextSize = 10;
     public Alignment TextAlignment = Alignment.TopLeft;
+    public bool AutoExtend = true;
 
     public float Padding = 0;
 
@@ -21,8 +22,8 @@ public class TextElement : Element
     protected override void Render()
     {
         Vector2 fontMeasure = MeasureTextEx(GuiManager.Font, Text, TextSize, TextSize / GuiManager.FontSize);
-        float width = Area.width - Padding - 1;
-        float height = Area.height - Padding - 1;
+        float width = (AutoExtend ? MathF.Max(Area.width, fontMeasure.X) : Area.width) - Padding - 1;
+        float height = (AutoExtend ? MathF.Max(Area.height, fontMeasure.Y) : Area.height) - Padding - 1;
 
         float xLeft = Padding + 4;
         float xRight = Area.width - fontMeasure.X - Padding * 2;
