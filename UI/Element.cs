@@ -31,7 +31,7 @@ public class Element : IDisposable
     }
 
     public string Name;
-    public byte ZIndex;
+    public short ZIndex;
 
     public bool Active = true;
     public bool Visible = true;
