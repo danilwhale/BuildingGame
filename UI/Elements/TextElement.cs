@@ -19,18 +19,23 @@ public class TextElement : Element
     {
     }
 
+    public Vector2 GetTextSize()
+    {
+        return MeasureTextEx(GuiManager.Font, Text, TextSize, TextSize / GuiManager.FontSize);
+    }
+
     protected override void Render()
     {
-        Vector2 fontMeasure = MeasureTextEx(GuiManager.Font, Text, TextSize, TextSize / GuiManager.FontSize);
-        float width = (AutoExtend ? MathF.Max(Area.width, fontMeasure.X) : Area.width) - Padding - 1;
-        float height = (AutoExtend ? MathF.Max(Area.height, fontMeasure.Y) : Area.height) - Padding - 1;
+        Vector2 textSize = GetTextSize();
+        float width = (AutoExtend ? MathF.Max(Area.width, textSize.X) : Area.width) - Padding - 1;
+        float height = (AutoExtend ? MathF.Max(Area.height, textSize.Y) : Area.height) - Padding - 1;
 
         float xLeft = Padding + 4;
-        float xRight = Area.width - fontMeasure.X - Padding * 2;
-        float xCenter = Area.width / 2 - fontMeasure.X / 2;
+        float xRight = Area.width - textSize.X - Padding * 2;
+        float xCenter = Area.width / 2 - textSize.X / 2;
         float yTop = Padding + 4;
-        float yBottom = Area.height - fontMeasure.Y - Padding * 2;
-        float yCenter = Area.height / 2 - fontMeasure.Y / 2;
+        float yBottom = Area.height - textSize.Y - Padding * 2;
+        float yCenter = Area.height / 2 - textSize.Y / 2;
 
         Vector2 xy = TextAlignment switch
         {
