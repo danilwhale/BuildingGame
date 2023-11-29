@@ -77,7 +77,7 @@ public static class GuiManager
     public static void Draw()
     {
         var elements = _elements;
-        elements.Sort((e1, e2) => e1.ZIndex.CompareTo(e1.ZIndex));
+        elements.Sort((e1, e2) => e1.ZIndex.CompareTo(e2.ZIndex));
         foreach (var el in elements)
         {
             if (!el.Active) continue;
