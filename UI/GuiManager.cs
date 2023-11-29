@@ -69,6 +69,7 @@ public static class GuiManager
 
         foreach (var el in elements)
         {
+            if (!el.IgnorePause && Program.Paused) continue;
             if (!el.Active) continue;
             el.Update();
         }

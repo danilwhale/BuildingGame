@@ -40,6 +40,8 @@ public class Element : IDisposable
     public float Rotation = 0;
     public string TooltipText = string.Empty;
 
+    public bool IgnorePause = false;
+
     private RenderTexture _controlTexture;
 
     public Element(string name)

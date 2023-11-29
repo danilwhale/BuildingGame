@@ -30,8 +30,11 @@ public class UIInterface
         }
     }
 
+    public bool CanIgnorePause => IgnorePause;
+
     protected List<Element> Elements = new List<Element>();
     protected Vector2 Position;
+    protected bool IgnorePause;
     private bool _visible = true;
     private bool _active = true;
 

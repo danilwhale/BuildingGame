@@ -22,7 +22,11 @@ public static class UIInterfaceManager
 
     public static void Update()
     {
-        foreach (var i in _interfaces) i.Update();
+        foreach (var i in _interfaces)
+        {
+            if (!i.CanIgnorePause && Program.Paused) continue;
+            i.Update();
+        }
     }
 
     public static void Destroy()

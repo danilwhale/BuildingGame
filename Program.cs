@@ -11,16 +11,20 @@ using BuildingGame.UI.Interfaces;
 
 internal class Program
 {
+    public static bool Paused = false;
+    
     private static World _world;
     private static Player _player;
     private static BlockMenu _menu;
     private static GameHud _hud;
+    private static PauseScreen _pause;
 
     public static void Main(string[] args)
     {
         SetConfigFlags(ConfigFlags.FLAG_VSYNC_HINT);
         SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
         InitWindow(1024, 768, "building game");
+        SetExitKey(KeyboardKey.KEY_NULL);
 
         // set window icon
         Image icon = LoadImage("Assets/Icon.png");
@@ -55,17 +59,22 @@ internal class Program
 
         _menu = new BlockMenu();
         _hud = new GameHud(_menu);
+        _pause = new PauseScreen();
 
         UIInterfaceManager.Initialize();
     }
 
     private static void Update()
     {
-        if (IsKeyPressed(KeyboardKey.KEY_R))
-            Tiles.Reload();
+        if (!Paused)
+        {
+            if (IsKeyPressed(KeyboardKey.KEY_R))
+                Tiles.Reload();
 
-        _player.Update();
-        _world.Update();
+            _player.Update();
+            _world.Update();
+        }
+        
         GuiManager.Update();
         UIInterfaceManager.Update();
     }
