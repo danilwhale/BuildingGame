@@ -9,61 +9,91 @@ using BuildingGame.UI.Brushes;
 using BuildingGame.UI.Elements;
 using BuildingGame.UI.Interfaces;
 
-SetConfigFlags(ConfigFlags.FLAG_VSYNC_HINT);
-SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
-InitWindow(1024, 768, "building game");
-
-// set window icon
-Image icon = LoadImage("Assets/Icon.png");
-SetWindowIcon(icon);
-UnloadImage(icon);
-
-BGWorld21Format.Register();
-BGWorld2Format.Register();
-LvlFormat.Register();
-
-WorldIO.AddDeserializerAsBackupable(new BGWorld2Format.Deserializer());
-WorldIO.AddDeserializerAsBackupable(new LvlFormat.Deserializer());
-
-World world = new World();
-world.Load();   
-
-Player player = new Player(world, world.PlayerPosition, world.PlayerZoom, 50, 0.1f);
-
-BlockMenu menu = new BlockMenu();
-GameHud hud = new GameHud(menu);
-
-UIInterfaceManager.Initialize();
-
-while (!WindowShouldClose())
+internal class Program
 {
-    if (IsKeyPressed(KeyboardKey.KEY_R))
-        Tiles.Reload();
-    
-    player.Update();
-    world.Update();
-    GuiManager.Update();
-    UIInterfaceManager.Update();
-    
-    BeginDrawing();
-    ClearBackground(SKYBLUE);
-    
-    BeginMode2D(player.Camera);
+    private static World _world;
+    private static Player _player;
+    private static BlockMenu _menu;
+    private static GameHud _hud;
+
+    public static void Main(string[] args)
     {
-        world.Draw(player);
-        player.Draw();
+        SetConfigFlags(ConfigFlags.FLAG_VSYNC_HINT);
+        SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
+        InitWindow(1024, 768, "building game");
+
+        // set window icon
+        Image icon = LoadImage("Assets/Icon.png");
+        SetWindowIcon(icon);
+        UnloadImage(icon);
+
+        Initialize();
+
+        while (!WindowShouldClose())
+        {
+            Update();
+            Draw();
+        }
+
+        Closing();
+        CloseWindow();
     }
-    EndMode2D();
+
+    private static void Initialize()
+    {
+        BGWorld21Format.Register();
+        BGWorld2Format.Register();
+        LvlFormat.Register();
+
+        WorldIO.AddDeserializerAsBackupable(new BGWorld2Format.Deserializer());
+        WorldIO.AddDeserializerAsBackupable(new LvlFormat.Deserializer());
+
+        _world = new World();
+        _world.Load();
+
+        _player = new Player(_world, _world.PlayerPosition, _world.PlayerZoom, 50, 0.1f);
+
+        _menu = new BlockMenu();
+        _hud = new GameHud(_menu);
+
+        UIInterfaceManager.Initialize();
+    }
+
+    private static void Update()
+    {
+        if (IsKeyPressed(KeyboardKey.KEY_R))
+            Tiles.Reload();
+
+        _player.Update();
+        _world.Update();
+        GuiManager.Update();
+        UIInterfaceManager.Update();
+    }
+
+    private static void Draw()
+    {
+        BeginDrawing();
+        ClearBackground(SKYBLUE);
+
+        BeginMode2D(_player.Camera);
+        {
+            _world.Draw(_player);
+            _player.Draw();
+        }
+        EndMode2D();
+
+        GuiManager.Draw();
+
+        EndDrawing();
+    }
     
-    GuiManager.Draw();
-    
-    EndDrawing();
+    private static void Closing()
+    {
+        UIInterfaceManager.Destroy();
+
+        _player.PushCameraInfo();
+        _world.Save();
+
+        Resources.Free();
+    }
 }
-
-UIInterfaceManager.Destroy();
-
-player.PushCameraInfo();
-world.Save();
-
-Resources.Free();
-CloseWindow();
