@@ -46,8 +46,8 @@ public class UIInterface
 
     public virtual void Update()
     {
-        if (!_active) return;
         if (IsWindowResized()) Resized();
+        if (!_active) return;
     }
     public virtual void Resized() { }
 
