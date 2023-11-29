@@ -15,14 +15,14 @@ public class BlockMenu : UIInterface
     {
         base.Initialize();
         
-        _background = new Panel("blockMenuBackground")
+        _background = new Panel("blockMenu::background")
         {
             Brush = new GradientBrush(new Color(0, 0, 25, 100), new Color(0, 0, 0, 200)),
             ZIndex = 10
         };
         Elements.Add(_background);
 
-        _menuTitle = new TextElement("blockMenuTitle")
+        _menuTitle = new TextElement("blockMenu::title")
         {
             Text = "Select a tile",
             TextColor = WHITE,
@@ -48,7 +48,7 @@ public class BlockMenu : UIInterface
 
             float ratio = aspectX < aspectY ? aspectX : aspectY;
             
-            _tileButtons[i] = new Button("tile_" + i)
+            _tileButtons[i] = new Button("blockMenu::tile_" + i)
             {
                 Size = new Vector2(1) * Tile.RealTileSize,
                 BackgroundBrush = new TextureBrush(Resources.GetTexture("Atlas.png"))
