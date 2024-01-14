@@ -19,11 +19,15 @@ public static partial class Raylib
         if (GetFontDefault().Texture.Id == 0) return;
 
         var pos = new Vector2(posX, posY);
-
-        var defaultFontSize = 10.0f;
-        if (fontSize < defaultFontSize) fontSize = defaultFontSize;
-        var spacing = fontSize / defaultFontSize;
+        var spacing = GetSpacing(fontSize);
         
         DrawTextEx(GetFontDefault(), text, pos, fontSize, spacing, color);
+    }
+
+    public static float GetSpacing(float fontSize)
+    {
+        var defaultFontSize = 10.0f;
+        if (fontSize < defaultFontSize) fontSize = defaultFontSize;
+        return fontSize / defaultFontSize;
     }
 }
