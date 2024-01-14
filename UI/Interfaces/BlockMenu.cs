@@ -18,7 +18,7 @@ public class BlockMenu : UIInterface
         _background = new Panel("blockMenu::background")
         {
             Brush = new GradientBrush(new Color(0, 0, 25, 100), new Color(0, 0, 0, 200)),
-            ZIndex = 10
+            ZIndex = -1
         };
         Elements.Add(_background);
 

@@ -24,7 +24,7 @@ public class PauseScreen : UIInterface
         {
             Brush = new GradientBrush(BLANK, BLACK),
             IgnorePause = true,
-            ZIndex = -1
+            ZIndex = 100
         };
         Elements.Add(_background);
 
@@ -33,7 +33,8 @@ public class PauseScreen : UIInterface
             Text = "resume",
             TextSize = 24,
             TextAlignment = Alignment.CenterLeft,
-            IgnorePause = true
+            IgnorePause = true,
+            ZIndex = 101
         };
         _resumeButton.OnClick += () =>
         {
@@ -47,7 +48,8 @@ public class PauseScreen : UIInterface
             Text = "settings",
             TextSize = 24,
             TextAlignment = Alignment.CenterLeft,
-            IgnorePause = true
+            IgnorePause = true,
+            ZIndex = 101
         };
         Elements.Add(_settingsButton);
 
@@ -56,7 +58,8 @@ public class PauseScreen : UIInterface
             Text = "menu",
             TextSize = 24,
             TextAlignment = Alignment.CenterLeft,
-            IgnorePause = true
+            IgnorePause = true,
+            ZIndex = 101
         };
         Elements.Add(_menuButton);
         

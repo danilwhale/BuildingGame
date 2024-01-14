@@ -1,9 +1,9 @@
+using BuildingGame.UI.Screens;
+
 namespace BuildingGame.UI;
 
 public static class GuiManager
 {
-    private static List<Element> _elements = new List<Element>();
-
     public static bool IsFocused = false;
 
     public static readonly Font Font = GetFontDefault();
@@ -11,79 +11,61 @@ public static class GuiManager
     
     public static void Add(Element element)
     {
-        _elements.Add(element);
+        ScreenManager.CurrentScreen?.Elements.Add(element);
     }
 
     public static void Remove(Element element)
     {
-        _elements.Remove(element);
+        ScreenManager.CurrentScreen?.Elements.Remove(element);
     }
 
     public static void Remove(string name)
     {
-        int index = _elements.FindIndex(e => string.Equals(e.Name, name, StringComparison.CurrentCultureIgnoreCase));
+        if (ScreenManager.CurrentScreen == null) return;
+        
+        int index = ScreenManager.CurrentScreen.Elements.FindIndex(e => string.Equals(e.Name, name, StringComparison.CurrentCultureIgnoreCase));
         if (index < 0) return;
-        _elements.RemoveAt(index);
+        ScreenManager.CurrentScreen.Elements.RemoveAt(index);
     }
 
     public static Element? Get(string name)
     {
-        int index = _elements.FindIndex(e => string.Equals(e.Name, name, StringComparison.CurrentCultureIgnoreCase));
+        if (ScreenManager.CurrentScreen == null) return null;
+
+        int index = ScreenManager.CurrentScreen.Elements.FindIndex(e => string.Equals(e.Name, name, StringComparison.CurrentCultureIgnoreCase));
         if (index < 0) return null;
-        return _elements[index];
+        return ScreenManager.CurrentScreen.Elements[index];
     }
 
     public static TElement? GetAs<TElement>(string name) where TElement : Element
     {
-        int index = _elements.FindIndex(e =>
+        if (ScreenManager.CurrentScreen == null) return default;
+        
+        int index = ScreenManager.CurrentScreen.Elements.FindIndex(e =>
             e.GetType() == typeof(TElement) && string.Equals(e.Name, name, StringComparison.CurrentCultureIgnoreCase));
-        if (index < 0) return null;
-        return _elements[index] as TElement;
+        if (index < 0) return default;
+        return ScreenManager.CurrentScreen.Elements[index] as TElement;
     }
 
     public static bool IsMouseOverElement()
     {
-        var elements = _elements;
-        foreach (var el in elements)
-        {
-            if (el.Active && el.Visible && el.IsHovered()) return true;
-        }
+        if (ScreenManager.CurrentScreen == null) return false;
 
-        return false;
+        var elements = ScreenManager.CurrentScreen.ElementsSorted;
+        return elements.Any(element => element.Visible && element.Active && element.IsHovered());
     }
 
     public static Element? GetElementUnderMouse()
     {
-        var elements = _elements;
-        foreach (var el in elements)
-        {
-            if (el.IsHovered()) return el;
-        }
+        if (ScreenManager.CurrentScreen == null) return null;
 
-        return null;
+        var elements = ScreenManager.CurrentScreen.ElementsSorted;
+        return elements.FirstOrDefault(el => el.IsHovered());
     }
 
-    public static void Update()
-    {
-        var elements = _elements;
-
-        foreach (var el in elements)
-        {
-            if (!el.IgnorePause && Program.Paused) continue;
-            if (!el.Active) continue;
-            el.Update();
-        }
-    }
-
-    public static void Draw()
-    {
-        var elements = _elements;
-        elements.Sort((e1, e2) => e1.ZIndex.CompareTo(e2.ZIndex));
-        foreach (var el in elements)
-        {
-            if (!el.Active) continue;
-            if (!el.Visible) continue;
-            el.Draw();
-        }
-    }
+    [Obsolete("Use ScreenManager.Draw instead")]
+    public static void Draw() { }
+    
+    [Obsolete("Use ScreenManager.Update instead")]
+    public static void Update() { }
 }
