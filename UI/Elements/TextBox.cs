@@ -45,7 +45,7 @@ public class TextBox : TextElement
             Text += char.ConvertFromUtf32(c);
 
         
-        if (IsKeyPressedRepeat(KeyboardKey.KEY_BACKSPACE) && Text.Length > 0)
+        if (IsKeyPressed(KeyboardKey.KEY_BACKSPACE) && Text.Length > 0)
             Text = Text.Remove(Text.Length - 1);
     }
 }
