@@ -22,7 +22,7 @@ public class PauseScreen : UIInterface
 
         _background = new Panel("pauseScreen::background")
         {
-            Brush = new GradientBrush(BLANK, BLACK),
+            Brush = new GradientBrush(Color.BLANK, Color.BLACK),
             IgnorePause = true,
             ZIndex = 100
         };

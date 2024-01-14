@@ -46,7 +46,7 @@ public class GameHud : UIInterface
 
         var brush = (TextureBrush)_tileMenuButton.BackgroundBrush!;
         var tile = Tiles.Tiles.GetTile(Player.CurrentTile);
-        (brush.CropArea.x, brush.CropArea.y) = (tile.TexCoord.X * Tile.TileSize, tile.TexCoord.Y * Tile.TileSize);
+        (brush.CropArea.X, brush.CropArea.Y) = (tile.TexCoord.X * Tile.TileSize, tile.TexCoord.Y * Tile.TileSize);
     }
 
     public override void Configure()

@@ -4,14 +4,14 @@ namespace BuildingGame.UI.Brushes;
 
 public class TextureBrush : IBrush
 {
-    public Texture Texture;
-    public Color Tint = WHITE;
+    public Texture2D Texture;
+    public Color Tint = Color.WHITE;
     public Rectangle CropArea;
 
-    public TextureBrush(Texture texture)
+    public TextureBrush(Texture2D texture)
     {
         Texture = texture;
-        CropArea = new Rectangle(0, 0, texture.width, texture.height);
+        CropArea = new Rectangle(0, 0, texture.Width, texture.Height);
     }
     
     public void FillArea(Rectangle area)

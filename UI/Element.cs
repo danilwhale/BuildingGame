@@ -14,20 +14,20 @@ public class Element : IDisposable
             _Area = value;
 
             UnloadRenderTexture(_controlTexture);
-            _controlTexture = LoadRenderTexture((int)value.width, (int)value.height);
+            _controlTexture = LoadRenderTexture((int)value.Width, (int)value.Height);
         }
     }
 
     public Vector2 Position
     {
-        get => new Vector2(_Area.x, _Area.y);
-        set => _Area = new Rectangle(value.X, value.Y, _Area.width, _Area.height);
+        get => new Vector2(_Area.X, _Area.Y);
+        set => _Area = new Rectangle(value.X, value.Y, _Area.Width, _Area.Height);
     }
 
     public Vector2 Size
     {
-        get => new Vector2(_Area.width, _Area.height);
-        set => Area = new Rectangle(_Area.x, _Area.y, value.X, value.Y);
+        get => new Vector2(_Area.Width, _Area.Height);
+        set => Area = new Rectangle(_Area.X, _Area.Y, value.X, value.Y);
     }
 
     public string Name;
@@ -42,7 +42,7 @@ public class Element : IDisposable
 
     public bool IgnorePause = false;
 
-    private RenderTexture _controlTexture;
+    private RenderTexture2D _controlTexture;
 
     public Element(string name)
     {
@@ -58,7 +58,7 @@ public class Element : IDisposable
     public void Draw()
     {
         BeginTextureMode(_controlTexture);
-        ClearBackground(BLANK);
+        ClearBackground(Color.BLANK);
 
         Render();
 
@@ -67,32 +67,32 @@ public class Element : IDisposable
         Vector2 offset = Origin switch
         {
             Alignment.TopLeft => new Vector2(0, 0),
-            Alignment.TopRight => new Vector2(_Area.width, 0),
-            Alignment.TopCenter => new Vector2(_Area.width / 2, 0),
-            Alignment.CenterLeft => new Vector2(0, _Area.height / 2),
-            Alignment.CenterRight => new Vector2(_Area.width, _Area.height / 2),
-            Alignment.Center => new Vector2(_Area.width / 2, _Area.height / 2),
-            Alignment.BottomLeft => new Vector2(0, _Area.height),
-            Alignment.BottomRight => new Vector2(_Area.width, _Area.height),
-            Alignment.BottomCenter => new Vector2(_Area.width / 2, _Area.height),
+            Alignment.TopRight => new Vector2(_Area.Width, 0),
+            Alignment.TopCenter => new Vector2(_Area.Width / 2, 0),
+            Alignment.CenterLeft => new Vector2(0, _Area.Height / 2),
+            Alignment.CenterRight => new Vector2(_Area.Width, _Area.Height / 2),
+            Alignment.Center => new Vector2(_Area.Width / 2, _Area.Height / 2),
+            Alignment.BottomLeft => new Vector2(0, _Area.Height),
+            Alignment.BottomRight => new Vector2(_Area.Width, _Area.Height),
+            Alignment.BottomCenter => new Vector2(_Area.Width / 2, _Area.Height),
             _ => new Vector2(0, 0)
         };
 
         DrawTexturePro(
-            _controlTexture.texture,
+            _controlTexture.Texture,
             new Rectangle(
                 -1, 0, 
-                _Area.width + 1, -_Area.height - 1 // we need to negate render texture height because opengl uses bottom-left instead of top-left
+                _Area.Width + 1, -_Area.Height - 1 // we need to negate render texture height because opengl uses bottom-left instead of top-left
                 ), 
             _Area, offset, Rotation,
-            WHITE
+            Color.WHITE
             );
     }
 
     protected virtual void Render()
     {
-        ClearBackground(BLACK);
-        DrawText(":(", 0, 0, 16, WHITE);
+        ClearBackground(Color.BLACK);
+        DrawText(":(", 0, 0, 16, Color.WHITE);
     }
 
     public bool IsHovered()

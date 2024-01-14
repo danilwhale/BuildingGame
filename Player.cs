@@ -2,7 +2,6 @@ using System.Numerics;
 using BuildingGame.Tiles;
 using BuildingGame.Tiles.Data;
 using BuildingGame.UI;
-using ZeroElectric.Vinculum;
 
 namespace BuildingGame;
 
@@ -25,9 +24,9 @@ public class Player
         World = world;
         Camera = new Camera2D
         {
-            offset = new Vector2(GetScreenWidth(), GetScreenHeight()) / 2,
-            target = position,
-            zoom = zoom
+            Offset = new Vector2(GetScreenWidth(), GetScreenHeight()) / 2,
+            Target = position,
+            Zoom = zoom
         };
         _targetPosition = position;
         _targetZoom = zoom;
@@ -37,8 +36,8 @@ public class Player
 
     public void Update()
     {
-        Camera.target = Vector2.Lerp(Camera.target, _targetPosition, LerpSpeed); // lerp camera position to target position
-        Camera.zoom = (Camera.zoom * (1.0f - LerpSpeed)) + (_targetZoom * LerpSpeed); // lerp camera zoom to target zoom
+        Camera.Target = Vector2.Lerp(Camera.Target, _targetPosition, LerpSpeed); // lerp camera position to target position
+        Camera.Zoom = (Camera.Zoom * (1.0f - LerpSpeed)) + (_targetZoom * LerpSpeed); // lerp camera zoom to target zoom
         
         // zoom in/zoom out camera
         float scrollDelta = GetMouseWheelMove() * (GuiManager.IsMouseOverElement() ? 0 : 1);
@@ -49,7 +48,7 @@ public class Player
         float speed = IsKeyDown(KeyboardKey.KEY_LEFT_CONTROL) || IsKeyDown(KeyboardKey.KEY_LEFT_SHIFT)
             ? Speed * 1.25f
             : Speed * 0.5f;
-        speed /= Camera.zoom;
+        speed /= Camera.Zoom;
         speed = Math.Clamp(speed, 0, Speed * 2);
         
         // move camera
@@ -61,7 +60,7 @@ public class Player
         // adapt camera center when windows is resized
         if (IsWindowResized())
         {
-            Camera.offset = new Vector2(GetScreenWidth(), GetScreenHeight()) / 2;
+            Camera.Offset = new Vector2(GetScreenWidth(), GetScreenHeight()) / 2;
         }
         
         UpdateTileControls();
@@ -132,8 +131,8 @@ public class Player
 
     public void PushCameraInfo()
     {
-        World.PlayerPosition = Camera.target;
-        World.PlayerZoom = Camera.zoom;
+        World.PlayerPosition = Camera.Target;
+        World.PlayerZoom = Camera.Zoom;
     }
 
     public Rectangle GetViewRectangle()

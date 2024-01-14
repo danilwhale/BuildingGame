@@ -15,10 +15,10 @@ public class GradientBrush : IBrush
     
     public void FillArea(Rectangle area)
     {
-        int x = (int)area.x;
-        int y = (int)area.y;
-        int width = (int)area.width;
-        int height = (int)area.height;
+        int x = (int)area.X;
+        int y = (int)area.Y;
+        int width = (int)area.Width;
+        int height = (int)area.Height;
         
         switch (Direction)
         {

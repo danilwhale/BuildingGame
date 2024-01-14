@@ -1,3 +1,4 @@
+using System.Numerics;
 using BuildingGame.UI.Brushes;
 
 namespace BuildingGame.UI.Elements;
@@ -9,13 +10,13 @@ public class ListBox : Element
     public List<string> Items = new List<string>();
     public event Action<string>? OnItemSelect;
 
-    public IBrush? BackgroundBrush = new SolidBrush(WHITE);
+    public IBrush? BackgroundBrush = new SolidBrush(Color.WHITE);
     public IBrush? HighlightBrush = new SolidBrush(new Color(212, 245, 255, 255));
     public IBrush? SelectionBrush = new SolidBrush(new Color(122, 214, 255, 255));
 
     public float ItemTextSize = 12;
     public float ItemPadding = 4;
-    public Color ItemColor = WHITE;
+    public Color ItemColor = Color.WHITE;
 
     private float _scroll = 0;
     private int _highlightIndex = -1;
@@ -35,7 +36,7 @@ public class ListBox : Element
             _highlightIndex = index;
 
             // list scrolling
-            float boxHeight = Items.Count * ItemTextSize - Area.height + ItemPadding;
+            float boxHeight = Items.Count * ItemTextSize - Area.Height + ItemPadding;
             float wheel = GetMouseWheelMove();
             float wheelAxis = wheel * ScrollSpeed * GetFrameTime();
 
@@ -62,7 +63,7 @@ public class ListBox : Element
             Rectangle area = new Rectangle(
                 ItemPadding, 
                 i * ItemTextSize + ItemPadding + _scroll,
-                Area.width, 
+                Area.Width, 
                 ItemTextSize
                 );
             if (i == _selectedIndex)
@@ -74,7 +75,7 @@ public class ListBox : Element
                 HighlightBrush?.FillArea(area);
             }
 
-            DrawText(Items[i], area.x, area.y, ItemTextSize, ItemColor);
+            DrawText(Items[i], area.X, area.Y, ItemTextSize, ItemColor);
         }
     }
 }

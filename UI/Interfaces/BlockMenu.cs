@@ -25,7 +25,7 @@ public class BlockMenu : UIInterface
         _menuTitle = new TextElement("blockMenu::title")
         {
             Text = "Select a tile",
-            TextColor = WHITE,
+            TextColor = Color.WHITE,
             TextSize = 32,
             TextAlignment = Alignment.Center
         };

@@ -50,7 +50,7 @@ public struct Chunk
             {
                 TileInfo tile = _tiles[x][y];
                 if (tile == 0) continue;
-                Tiles.GetTile(tile).Draw(World, tile, X * Size + x, Y * Size + y, WHITE);
+                Tiles.GetTile(tile).Draw(World, tile, X * Size + x, Y * Size + y, Color.WHITE);
             }
         }
     }

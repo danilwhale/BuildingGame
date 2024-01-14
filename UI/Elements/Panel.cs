@@ -13,6 +13,6 @@ public class Panel : Element
 
     protected override void Render()
     {
-        Brush?.FillArea(new Rectangle(Padding, Padding, Area.width - Padding - 1, Area.height - Padding - 1));
+        Brush?.FillArea(new Rectangle(Padding, Padding, Area.Width - Padding - 1, Area.Height - Padding - 1));
     }
 }

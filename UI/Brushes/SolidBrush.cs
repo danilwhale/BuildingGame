@@ -11,7 +11,7 @@ public class SolidBrush : IBrush
     
     public void FillArea(Rectangle area)
     {
-        RlGl.rlSetBlendMode(0);
+        Rlgl.SetBlendMode(0);
         DrawRectangleRec(area, Color);
     }
 }

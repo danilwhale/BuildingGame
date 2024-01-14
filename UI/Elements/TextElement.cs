@@ -7,7 +7,7 @@ public class TextElement : Element
 {
     public IBrush? BackgroundBrush;
 
-    public Color TextColor = WHITE;
+    public Color TextColor = Color.WHITE;
     public string Text = string.Empty;
     public float TextSize = 10;
     public Alignment TextAlignment = Alignment.TopLeft;
@@ -27,15 +27,15 @@ public class TextElement : Element
     protected override void Render()
     {
         Vector2 textSize = GetTextSize();
-        float width = (AutoExtend ? MathF.Max(Area.width, textSize.X) : Area.width) - Padding - 1;
-        float height = (AutoExtend ? MathF.Max(Area.height, textSize.Y) : Area.height) - Padding - 1;
+        float width = (AutoExtend ? MathF.Max(Area.Width, textSize.X) : Area.Width) - Padding - 1;
+        float height = (AutoExtend ? MathF.Max(Area.Height, textSize.Y) : Area.Height) - Padding - 1;
 
         float xLeft = Padding + 4;
-        float xRight = Area.width - textSize.X - Padding * 2;
-        float xCenter = Area.width / 2 - textSize.X / 2;
+        float xRight = Area.Width - textSize.X - Padding * 2;
+        float xCenter = Area.Width / 2 - textSize.X / 2;
         float yTop = Padding + 4;
-        float yBottom = Area.height - textSize.Y - Padding * 2;
-        float yCenter = Area.height / 2 - textSize.Y / 2;
+        float yBottom = Area.Height - textSize.Y - Padding * 2;
+        float yCenter = Area.Height / 2 - textSize.Y / 2;
 
         Vector2 xy = TextAlignment switch
         {

@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using BuildingGame.UI.Brushes;
 
 namespace BuildingGame.UI.Elements;
@@ -11,8 +12,8 @@ public class TextBox : TextElement
     
     public TextBox(string name) : base(name)
     {
-        _brush = new OutlineBrush(BLACK, LIGHTGRAY);
-        TextColor = BLACK;
+        _brush = new OutlineBrush(Color.BLACK, Color.LIGHTGRAY);
+        TextColor = Color.BLACK;
     }
 
     public override void Update()
@@ -20,7 +21,7 @@ public class TextBox : TextElement
         if (IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
         {
             _focused = IsHovered();
-            _brush.LineColor = _focused ? GRAY : BLACK;
+            _brush.LineColor = _focused ? Color.GRAY : Color.BLACK;
             // _brush.LineThick = _focused ? 1.5f : 1;
 
             GuiManager.IsFocused = _focused;
@@ -39,7 +40,8 @@ public class TextBox : TextElement
         if (c is >= 32 and <= 125 && Text.Length < MaxCharacters)
             Text += char.ConvertFromUtf32(c);
 
-        if (IsKeyPressedRepeat((int)KeyboardKey.KEY_BACKSPACE) && Text.Length > 0)
+        
+        if (IsKeyPressedRepeat(KeyboardKey.KEY_BACKSPACE) && Text.Length > 0)
             Text = Text.Remove(Text.Length - 1);
     }
 }

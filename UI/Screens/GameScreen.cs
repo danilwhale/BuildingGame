@@ -41,7 +41,7 @@ public class GameScreen : Screen
 
     public override void Draw()
     {
-        ClearBackground(SKYBLUE);
+        ClearBackground(Color.SKYBLUE);
 
         BeginMode2D(_player.Camera);
         {

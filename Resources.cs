@@ -2,9 +2,9 @@ namespace BuildingGame;
 
 public static class Resources
 {
-    private static Dictionary<string, Texture> _textures = new Dictionary<string, Texture>();
+    private static Dictionary<string, Texture2D> _textures = new Dictionary<string, Texture2D>();
 
-    public static Texture GetTexture(string key)
+    public static Texture2D GetTexture(string key)
     {
         key = key.ToLower();
         if (_textures.TryGetValue(key, out var texture)) return texture;

@@ -1,6 +1,8 @@
-﻿global using static ZeroElectric.Vinculum.Raylib;
-global using ZeroElectric.Vinculum;
+﻿global using static Raylib_cs.Raylib;
+global using static BuildingGame.Raylib;
+global using Raylib_cs;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using BuildingGame;
 using BuildingGame.Tiles;
 using BuildingGame.Tiles.IO;
@@ -9,6 +11,9 @@ using BuildingGame.UI.Brushes;
 using BuildingGame.UI.Elements;
 using BuildingGame.UI.Interfaces;
 using BuildingGame.UI.Screens;
+
+// remove this when raylib-cs will have rl 5.0 functions
+[assembly: DisableRuntimeMarshalling]
 
 internal class Program
 {
