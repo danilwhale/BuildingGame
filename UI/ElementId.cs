@@ -7,6 +7,12 @@ public struct ElementId
     public readonly string? Root;
     public string Name;
 
+    public ElementId(ElementId root, string name)
+    {
+        Root = root.ToString();
+        Name = name;
+    }
+
     public ElementId(string root, string name)
     {
         Root = root;
