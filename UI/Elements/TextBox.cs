@@ -8,6 +8,8 @@ public class TextBox : TextElement
     public int MaxCharacters = 16;
 
     public Range CharacterRange = new Range(32, 125);
+
+    public event Action<string>? OnTextUpdate;
     
     private bool _focused;
     private OutlineBrush _brush;
@@ -43,9 +45,10 @@ public class TextBox : TextElement
         int c = GetCharPressed();
         if (c >= CharacterRange.Start.Value && c <= CharacterRange.End.Value && Text.Length < MaxCharacters)
             Text += char.ConvertFromUtf32(c);
-
         
         if (IsKeyPressed(KeyboardKey.KEY_BACKSPACE) && Text.Length > 0)
             Text = Text.Remove(Text.Length - 1);
+        
+        OnTextUpdate?.Invoke(Text);
     }
 }
