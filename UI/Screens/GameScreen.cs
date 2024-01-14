@@ -7,9 +7,9 @@ public class GameScreen : Screen
 {
     private World _world;
     private Player _player;
-    private BlockMenu _menu;
-    private GameHud _hud;
-    private PauseScreen _pause;
+    private BlockUI _blockUi;
+    private GameUI _ui;
+    private PauseUI _pause;
 
     public override void Initialize()
     {
@@ -20,9 +20,9 @@ public class GameScreen : Screen
 
         _player = new Player(_world, _world.PlayerPosition, _world.PlayerZoom, 50, 0.1f);
 
-        _menu = new BlockMenu();
-        _hud = new GameHud(_menu);
-        _pause = new PauseScreen();
+        _blockUi = new BlockUI();
+        _ui = new GameUI(_blockUi);
+        _pause = new PauseUI();
     }
 
     public override void Update()

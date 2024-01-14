@@ -5,7 +5,7 @@ using BuildingGame.UI.Elements;
 
 namespace BuildingGame.UI.Interfaces;
 
-public class BlockMenu : UIInterface
+public class BlockUI : UIInterface
 {
     private Panel _background = null!;
     private TextElement _menuTitle = null!;

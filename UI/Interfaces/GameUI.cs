@@ -4,18 +4,18 @@ using BuildingGame.UI.Elements;
 
 namespace BuildingGame.UI.Interfaces;
 
-public class GameHud : UIInterface
+public class GameUI : UIInterface
 {
     private const float TileButtonOffset = Tile.RealTileSize / 2;
     private const float TileButtonSize = Tile.RealTileSize * 2;
 
-    private BlockMenu _menu;
+    private BlockUI _ui;
     
     private Button _tileMenuButton = null!;
 
-    public GameHud(BlockMenu menu)
+    public GameUI(BlockUI ui)
     {
-        _menu = menu;
+        _ui = ui;
     }
 
     public override void Initialize()
@@ -32,7 +32,7 @@ public class GameHud : UIInterface
         };
         _tileMenuButton.OnClick += () =>
         {
-            _menu.Visible = !_menu.Visible;
+            _ui.Visible = !_ui.Visible;
         };
 
         Elements.Add(_tileMenuButton);

@@ -4,14 +4,14 @@ using BuildingGame.UI.Elements;
 
 namespace BuildingGame.UI.Interfaces;
 
-public class PauseScreen : UIInterface
+public class PauseUI : UIInterface
 {
     private Panel _background;
     private Button _resumeButton;
     private Button _menuButton;
     private Button _settingsButton;
 
-    public PauseScreen()
+    public PauseUI()
     {
         IgnorePause = true;
     }
