@@ -13,6 +13,8 @@ public class Button : TextElement
 
     public override void Update()
     {
+        base.Update();
+        
         if (IsClicked())
         {
             OnClick?.Invoke();

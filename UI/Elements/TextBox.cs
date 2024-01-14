@@ -18,6 +18,8 @@ public class TextBox : TextElement
 
     public override void Update()
     {
+        base.Update();
+        
         if (IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
         {
             _focused = IsHovered();

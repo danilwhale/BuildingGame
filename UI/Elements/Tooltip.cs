@@ -12,6 +12,8 @@ public class Tooltip : TextElement
 
     public override void Update()
     {
+        base.Update();
+        
         Element? el = GuiManager.GetElementUnderMouse();
 
         if (el != null && el.TooltipText != string.Empty)
