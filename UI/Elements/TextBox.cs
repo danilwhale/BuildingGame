@@ -6,6 +6,8 @@ namespace BuildingGame.UI.Elements;
 public class TextBox : TextElement
 {
     public int MaxCharacters = 16;
+
+    public Range CharacterRange = new Range(32, 125);
     
     private bool _focused;
     private OutlineBrush _brush;
@@ -39,7 +41,7 @@ public class TextBox : TextElement
         if (!_focused) return;
 
         int c = GetCharPressed();
-        if (c is >= 32 and <= 125 && Text.Length < MaxCharacters)
+        if (c >= CharacterRange.Start.Value && c <= CharacterRange.End.Value && Text.Length < MaxCharacters)
             Text += char.ConvertFromUtf32(c);
 
         
