@@ -32,5 +32,6 @@ public static class UIInterfaceManager
     public static void Destroy()
     {
         foreach (var i in _interfaces) i.Destroy();
+        _interfaces.Clear();
     }
 }

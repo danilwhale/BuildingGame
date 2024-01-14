@@ -1,8 +1,20 @@
+using BuildingGame.UI.Interfaces;
+
 namespace BuildingGame.UI.Screens;
 
 public static class ScreenManager
 {
     public static Screen? CurrentScreen;
+
+    public static void Switch(Screen newScreen)
+    {
+        UIInterfaceManager.Destroy();
+        Free();
+        
+        newScreen.IsCurrent = true;
+        Initialize();
+        UIInterfaceManager.Initialize();
+    }
 
     public static void Initialize()
     {
