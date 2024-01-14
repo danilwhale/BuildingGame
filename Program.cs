@@ -17,6 +17,7 @@ using BuildingGame.UI.Screens;
 
 internal class Program
 {
+    public static bool Running = true;
     public static bool Paused = false;
     
     public static void Main(string[] args)
@@ -33,7 +34,7 @@ internal class Program
 
         Initialize();
 
-        while (!WindowShouldClose())
+        while (Running && !WindowShouldClose())
         {
             Update();
             Draw();
@@ -52,7 +53,7 @@ internal class Program
         WorldIO.AddDeserializerAsBackupable(new BGWorld2Format.Deserializer());
         WorldIO.AddDeserializerAsBackupable(new LvlFormat.Deserializer());
 
-        ScreenManager.CurrentScreen = new GameScreen();
+        ScreenManager.CurrentScreen = new MenuScreen();
         
         ScreenManager.Initialize();
         UIInterfaceManager.Initialize();

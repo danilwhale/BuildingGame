@@ -1,6 +1,7 @@
 using System.Numerics;
 using BuildingGame.UI.Brushes;
 using BuildingGame.UI.Elements;
+using BuildingGame.UI.Screens;
 
 namespace BuildingGame.UI.Interfaces;
 
@@ -60,6 +61,11 @@ public class PauseUI : UIInterface
             TextAlignment = Alignment.CenterLeft,
             IgnorePause = true,
             ZIndex = 101
+        };
+        _menuButton.OnClick += () =>
+        {
+            Program.Paused = false;
+            ScreenManager.Switch(new MenuScreen());
         };
         Elements.Add(_menuButton);
         
