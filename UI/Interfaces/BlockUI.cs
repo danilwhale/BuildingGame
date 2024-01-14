@@ -121,7 +121,8 @@ public class BlockUI : UIInterface
         base.Update();
 
         if (IsKeyPressed(KeyboardKey.KEY_B)) Visible = !Visible;
-        if (IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT) && !_background.IsHovered())
+        if (IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT) && !_background.IsHovered() &&
+            GuiManager.GetElementUnderMouse()?.Name != "gameHud::tileMenuButton") // 🤟😏
             Visible = false;
     }
 }
