@@ -9,13 +9,13 @@ public class GameUI : UIInterface
     private const float TileButtonOffset = Tile.RealTileSize / 2;
     private const float TileButtonSize = Tile.RealTileSize * 2;
 
-    private BlockUI _ui;
+    private BlockUI _blockUi;
     
     private Button _tileMenuButton = null!;
 
-    public GameUI(BlockUI ui)
+    public GameUI(BlockUI blockUi)
     {
-        _ui = ui;
+        _blockUi = blockUi;
     }
 
     public override void Initialize()
@@ -32,7 +32,7 @@ public class GameUI : UIInterface
         };
         _tileMenuButton.OnClick += () =>
         {
-            _ui.Visible = !_ui.Visible;
+            _blockUi.Visible = !_blockUi.Visible;
         };
 
         Elements.Add(_tileMenuButton);
