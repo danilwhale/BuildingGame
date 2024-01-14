@@ -46,6 +46,8 @@ internal class Program
 
     private static void Initialize()
     {
+        Settings.Load();
+        
         BGWorld21Format.Register();
         BGWorld2Format.Register();
         LvlFormat.Register();
@@ -78,6 +80,8 @@ internal class Program
     {
         ScreenManager.Free();
         UIInterfaceManager.Destroy();
+        
+        Settings.Save();
 
         Resources.Free();
     }

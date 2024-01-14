@@ -13,6 +13,7 @@ public class MenuUI : UIInterface
     private Button _packsButton;
     private Button _exitButton;
     private TextElement _versionText;
+    private SettingsUI _settingsUi = new SettingsUI();
 
     public override void Initialize()
     {
@@ -40,6 +41,10 @@ public class MenuUI : UIInterface
             Text = "settings",
             TextSize = 24.0f,
             Size = new Vector2(100.0f, 28.0f)
+        };
+        _settingsButton.OnClick += () =>
+        {
+            _settingsUi.Visible = !_settingsUi.Visible;
         };
         Elements.Add(_settingsButton);
 

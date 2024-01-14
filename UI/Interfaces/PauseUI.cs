@@ -12,6 +12,8 @@ public class PauseUI : UIInterface
     private Button _menuButton;
     private Button _settingsButton;
 
+    private SettingsUI _settingsUi = new SettingsUI();
+
     public PauseUI()
     {
         IgnorePause = true;
@@ -19,8 +21,6 @@ public class PauseUI : UIInterface
     
     public override void Initialize()
     {
-        base.Initialize();
-
         _background = new Panel(new ElementId("pauseScreen", "background"))
         {
             Brush = new GradientBrush(Color.BLANK, Color.BLACK),
@@ -51,6 +51,10 @@ public class PauseUI : UIInterface
             TextAlignment = Alignment.CenterLeft,
             IgnorePause = true,
             ZIndex = 101
+        };
+        _settingsButton.OnClick += () =>
+        {
+            _settingsUi.Visible = !_settingsUi.Visible;
         };
         Elements.Add(_settingsButton);
 
