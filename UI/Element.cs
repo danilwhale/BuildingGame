@@ -81,8 +81,8 @@ public class Element : IDisposable
         DrawTexturePro(
             _controlTexture.Texture,
             new Rectangle(
-                -1, 0, 
-                _Area.Width + 1, -_Area.Height - 1 // we need to negate render texture height because opengl uses bottom-left instead of top-left
+                0, 0, 
+                _Area.Width + 1, -_Area.Height // we need to negate render texture height because opengl uses bottom-left instead of top-left
                 ), 
             _Area, offset, Rotation,
             Color.WHITE
