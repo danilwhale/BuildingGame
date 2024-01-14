@@ -97,7 +97,7 @@ public class PauseUI : UIInterface
     {
         base.Update();
 
-        if (IsKeyReleased(KeyboardKey.KEY_ESCAPE))
+        if (IsKeyPressed(KeyboardKey.KEY_ESCAPE))
         {
             Visible = !Visible;
             Program.Paused = !Program.Paused;

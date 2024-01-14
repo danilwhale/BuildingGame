@@ -120,7 +120,7 @@ public class BlockUI : UIInterface
     {
         base.Update();
 
-        if (IsKeyReleased(KeyboardKey.KEY_B)) Visible = !Visible;
+        if (IsKeyPressed(KeyboardKey.KEY_B)) Visible = !Visible;
         if (IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT) && !_background.IsHovered())
             Visible = false;
     }
