@@ -82,7 +82,7 @@ public class Element : IDisposable
             _controlTexture.Texture,
             new Rectangle(
                 0, 0, 
-                _Area.Width + 1, -_Area.Height // we need to negate render texture height because opengl uses bottom-left instead of top-left
+                _Area.Width, -_Area.Height // we need to negate render texture height because opengl uses bottom-left instead of top-left
                 ), 
             _Area, offset, Rotation,
             Color.WHITE
