@@ -24,11 +24,20 @@ public class TextElement : Element
         return MeasureTextEx(GuiManager.Font, Text, TextSize, TextSize / GuiManager.FontSize);
     }
 
+    public override void Update()
+    {
+        var textSize = GetTextSize();
+        if (AutoExtend && (Size.X < textSize.X || Size.Y < textSize.Y))
+        {
+            Size = textSize + new Vector2(Padding + 4.0f);
+        }
+    }
+
     protected override void Render()
     {
-        Vector2 textSize = GetTextSize();
-        float width = (AutoExtend ? MathF.Max(Area.Width, textSize.X) : Area.Width) - Padding - 1;
-        float height = (AutoExtend ? MathF.Max(Area.Height, textSize.Y) : Area.Height) - Padding - 1;
+        var textSize = GetTextSize();
+        float width = Area.Width - Padding - 1;
+        float height = Area.Height - Padding - 1;
 
         float xLeft = Padding + 4;
         float xRight = Area.Width - textSize.X - Padding * 2;
