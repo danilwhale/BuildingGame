@@ -15,7 +15,7 @@ public class CheckBox : Element
     public Color TextColor = Color.WHITE;
 
 
-    public CheckBox(string name) : base(name)
+    public CheckBox(ElementId id) : base(id)
     {
     }
 

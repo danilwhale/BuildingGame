@@ -15,14 +15,14 @@ public class BlockUI : UIInterface
     {
         base.Initialize();
         
-        _background = new Panel("blockMenu::background")
+        _background = new Panel(new ElementId("blockMenu", "background"))
         {
             Brush = new GradientBrush(new Color(0, 0, 25, 100), new Color(0, 0, 0, 200)),
             ZIndex = -1
         };
         Elements.Add(_background);
 
-        _menuTitle = new TextElement("blockMenu::title")
+        _menuTitle = new TextElement(new ElementId("blockMenu", "title"))
         {
             Text = "Select a tile",
             TextColor = Color.WHITE,
@@ -48,7 +48,7 @@ public class BlockUI : UIInterface
 
             float ratio = aspectX < aspectY ? aspectX : aspectY;
             
-            _tileButtons[i] = new Button("blockMenu::tile_" + i)
+            _tileButtons[i] = new Button(new ElementId("blockMenu", "tile_" + i))
             {
                 Size = new Vector2(1) * Tile.RealTileSize,
                 BackgroundBrush = new TextureBrush(Resources.GetTexture("Atlas.png"))
@@ -122,7 +122,7 @@ public class BlockUI : UIInterface
 
         if (IsKeyPressed(KeyboardKey.KEY_B)) Visible = !Visible;
         if (IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT) && !_background.IsHovered() &&
-            GuiManager.GetElementUnderMouse()?.Name != "gameHud::tileMenuButton") // 🤟😏
+            GuiManager.GetElementUnderMouse()?.Id != "gameHud::tileMenuButton") // 🤟😏
             Visible = false;
     }
 }

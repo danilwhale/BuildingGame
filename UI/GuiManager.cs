@@ -19,30 +19,30 @@ public static class GuiManager
         ScreenManager.CurrentScreen?.Elements.Remove(element);
     }
 
-    public static void Remove(string name)
+    public static void Remove(ElementId id)
     {
         if (ScreenManager.CurrentScreen == null) return;
         
-        int index = ScreenManager.CurrentScreen.Elements.FindIndex(e => string.Equals(e.Name, name, StringComparison.CurrentCultureIgnoreCase));
+        int index = ScreenManager.CurrentScreen.Elements.FindIndex(e => e.Id == id);
         if (index < 0) return;
         ScreenManager.CurrentScreen.Elements.RemoveAt(index);
     }
 
-    public static Element? Get(string name)
+    public static Element? Get(ElementId id)
     {
         if (ScreenManager.CurrentScreen == null) return null;
 
-        int index = ScreenManager.CurrentScreen.Elements.FindIndex(e => string.Equals(e.Name, name, StringComparison.CurrentCultureIgnoreCase));
+        int index = ScreenManager.CurrentScreen.Elements.FindIndex(e => e.Id == id);
         if (index < 0) return null;
         return ScreenManager.CurrentScreen.Elements[index];
     }
 
-    public static TElement? GetAs<TElement>(string name) where TElement : Element
+    public static TElement? GetAs<TElement>(ElementId id) where TElement : Element
     {
         if (ScreenManager.CurrentScreen == null) return default;
         
         int index = ScreenManager.CurrentScreen.Elements.FindIndex(e =>
-            e.GetType() == typeof(TElement) && string.Equals(e.Name, name, StringComparison.CurrentCultureIgnoreCase));
+            e.GetType() == typeof(TElement) && e.Id == id);
         if (index < 0) return default;
         return ScreenManager.CurrentScreen.Elements[index] as TElement;
     }

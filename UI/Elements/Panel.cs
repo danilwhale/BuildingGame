@@ -7,7 +7,7 @@ public class Panel : Element
     public IBrush? Brush;
     public int Padding = 0;
     
-    public Panel(string name) : base(name)
+    public Panel(ElementId id) : base(id)
     {
     }
 

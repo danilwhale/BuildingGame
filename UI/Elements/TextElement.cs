@@ -15,7 +15,7 @@ public class TextElement : Element
 
     public float Padding = 0;
 
-    public TextElement(string name) : base(name)
+    public TextElement(ElementId id) : base(id)
     {
     }
 

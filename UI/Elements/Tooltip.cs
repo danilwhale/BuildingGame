@@ -4,7 +4,7 @@ namespace BuildingGame.UI.Elements;
 
 public class Tooltip : TextElement
 {
-    public Tooltip(string name) : base(name)
+    public Tooltip(ElementId id) : base(id)
     {
         Visible = false;
         TextAlignment = Alignment.CenterLeft;

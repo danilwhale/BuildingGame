@@ -22,7 +22,7 @@ public class GameUI : UIInterface
     {
         base.Initialize();
 
-        _tileMenuButton = new Button("gameHud::tileMenuButton")
+        _tileMenuButton = new Button(new ElementId("gameHud", "tileMenuButton"))
         {
             BackgroundBrush = new TextureBrush(Resources.GetTexture("Atlas.png"))
             {

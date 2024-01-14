@@ -30,7 +30,7 @@ public class Element : IDisposable
         set => Area = new Rectangle(_Area.X, _Area.Y, value.X, value.Y);
     }
 
-    public string Name;
+    public ElementId Id;
     public short ZIndex;
 
     public bool Active = true;
@@ -44,9 +44,9 @@ public class Element : IDisposable
 
     private RenderTexture2D _controlTexture;
 
-    public Element(string name)
+    public Element(ElementId id)
     {
-        Name = name;
+        Id = id;
         Area = new Rectangle(0, 0, 128, 128);
         GuiManager.Add(this);
     }

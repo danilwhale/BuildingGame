@@ -10,7 +10,7 @@ public class TextBox : TextElement
     private bool _focused;
     private OutlineBrush _brush;
     
-    public TextBox(string name) : base(name)
+    public TextBox(ElementId id) : base(id)
     {
         _brush = new OutlineBrush(Color.BLACK, Color.LIGHTGRAY);
         TextColor = Color.BLACK;

@@ -7,7 +7,7 @@ public class Button : TextElement
     public bool ShowHoverText = true;
     public event Action? OnClick;
     
-    public Button(string name) : base(name)
+    public Button(ElementId id) : base(id)
     {
     }
 

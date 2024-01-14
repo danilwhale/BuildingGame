@@ -22,7 +22,7 @@ public class ListBox : Element
     private int _highlightIndex = -1;
     private int _selectedIndex = -1;
 
-    public ListBox(string name) : base(name)
+    public ListBox(ElementId id) : base(id) 
     {
     }
 

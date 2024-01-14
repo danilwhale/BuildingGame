@@ -20,7 +20,7 @@ public class PauseUI : UIInterface
     {
         base.Initialize();
 
-        _background = new Panel("pauseScreen::background")
+        _background = new Panel(new ElementId("pauseScreen", "background"))
         {
             Brush = new GradientBrush(Color.BLANK, Color.BLACK),
             IgnorePause = true,
@@ -28,7 +28,7 @@ public class PauseUI : UIInterface
         };
         Elements.Add(_background);
 
-        _resumeButton = new Button("pauseScreen::resumeButton")
+        _resumeButton = new Button(new ElementId("pauseScreen", "resumeButton"))
         {
             Text = "resume",
             TextSize = 24,
@@ -43,7 +43,7 @@ public class PauseUI : UIInterface
         };
         Elements.Add(_resumeButton);
 
-        _settingsButton = new Button("pauseScreen::settingsButton")
+        _settingsButton = new Button(new ElementId("pauseScreen", "settingsButton"))
         {
             Text = "settings",
             TextSize = 24,
@@ -53,7 +53,7 @@ public class PauseUI : UIInterface
         };
         Elements.Add(_settingsButton);
 
-        _menuButton = new Button("pauseScreen::menuButton")
+        _menuButton = new Button(new ElementId("pauseScreen", "menuButton"))
         {
             Text = "menu",
             TextSize = 24,
