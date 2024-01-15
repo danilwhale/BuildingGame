@@ -86,12 +86,12 @@ public class MenuUI : UIInterface
     
     public override void Configure()
     {
-        _title.Position = new Vector2(12, GetYAt(0));
-        _playButton.Position = new Vector2(12, GetYAt(1));
-        _settingsButton.Position = new Vector2(12, GetYAt(2));
-        _packsButton.Position = new Vector2(12, GetYAt(3));
-        _exitButton.Position = new Vector2(12, GetYAt(4));
-        _versionText.Position = new Vector2(8, GetScreenHeight() - 8 - _versionText.TextSize);
+        _title.GlobalPosition = new Vector2(12, GetYAt(0));
+        _playButton.GlobalPosition = new Vector2(12, GetYAt(1));
+        _settingsButton.GlobalPosition = new Vector2(12, GetYAt(2));
+        _packsButton.GlobalPosition = new Vector2(12, GetYAt(3));
+        _exitButton.GlobalPosition = new Vector2(12, GetYAt(4));
+        _versionText.GlobalPosition = new Vector2(8, GetScreenHeight() - 8 - _versionText.TextSize);
     }
 
     public override void Resized()

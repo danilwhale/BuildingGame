@@ -82,9 +82,9 @@ public class BlockUI : UIInterface
         Vector2 screenSize = new Vector2(GetScreenWidth(), GetScreenHeight());
 
         _background.Size = new Vector2(680, 420);
-        _background.Position = screenSize / 2 - _background.Size / 2;
+        _background.GlobalPosition = screenSize / 2 - _background.Size / 2;
 
-        _menuTitle.Position = _background.Position;
+        _menuTitle.GlobalPosition = _background.GlobalPosition;
         _menuTitle.Size = _background.Size with { Y = 38 };
 
         float x = 20;
@@ -95,7 +95,7 @@ public class BlockUI : UIInterface
             Button tileButton = _tileButtons[i];
             Tile tile = Tiles.Tiles.GetTile((byte)(i + 1));
 
-            tileButton.Position = _background.Position + new Vector2(x, y);
+            tileButton.GlobalPosition = _background.GlobalPosition + new Vector2(x, y);
 
             int ii = i;
             tileButton.OnClick += () =>

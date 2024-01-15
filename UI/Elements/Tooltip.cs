@@ -31,7 +31,7 @@ public class Tooltip : Element
         var pos = GetMousePosition() + new Vector2(0, 16);
         var size = MeasureTextEx(GetFontDefault(), Text, TextSize, GetSpacing(TextSize));
 
-        Position = pos with { X = pos.X - 16.0f };
+        GlobalPosition = pos with { X = pos.X - 16.0f };
         Size = size + new Vector2(16);
     }
 

@@ -55,7 +55,7 @@ public class SettingsUI : UIInterface
     public override void Configure()
     {
         _background.Area = new Rectangle(50.0f, 50.0f, GetScreenWidth() - 100.0f, GetScreenHeight() - 100.0f);
-        _skyColorLineText.Position = _background.Position + new Vector2(8.0f, 16.0f);
-        _skyColorLine.Position = _skyColorLineText.Position + _skyColorLineText.Size with { Y = 0 } + new Vector2(16.0f, 2.0f);
+        _skyColorLineText.GlobalPosition = _background.GlobalPosition + new Vector2(8.0f, 16.0f);
+        _skyColorLine.GlobalPosition = _skyColorLineText.GlobalPosition + _skyColorLineText.Size with { Y = 0 } + new Vector2(16.0f, 2.0f);
     }
 }

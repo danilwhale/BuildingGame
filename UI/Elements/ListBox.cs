@@ -31,7 +31,7 @@ public class ListBox : Element
         if (IsUnderMouse())
         {
             // finding index for highlight
-            float localMouseY = GetMousePosition().Y - Position.Y;
+            float localMouseY = GetMousePosition().Y - GlobalPosition.Y;
             int index = (int)((localMouseY - _scroll) / ItemTextSize);
             _highlightIndex = index;
 

@@ -91,11 +91,11 @@ public class PauseUI : UIInterface
         
         _resumeButton.Area = new Rectangle(buttonsOriginX, buttonsOriginY, 148, 24);
         _settingsButton.Area = new Rectangle(
-            buttonsOriginX, _resumeButton.Position.Y + _resumeButton.TextSize + 16, 
+            buttonsOriginX, _resumeButton.GlobalPosition.Y + _resumeButton.TextSize + 16, 
             148, 24
             );
         _menuButton.Area = new Rectangle(
-            buttonsOriginX, _settingsButton.Position.Y + _settingsButton.TextSize + 16,
+            buttonsOriginX, _settingsButton.GlobalPosition.Y + _settingsButton.TextSize + 16,
             148, 24);
     }
 

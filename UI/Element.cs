@@ -18,10 +18,18 @@ public class Element : IDisposable
         }
     }
 
-    public Vector2 Position
+    public Vector2 GlobalPosition
     {
         get => new Vector2(_Area.X, _Area.Y);
-        set => _Area = new Rectangle(value.X, value.Y, _Area.Width, _Area.Height);
+        set
+        {
+            _Area = new Rectangle(value.X, value.Y, _Area.Width, _Area.Height);
+
+            foreach (var child in Children)
+            {
+                child.GlobalPosition = GlobalPosition + child.LocalPosition;
+            }
+        }
     }
 
     public Vector2 Size
@@ -35,17 +43,121 @@ public class Element : IDisposable
         }
     }
 
-    public ElementId Id;
-    public short ZIndex;
+    private Vector2 _localPosition;
+    public Vector2 LocalPosition
+    {
+        get => Parent != null ? _localPosition : GlobalPosition;
+        set
+        {
+            if (Parent == null)
+            {
+                GlobalPosition = value;
+            }
+            else
+            {
+                GlobalPosition = Parent.GlobalPosition + value;
+                _localPosition = value;
+            }
+        }
+    }
 
-    public bool Active = true;
-    public bool Visible = true;
+    private Element? _parent;
+
+    public Element? Parent
+    {
+        get => _parent;
+        set
+        {
+            if (value == null && _parent != null)
+            {
+                _parent.Children.Remove(this);
+            }
+            else if (value != null && _parent == null)
+            {
+                value.Children.Add(this);
+            }
+
+            _parent = value;
+        }
+    }
+
+    public List<Element> Children = new List<Element>();
+
+    public ElementId Id;
+
+    private short _zIndex;
+
+    public short ZIndex
+    {
+        get
+        {
+            if (Parent == null) return _zIndex;
+            return (short)(Parent.ZIndex + _zIndex);
+        }
+        set
+        {
+            if (Parent == null)
+            {
+                _zIndex = value;
+                return;
+            }
+
+            _zIndex = (short)(Parent.ZIndex + value);
+            return;
+        }
+    }
+
+    private bool _active = true;
+
+    public bool Active
+    {
+        get => _active;
+        set
+        {
+            foreach (var child in Children)
+            {
+                child.Active = value;
+            }
+
+            _active = value;
+        }
+    }
+
+    private bool _visible = true;
+
+    public bool Visible
+    {
+        get => _visible;
+        set
+        {
+            foreach (var child in Children)
+            {
+                child.Visible = value;
+            }
+
+            _visible = value;
+        }
+    }
 
     public Alignment Origin = Alignment.TopLeft;
     public float Rotation = 0;
     public string TooltipText = string.Empty;
 
-    public bool IgnorePause = false;
+    private bool _ignorePause = false;
+
+    public bool IgnorePause
+    {
+        get => _ignorePause;
+        set
+        {
+            foreach (var child in Children)
+            {
+                child.IgnorePause = value;
+            }
+
+            _ignorePause = value;
+        }
+    }
 
     private RenderTexture2D _controlTexture;
 
@@ -62,13 +174,6 @@ public class Element : IDisposable
 
     public void Draw()
     {
-        BeginTextureMode(_controlTexture);
-        ClearBackground(Color.BLANK);
-
-        Render();
-
-        EndTextureMode();
-
         Vector2 offset = Origin switch
         {
             Alignment.TopLeft => new Vector2(0, 0),
@@ -83,14 +188,21 @@ public class Element : IDisposable
             _ => new Vector2(0, 0)
         };
 
-        DrawTexturePro(
-            _controlTexture.Texture,
-            new Rectangle(
-                0, 0, 
-                _Area.Width, -_Area.Height // we need to negate render texture height because opengl uses bottom-left instead of top-left
+            BeginTextureMode(_controlTexture);
+            ClearBackground(Color.BLANK);
+
+            Render();
+
+            EndTextureMode();
+            
+            DrawTexturePro(
+                _controlTexture.Texture,
+                new Rectangle(
+                    0, 0, 
+                    _Area.Width, -_Area.Height // we need to negate render texture height because opengl uses bottom-left instead of top-left
                 ), 
-            _Area, offset, Rotation,
-            Color.WHITE
+                _Area, offset, Rotation,
+                Color.WHITE
             );
     }
 

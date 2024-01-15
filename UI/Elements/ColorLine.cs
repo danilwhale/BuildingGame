@@ -71,40 +71,49 @@ public class ColorLine : Element
         _colorPreview = new Panel(new ElementId(id, "colorPreview"))
         {
             Brush = new OutlineBrush(Color.DARKGRAY, DefaultColor),
-            Size = new Vector2(40.0f, 20.0f),
-            ZIndex = (short)(ZIndex + 1)
+            LocalPosition = new Vector2(0, 0),
+            Parent = this,
+            Size = new Vector2(40.0f, 20.0f)
         };
+
         _redBox = new TextBox(new ElementId(id, "redBox"))
         {
             TextSize = 16.0f,
             Size = new Vector2(40.0f, 20.0f),
             CharacterRange = new Range(48, 57),
             Text = DefaultColor.R.ToString(),
-            ZIndex = (short)(ZIndex + 1)
+            Parent = this,
+            LocalPosition = new Vector2(_colorPreview.LocalPosition.X + _colorPreview.Size.X + 8, 0),
         };
+
         _greenBox = new TextBox(new ElementId(id, "greenBox"))
         {
             TextSize = 16.0f,
             Size = new Vector2(40.0f, 20.0f),
             CharacterRange = new Range(48, 57),
             Text = DefaultColor.G.ToString(),
-            ZIndex = (short)(ZIndex + 1)
+            Parent = this,
+            LocalPosition = new Vector2(_redBox.LocalPosition.X + _redBox.Size.X + 8, 0)
         };
+
         _blueBox = new TextBox(new ElementId(id, "blueBox"))
         {
             TextSize = 16.0f,
             Size = new Vector2(40.0f, 20.0f),
             CharacterRange = new Range(48, 57),
             Text = DefaultColor.B.ToString(),
-            ZIndex = (short)(ZIndex + 1)
+            Parent = this,
+            LocalPosition = new Vector2(_greenBox.LocalPosition.X + _greenBox.Size.X + 8, 0)
         };
+
         _resetButton = new Button(new ElementId(id, "resetButton"))
         {
             TextSize = 16.0f,
             Size = new Vector2(64.0f, 20.0f),
             Text = translation.GetTranslatedName("reset_button"),
             ShowHoverText = false,
-            ZIndex = (short)(ZIndex + 1)
+            Parent = this,
+            LocalPosition = new Vector2(_blueBox.LocalPosition.X + _blueBox.Size.X + 8, 0)
         };
         _resetButton.OnClick += () =>
         {
@@ -153,14 +162,14 @@ public class ColorLine : Element
     
     public override void Update()
     {
-        _colorPreview.Position = Position + new Vector2(0, Size.Y / 2 - _colorPreview.Size.Y / 2);
-        _redBox.Position = _colorPreview.Position + new Vector2(_colorPreview.Size.X + 8, 0);
-        _greenBox.Position = _redBox.Position + new Vector2(+ _redBox.Size.X + 8, 0);
-        _blueBox.Position = _greenBox.Position + new Vector2(_greenBox.Size.X + 8, 0);
-        _resetButton.Position = _blueBox.Position + new Vector2(_blueBox.Size.X + 8, 0);
-
-        _colorPreview.Visible = _redBox.Visible = _greenBox.Visible = _blueBox.Visible = _resetButton.Visible = Visible;
-        _colorPreview.Active = _redBox.Active = _greenBox.Active = _blueBox.Active = _resetButton.Active = Active;
+    //     _colorPreview.GlobalPosition = GlobalPosition + new Vector2(0, Size.Y / 2 - _colorPreview.Size.Y / 2);
+    //     _redBox.GlobalPosition = _colorPreview.GlobalPosition + new Vector2(_colorPreview.Size.X + 8, 0);
+    //     _greenBox.GlobalPosition = _redBox.GlobalPosition + new Vector2(+ _redBox.Size.X + 8, 0);
+    //     _blueBox.GlobalPosition = _greenBox.GlobalPosition + new Vector2(_greenBox.Size.X + 8, 0);
+    //     _resetButton.GlobalPosition = _blueBox.GlobalPosition + new Vector2(_blueBox.Size.X + 8, 0);
+    //
+    //     _colorPreview.Visible = _redBox.Visible = _greenBox.Visible = _blueBox.Visible = _resetButton.Visible = Visible;
+    //     _colorPreview.Active = _redBox.Active = _greenBox.Active = _blueBox.Active = _resetButton.Active = Active;
     }
 
     protected override void Render()
