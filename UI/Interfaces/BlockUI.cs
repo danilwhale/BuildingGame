@@ -21,6 +21,7 @@ public class BlockUI : UIInterface
         _background = new Panel(new ElementId("blockMenu", "background"))
         {
             Brush = new GradientBrush(new Color(0, 0, 25, 100), new Color(0, 0, 0, 200)),
+            Size = new Vector2(680, 420),
             ZIndex = -1
         };
         Elements.Add(_background);
@@ -30,7 +31,9 @@ public class BlockUI : UIInterface
             Text = translation.GetTranslatedName("block_ui_title"),
             TextColor = Color.WHITE,
             TextSize = 32,
-            TextAlignment = Alignment.Center
+            TextAlignment = Alignment.Center,
+            Parent = _background,
+            ZIndex = 1
         };
         Elements.Add(_menuTitle);
 
@@ -40,9 +43,12 @@ public class BlockUI : UIInterface
         //     TextColor = BLACK,
         //     MaxCharacters = 128
         // };
-
+        
         Tile[] tiles = Tiles.Tiles.GetTiles();
         _tileButtons = new Button[tiles.Length];
+        
+        float x = 20;
+        float y = 40;
 
         for (int i = 0; i < tiles.Length; i++)
         {
@@ -51,7 +57,7 @@ public class BlockUI : UIInterface
 
             float ratio = aspectX < aspectY ? aspectX : aspectY;
             
-            _tileButtons[i] = new Button(new ElementId("blockMenu", "tile_" + i))
+            var tileButton = _tileButtons[i] = new Button(new ElementId("blockMenu", "tile_" + i))
             {
                 Size = new Vector2(1) * Tile.RealTileSize,
                 BackgroundBrush = new TextureBrush(Resources.GetTexture("Atlas.png"))
@@ -65,38 +71,11 @@ public class BlockUI : UIInterface
                 },
                 ShowHoverText = false,
                 TooltipText = translation.GetTranslatedName(tiles[i].TranslationKey),
-                ZIndex = (short)(_background.ZIndex + 1)
+                Parent = _background,
+                ZIndex = 1,
+                LocalPosition = new Vector2(x, y)
             };
             
-            Elements.Add(_tileButtons[i]);
-        }
-
-        Visible = false;
-        Configure();
-    }
-
-    public override void Configure()
-    {
-        base.Configure();
-
-        Vector2 screenSize = new Vector2(GetScreenWidth(), GetScreenHeight());
-
-        _background.Size = new Vector2(680, 420);
-        _background.GlobalPosition = screenSize / 2 - _background.Size / 2;
-
-        _menuTitle.GlobalPosition = _background.GlobalPosition;
-        _menuTitle.Size = _background.Size with { Y = 38 };
-
-        float x = 20;
-        float y = 40;
-
-        for (int i = 0; i < _tileButtons.Length; i++)
-        {
-            Button tileButton = _tileButtons[i];
-            Tile tile = Tiles.Tiles.GetTile((byte)(i + 1));
-
-            tileButton.GlobalPosition = _background.GlobalPosition + new Vector2(x, y);
-
             int ii = i;
             tileButton.OnClick += () =>
             {
@@ -111,7 +90,24 @@ public class BlockUI : UIInterface
                 x = 20;
                 y += Tile.RealTileSize + 8;
             }
+            
+            Elements.Add(tileButton);
         }
+        
+        Configure();
+        
+        Visible = false;
+    }
+
+    public override void Configure()
+    {
+        base.Configure();
+
+        Vector2 screenSize = new Vector2(GetScreenWidth(), GetScreenHeight());
+        
+        _background.GlobalPosition = screenSize / 2 - _background.Size / 2;
+        
+        _menuTitle.Size = _background.Size with { Y = 38 };
     }
 
     public override void Resized()

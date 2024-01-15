@@ -27,15 +27,17 @@ public class SettingsUI : UIInterface
             Text = translation.GetTranslatedName("sky_color_line"),
             Size = new Vector2(128.0f, 20.0f),
             TextSize = 16.0f,
-            ZIndex = 201
+            ZIndex = 1,
+            Parent = _background
         };
         Elements.Add(_skyColorLineText);
 
         _skyColorLine = new ColorLine(new ElementId("settings", "skyColorLine"))
         {
-            ZIndex = 201,
             Color = Settings.SkyColor,
-            DefaultColor = Color.SKYBLUE
+            DefaultColor = Color.SKYBLUE,
+            Parent = _skyColorLineText,
+            LocalPosition = new Vector2(_skyColorLineText.Size.X + 16.0f, 2.0f)
         };
         _skyColorLine.OnColorUpdate += color =>
         {
@@ -55,7 +57,6 @@ public class SettingsUI : UIInterface
     public override void Configure()
     {
         _background.Area = new Rectangle(50.0f, 50.0f, GetScreenWidth() - 100.0f, GetScreenHeight() - 100.0f);
-        _skyColorLineText.GlobalPosition = _background.GlobalPosition + new Vector2(8.0f, 16.0f);
-        _skyColorLine.GlobalPosition = _skyColorLineText.GlobalPosition + _skyColorLineText.Size with { Y = 0 } + new Vector2(16.0f, 2.0f);
+        _skyColorLineText.GlobalPosition = _background.GlobalPosition + new Vector2(8.0f, 16.0f); 
     }
 }

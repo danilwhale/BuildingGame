@@ -38,7 +38,8 @@ public class PauseUI : UIInterface
             TextSize = 24,
             TextAlignment = Alignment.CenterLeft,
             IgnorePause = true,
-            ZIndex = 101
+            ZIndex = 1,
+            Parent = _background
         };
         _resumeButton.OnClick += () =>
         {
@@ -53,7 +54,9 @@ public class PauseUI : UIInterface
             TextSize = 24,
             TextAlignment = Alignment.CenterLeft,
             IgnorePause = true,
-            ZIndex = 101
+            ZIndex = 1,
+            Size = new Vector2(148, 24),
+            Parent = _background
         };
         _settingsButton.OnClick += () =>
         {
@@ -67,7 +70,9 @@ public class PauseUI : UIInterface
             TextSize = 24,
             TextAlignment = Alignment.CenterLeft,
             IgnorePause = true,
-            ZIndex = 101
+            ZIndex = 1,
+            Size = new Vector2(148, 24),
+            Parent = _background
         };
         _menuButton.OnClick += () =>
         {
@@ -90,13 +95,8 @@ public class PauseUI : UIInterface
         float buttonsOriginY = GetScreenHeight() / 2 - _resumeButton.TextSize;
         
         _resumeButton.Area = new Rectangle(buttonsOriginX, buttonsOriginY, 148, 24);
-        _settingsButton.Area = new Rectangle(
-            buttonsOriginX, _resumeButton.GlobalPosition.Y + _resumeButton.TextSize + 16, 
-            148, 24
-            );
-        _menuButton.Area = new Rectangle(
-            buttonsOriginX, _settingsButton.GlobalPosition.Y + _settingsButton.TextSize + 16,
-            148, 24);
+        _settingsButton.GlobalPosition = new Vector2(buttonsOriginX, _resumeButton.GlobalPosition.Y + _resumeButton.TextSize + 16);
+        _menuButton.GlobalPosition = new Vector2(buttonsOriginX, _settingsButton.GlobalPosition.Y + _settingsButton.TextSize + 16);
     }
 
     public override void Resized()
