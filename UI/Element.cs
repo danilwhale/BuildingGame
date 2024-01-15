@@ -95,19 +95,19 @@ public class Element : IDisposable
         DrawText(":(", 0, 0, 16, Color.WHITE);
     }
 
-    public bool IsHovered()
+    public bool IsUnderMouse()
     {
         return CheckCollisionPointRec(GetMousePosition(), Area) && Visible && Active;
     }
 
     public bool IsClicked()
     {
-        return IsHovered() && IsMouseButtonReleased(MouseButton.MOUSE_BUTTON_LEFT) && Visible && Active;
+        return IsUnderMouse() && IsMouseButtonReleased(MouseButton.MOUSE_BUTTON_LEFT) && Visible && Active;
     }
 
     public bool IsPressed()
     {
-        return IsHovered() && IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT) && Visible && Active;
+        return IsUnderMouse() && IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT) && Visible && Active;
     }
 
     public void Dispose()

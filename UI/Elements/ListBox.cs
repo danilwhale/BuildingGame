@@ -28,7 +28,7 @@ public class ListBox : Element
 
     public override void Update()
     {
-        if (IsHovered())
+        if (IsUnderMouse())
         {
             // finding index for highlight
             float localMouseY = GetMousePosition().Y - Position.Y;

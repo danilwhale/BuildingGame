@@ -52,7 +52,7 @@ public static class GuiManager
         if (ScreenManager.CurrentScreen == null) return false;
 
         var elements = ScreenManager.CurrentScreen.ElementsSorted;
-        return elements.Any(element => element.Visible && element.Active && element.IsHovered());
+        return elements.Any(element => element.Visible && element.Active && element.IsUnderMouse());
     }
 
     public static Element? GetElementUnderMouse()
@@ -60,7 +60,7 @@ public static class GuiManager
         if (ScreenManager.CurrentScreen == null) return null;
 
         var elements = ScreenManager.CurrentScreen.ElementsSorted;
-        return elements.FirstOrDefault(el => el.IsHovered());
+        return elements.FirstOrDefault(el => el.IsUnderMouse());
     }
 
     [Obsolete("Use ScreenManager.Draw instead")]

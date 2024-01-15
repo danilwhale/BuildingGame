@@ -20,11 +20,11 @@ public class Button : TextElement
             OnClick?.Invoke();
         }
 
-        if (ShowHoverText && IsHovered() && !Text.StartsWith(HoverText))
+        if (ShowHoverText && IsUnderMouse() && !Text.StartsWith(HoverText))
         {
             Text = HoverText + Text;
         }
-        else if (!IsHovered() && Text.StartsWith(HoverText))
+        else if (!IsUnderMouse() && Text.StartsWith(HoverText))
         {
             Text = Text.Replace(HoverText, null);
         }

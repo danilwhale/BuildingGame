@@ -26,7 +26,7 @@ public class TextBox : TextElement
         
         if (IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
         {
-            _focused = IsHovered();
+            _focused = IsUnderMouse();
             _brush.LineColor = _focused ? Color.GRAY : Color.BLACK;
             // _brush.LineThick = _focused ? 1.5f : 1;
 
