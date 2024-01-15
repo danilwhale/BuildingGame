@@ -60,7 +60,9 @@ public class BlockUI : UIInterface
                         Tile.TileSize
                         )
                 },
-                ShowHoverText = false
+                ShowHoverText = false,
+                TooltipText = tiles[i].TexCoord.ToString(),
+                ZIndex = (short)(_background.ZIndex + 1)
             };
             
             Elements.Add(_tileButtons[i]);

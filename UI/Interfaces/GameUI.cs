@@ -1,4 +1,5 @@
-﻿using BuildingGame.Tiles;
+﻿using System.Numerics;
+using BuildingGame.Tiles;
 using BuildingGame.UI.Brushes;
 using BuildingGame.UI.Elements;
 
@@ -10,6 +11,7 @@ public class GameUI : UIInterface
     private const float TileButtonSize = Tile.RealTileSize * 2;
 
     private BlockUI _blockUi;
+    private Tooltip _tooltip;
     
     private Button _tileMenuButton = null!;
 
@@ -34,8 +36,14 @@ public class GameUI : UIInterface
         {
             _blockUi.Visible = !_blockUi.Visible;
         };
-
         Elements.Add(_tileMenuButton);
+
+        _tooltip = new Tooltip(new ElementId("gameHud", "tooltip"))
+        {
+            TextSize = 16.0f,
+            Size = new Vector2(0.0f, 36.0f),
+        };
+        Elements.Add(_tooltip);
 
         Configure();
     }
