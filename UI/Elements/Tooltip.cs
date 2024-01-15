@@ -14,16 +14,12 @@ public class Tooltip : TextElement
     {
         base.Update();
         
-        Element? el = GuiManager.GetElementUnderMouse();
+        Element? el = GuiManager.GetElementUnderMouse(el => el.IsUnderMouse() && !string.IsNullOrWhiteSpace(el.TooltipText));
 
-        if (el != null && el.TooltipText != string.Empty)
+        if (el != null)
         {
             Text = el.TooltipText;
             Visible = true;
-
-            Vector2 measure = MeasureTextEx(GuiManager.Font, Text, TextSize, TextSize / GuiManager.FontSize);
-            Vector2 size = measure + new Vector2(Padding * 4, Padding * 2);
-            if (Size != size) Size = size;
         }
         else Visible = false;
 
