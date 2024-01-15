@@ -71,35 +71,40 @@ public class ColorLine : Element
         _colorPreview = new Panel(new ElementId(id, "colorPreview"))
         {
             Brush = new OutlineBrush(Color.DARKGRAY, DefaultColor),
-            Size = new Vector2(40.0f, 20.0f)
+            Size = new Vector2(40.0f, 20.0f),
+            ZIndex = (short)(ZIndex + 1)
         };
         _redBox = new TextBox(new ElementId(id, "redBox"))
         {
             TextSize = 16.0f,
             Size = new Vector2(40.0f, 20.0f),
             CharacterRange = new Range(48, 57),
-            Text = DefaultColor.R.ToString()
+            Text = DefaultColor.R.ToString(),
+            ZIndex = (short)(ZIndex + 1)
         };
         _greenBox = new TextBox(new ElementId(id, "greenBox"))
         {
             TextSize = 16.0f,
             Size = new Vector2(40.0f, 20.0f),
             CharacterRange = new Range(48, 57),
-            Text = DefaultColor.G.ToString()
+            Text = DefaultColor.G.ToString(),
+            ZIndex = (short)(ZIndex + 1)
         };
         _blueBox = new TextBox(new ElementId(id, "blueBox"))
         {
             TextSize = 16.0f,
             Size = new Vector2(40.0f, 20.0f),
             CharacterRange = new Range(48, 57),
-            Text = DefaultColor.B.ToString()
+            Text = DefaultColor.B.ToString(),
+            ZIndex = (short)(ZIndex + 1)
         };
         _resetButton = new Button(new ElementId(id, "resetButton"))
         {
             TextSize = 16.0f,
             Size = new Vector2(64.0f, 20.0f),
             Text = translation.GetTranslatedName("reset_button"),
-            ShowHoverText = false
+            ShowHoverText = false,
+            ZIndex = (short)(ZIndex + 1)
         };
         _resetButton.OnClick += () =>
         {
