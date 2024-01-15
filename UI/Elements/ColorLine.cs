@@ -52,11 +52,14 @@ public class ColorLine : Element
         get => new Color(R, G, B, (byte)255);
         set => (R, G, B) = (value.R, value.G, value.B);
     }
+
+    public Color DefaultColor = Color.WHITE;
     
     private Panel _colorPreview;
     private TextBox _redBox;
     private TextBox _greenBox;
     private TextBox _blueBox;
+    private Button _resetButton;
 
     public event Action<Color>? OnColorUpdate; 
     
@@ -64,7 +67,7 @@ public class ColorLine : Element
     {
         _colorPreview = new Panel(new ElementId(id, "colorPreview"))
         {
-            Brush = new OutlineBrush(Color.DARKGRAY, Color.WHITE),
+            Brush = new OutlineBrush(Color.DARKGRAY, DefaultColor),
             Size = new Vector2(40.0f, 20.0f)
         };
         _redBox = new TextBox(new ElementId(id, "redBox"))
@@ -72,21 +75,32 @@ public class ColorLine : Element
             TextSize = 16.0f,
             Size = new Vector2(40.0f, 20.0f),
             CharacterRange = new Range(48, 57),
-            Text = "255"
+            Text = DefaultColor.R.ToString()
         };
         _greenBox = new TextBox(new ElementId(id, "greenBox"))
         {
             TextSize = 16.0f,
             Size = new Vector2(40.0f, 20.0f),
             CharacterRange = new Range(48, 57),
-            Text = "255"
+            Text = DefaultColor.G.ToString()
         };
         _blueBox = new TextBox(new ElementId(id, "blueBox"))
         {
             TextSize = 16.0f,
             Size = new Vector2(40.0f, 20.0f),
             CharacterRange = new Range(48, 57),
-            Text = "255"
+            Text = DefaultColor.B.ToString()
+        };
+        _resetButton = new Button(new ElementId(id, "resetButton"))
+        {
+            TextSize = 16.0f,
+            Size = new Vector2(64.0f, 20.0f),
+            Text = "reset",
+            ShowHoverText = false
+        };
+        _resetButton.OnClick += () =>
+        {
+            Color = DefaultColor;
         };
         
         _redBox.OnTextUpdate += RedBoxOnTextUpdate;
@@ -135,9 +149,10 @@ public class ColorLine : Element
         _redBox.Position = _colorPreview.Position + new Vector2(_colorPreview.Size.X + 8, 0);
         _greenBox.Position = _redBox.Position + new Vector2(+ _redBox.Size.X + 8, 0);
         _blueBox.Position = _greenBox.Position + new Vector2(_greenBox.Size.X + 8, 0);
+        _resetButton.Position = _blueBox.Position + new Vector2(_blueBox.Size.X + 8, 0);
 
-        _colorPreview.Visible = _redBox.Visible = _greenBox.Visible = _blueBox.Visible = Visible;
-        _colorPreview.Active = _redBox.Active = _greenBox.Active = _blueBox.Active = Active;
+        _colorPreview.Visible = _redBox.Visible = _greenBox.Visible = _blueBox.Visible = _resetButton.Visible = Visible;
+        _colorPreview.Active = _redBox.Active = _greenBox.Active = _blueBox.Active = _resetButton.Active = Active;
     }
 
     protected override void Render()
