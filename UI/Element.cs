@@ -27,7 +27,12 @@ public class Element : IDisposable
     public Vector2 Size
     {
         get => new Vector2(_Area.Width, _Area.Height);
-        set => Area = new Rectangle(_Area.X, _Area.Y, value.X, value.Y);
+        set
+        {
+            if (value == new Vector2(Area.Width, Area.Height)) return;
+            
+            Area = new Rectangle(_Area.X, _Area.Y, value.X, value.Y);
+        }
     }
 
     public ElementId Id;
