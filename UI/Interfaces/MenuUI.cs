@@ -1,5 +1,6 @@
 using System.Numerics;
 using System.Reflection;
+using BuildingGame.Translation;
 using BuildingGame.UI.Elements;
 using BuildingGame.UI.Screens;
 
@@ -17,16 +18,18 @@ public class MenuUI : UIInterface
 
     public override void Initialize()
     {
+        var translation = TranslationContainer.Default;
+        
         _title = new TextElement(new ElementId("menuUi", "title"))
         {
             TextSize = 36.0f,
-            Text = "building game rewritten"
+            Text = translation.GetTranslatedName("title")
         };
         Elements.Add(_title);
 
         _playButton = new Button(new ElementId("menuUi", "playButton"))
         {
-            Text = "play",
+            Text = translation.GetTranslatedName("play_button"),
             TextSize = 24.0f,
             Size = new Vector2(100.0f, 28.0f)
         };
@@ -38,7 +41,7 @@ public class MenuUI : UIInterface
 
         _settingsButton = new Button(new ElementId("menuUi", "settingsButton"))
         {
-            Text = "settings",
+            Text = translation.GetTranslatedName("settings_button"),
             TextSize = 24.0f,
             Size = new Vector2(100.0f, 28.0f)
         };
@@ -50,7 +53,7 @@ public class MenuUI : UIInterface
 
         _packsButton = new Button(new ElementId("menuUi", "packsButton"))
         {
-            Text = "packs",
+            Text = translation.GetTranslatedName("packs_button"),
             TextSize = 24.0f,
             Size = new Vector2(100.0f, 28.0f)
         };
@@ -58,7 +61,7 @@ public class MenuUI : UIInterface
 
         _exitButton = new Button(new ElementId("menuUi", "exitButton"))
         {
-            Text = "exit",
+            Text = translation.GetTranslatedName("exit_button"),
             TextSize = 24.0f,
             Size = new Vector2(100.0f, 28.0f)
         };
@@ -72,7 +75,7 @@ public class MenuUI : UIInterface
 
         _versionText = new TextElement(new ElementId("menuUi", "versionText"))
         {
-            Text = $"v{version.Major}.{version.Minor}.{version.Revision}",
+            Text = string.Format(translation.GetTranslatedName("version_format"), version.Major, version.Minor, version.Revision),
             TextSize = 18.0f,
             Size = new Vector2(100.0f, 18.0f)
         };

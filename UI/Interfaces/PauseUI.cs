@@ -1,4 +1,5 @@
 using System.Numerics;
+using BuildingGame.Translation;
 using BuildingGame.UI.Brushes;
 using BuildingGame.UI.Elements;
 using BuildingGame.UI.Screens;
@@ -21,6 +22,8 @@ public class PauseUI : UIInterface
     
     public override void Initialize()
     {
+        var translation = TranslationContainer.Default;
+        
         _background = new Panel(new ElementId("pauseScreen", "background"))
         {
             Brush = new GradientBrush(Color.BLANK, Color.BLACK),
@@ -31,7 +34,7 @@ public class PauseUI : UIInterface
 
         _resumeButton = new Button(new ElementId("pauseScreen", "resumeButton"))
         {
-            Text = "resume",
+            Text = translation.GetTranslatedName("resume_button"),
             TextSize = 24,
             TextAlignment = Alignment.CenterLeft,
             IgnorePause = true,
@@ -46,7 +49,7 @@ public class PauseUI : UIInterface
 
         _settingsButton = new Button(new ElementId("pauseScreen", "settingsButton"))
         {
-            Text = "settings",
+            Text = translation.GetTranslatedName("settings_button"),
             TextSize = 24,
             TextAlignment = Alignment.CenterLeft,
             IgnorePause = true,
@@ -60,7 +63,7 @@ public class PauseUI : UIInterface
 
         _menuButton = new Button(new ElementId("pauseScreen", "menuButton"))
         {
-            Text = "menu",
+            Text = translation.GetTranslatedName("menu_button"),
             TextSize = 24,
             TextAlignment = Alignment.CenterLeft,
             IgnorePause = true,

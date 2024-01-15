@@ -1,4 +1,5 @@
 using System.Numerics;
+using BuildingGame.Translation;
 using BuildingGame.UI.Brushes;
 using BuildingGame.UI.Elements;
 
@@ -12,6 +13,8 @@ public class SettingsUI : UIInterface
     
     public override void Initialize()
     {
+        var translation = TranslationContainer.Default;
+        
         _background = new Panel(new ElementId("settings", "background"))
         {
             Brush = new SolidBrush(new Color(0, 0, 0, 100)),
@@ -21,7 +24,7 @@ public class SettingsUI : UIInterface
 
         _skyColorLineText = new TextElement(new ElementId("settings", "skyColorLineText"))
         {
-            Text = "sky color (RGB): ",
+            Text = translation.GetTranslatedName("sky_color_line"),
             Size = new Vector2(128.0f, 20.0f),
             TextSize = 16.0f,
             ZIndex = 201

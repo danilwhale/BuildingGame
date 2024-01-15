@@ -1,4 +1,5 @@
 using System.Numerics;
+using BuildingGame.Translation;
 using BuildingGame.UI.Brushes;
 
 namespace BuildingGame.UI.Elements;
@@ -65,6 +66,8 @@ public class ColorLine : Element
     
     public ColorLine(ElementId id) : base(id)
     {
+        var translation = TranslationContainer.Default;
+        
         _colorPreview = new Panel(new ElementId(id, "colorPreview"))
         {
             Brush = new OutlineBrush(Color.DARKGRAY, DefaultColor),
@@ -95,7 +98,7 @@ public class ColorLine : Element
         {
             TextSize = 16.0f,
             Size = new Vector2(64.0f, 20.0f),
-            Text = "reset",
+            Text = translation.GetTranslatedName("reset_button"),
             ShowHoverText = false
         };
         _resetButton.OnClick += () =>

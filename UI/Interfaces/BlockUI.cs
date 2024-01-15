@@ -15,6 +15,8 @@ public class BlockUI : UIInterface
     public override void Initialize()
     {
         base.Initialize();
+
+        var translation = TranslationContainer.Default;
         
         _background = new Panel(new ElementId("blockMenu", "background"))
         {
@@ -25,7 +27,7 @@ public class BlockUI : UIInterface
 
         _menuTitle = new TextElement(new ElementId("blockMenu", "title"))
         {
-            Text = "Select a tile",
+            Text = translation.GetTranslatedName("block_ui_title"),
             TextColor = Color.WHITE,
             TextSize = 32,
             TextAlignment = Alignment.Center
@@ -62,7 +64,7 @@ public class BlockUI : UIInterface
                         )
                 },
                 ShowHoverText = false,
-                TooltipText = TranslationContainer.Default.GetTranslatedName(tiles[i].TranslationKey),
+                TooltipText = translation.GetTranslatedName(tiles[i].TranslationKey),
                 ZIndex = (short)(_background.ZIndex + 1)
             };
             
