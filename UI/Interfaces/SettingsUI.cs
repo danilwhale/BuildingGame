@@ -30,9 +30,10 @@ public class SettingsUI : UIInterface
 
         _skyColorLine = new ColorLine(new ElementId("settings", "skyColorLine"))
         {
-            ZIndex = 201
+            ZIndex = 201,
+            Color = Settings.SkyColor,
+            DefaultColor = Color.SKYBLUE
         };
-        _skyColorLine.Color = Settings.SkyColor;
         _skyColorLine.OnColorUpdate += color =>
         {
             Settings.SkyColor = color;
