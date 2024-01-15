@@ -49,18 +49,28 @@ public static class GuiManager
 
     public static bool IsMouseOverElement()
     {
+        return IsMouseOverElement(el => el.IsUnderMouse());
+    }
+
+    public static bool IsMouseOverElement(Func<Element, bool> predicate)
+    {
         if (ScreenManager.CurrentScreen == null) return false;
 
         var elements = ScreenManager.CurrentScreen.ElementsSorted;
-        return elements.Any(element => element.Visible && element.Active && element.IsUnderMouse());
+        return elements.Any(predicate);
     }
 
     public static Element? GetElementUnderMouse()
     {
+        return GetElementUnderMouse(el => el.IsUnderMouse());
+    }
+
+    public static Element? GetElementUnderMouse(Func<Element, bool> predicate)
+    {
         if (ScreenManager.CurrentScreen == null) return null;
 
         var elements = ScreenManager.CurrentScreen.ElementsSorted;
-        return elements.FirstOrDefault(el => el.IsUnderMouse());
+        return elements.FirstOrDefault(predicate);
     }
 
     [Obsolete("Use ScreenManager.Draw instead")]
