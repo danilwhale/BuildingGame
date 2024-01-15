@@ -30,7 +30,7 @@ public static class AtlasLoader
 
         foreach (var kv in tiles)
         {
-            flatTiles.Add(new AtlasTileKey(kv.Key, i), new Tile(kv.Value.Atlas, kv.Value.Size));
+            flatTiles.Add(new AtlasTileKey(kv.Key, i), new Tile(kv.Value.Atlas, kv.Value.Size, kv.Key));
             i++;
         }
 

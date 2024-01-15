@@ -1,5 +1,6 @@
 using System.Numerics;
 using BuildingGame.Tiles;
+using BuildingGame.Translation;
 using BuildingGame.UI.Brushes;
 using BuildingGame.UI.Elements;
 
@@ -61,7 +62,7 @@ public class BlockUI : UIInterface
                         )
                 },
                 ShowHoverText = false,
-                TooltipText = tiles[i].TexCoord.ToString(),
+                TooltipText = TranslationContainer.Default.GetTranslatedName(tiles[i].TranslationKey),
                 ZIndex = (short)(_background.ZIndex + 1)
             };
             

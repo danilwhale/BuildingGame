@@ -1,4 +1,5 @@
 using BuildingGame.Tiles.Atlas;
+using BuildingGame.Translation;
 
 namespace BuildingGame.Tiles;
 
@@ -10,7 +11,7 @@ public static class Tiles
     {
         _Tiles = AtlasLoader.ConvertTiles(AtlasLoader.LoadTiles());
     }
-
+    
     public static Tile GetTile(byte id)
     {
         if (id < 1) throw new ArgumentException("Id mustn't be an air (0)", nameof(id));

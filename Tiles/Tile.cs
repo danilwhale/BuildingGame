@@ -12,6 +12,7 @@ public class Tile
 
     public readonly Vector2 TexCoord;
     public readonly Vector2 Size = Vector2.One;
+    public readonly string TranslationKey = "";
 
     public Tile()
     {
@@ -27,6 +28,13 @@ public class Tile
     {
         TexCoord = texCoord;
         Size = size;
+    }
+    
+    public Tile(Vector2 texCoord, Vector2 size, string translationKey)
+    {
+        TexCoord = texCoord;
+        Size = size;
+        TranslationKey = translationKey;
     }
 
     public Tile(float tx, float ty)
