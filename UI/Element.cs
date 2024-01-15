@@ -188,22 +188,22 @@ public class Element : IDisposable
             _ => new Vector2(0, 0)
         };
 
-            BeginTextureMode(_controlTexture);
-            ClearBackground(Color.BLANK);
+        BeginTextureMode(_controlTexture);
+        ClearBackground(Color.BLANK);
 
-            Render();
+        Render();
 
-            EndTextureMode();
+        EndTextureMode();
             
-            DrawTexturePro(
-                _controlTexture.Texture,
-                new Rectangle(
-                    0, 0, 
-                    _Area.Width, -_Area.Height // we need to negate render texture height because opengl uses bottom-left instead of top-left
-                ), 
-                _Area, offset, Rotation,
-                Color.WHITE
-            );
+        DrawTexturePro(
+            _controlTexture.Texture,
+            new Rectangle(
+                0.25f, 0.25f, 
+                _Area.Width - 0.25f, -_Area.Height + 0.25f // we need to negate render texture height because opengl uses bottom-left instead of top-left
+            ), 
+            _Area, offset, Rotation,
+            Color.WHITE
+        );
     }
 
     protected virtual void Render()
