@@ -10,9 +10,9 @@ public class ListBox : Element
     public List<string> Items = new List<string>();
     public event Action<string>? OnItemSelect;
 
-    public IBrush? BackgroundBrush = new SolidBrush(Color.WHITE);
-    public IBrush? HighlightBrush = new SolidBrush(new Color(212, 245, 255, 255));
-    public IBrush? SelectionBrush = new SolidBrush(new Color(122, 214, 255, 255));
+    public IBrush? BackgroundBrush = null;
+    public IBrush? HighlightBrush = new SolidBrush(new Color(90, 95, 100, 255));
+    public IBrush? SelectionBrush = new SolidBrush(new Color(60, 70, 80, 255));
 
     public float ItemTextSize = 12;
     public float ItemPadding = 4;
