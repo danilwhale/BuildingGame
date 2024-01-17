@@ -47,7 +47,7 @@ public class ListBox : Element
 
         if (IsClicked())
         {
-            if (_highlightIndex > 0)
+            if (_highlightIndex >= 0)
             {
                 _selectedIndex = _highlightIndex;
                 OnItemSelect?.Invoke(Items[_selectedIndex]);
