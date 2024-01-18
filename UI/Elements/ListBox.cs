@@ -17,10 +17,10 @@ public class ListBox : Element
     public float ItemTextSize = 12;
     public float ItemPadding = 4;
     public Color ItemColor = Color.WHITE;
+    public int SelectedItem = -1;
 
     private float _scroll = 0;
     private int _highlightIndex = -1;
-    private int _selectedIndex = -1;
 
     public ListBox(ElementId id) : base(id) 
     {
@@ -54,8 +54,8 @@ public class ListBox : Element
         {
             if (_highlightIndex >= 0)
             {
-                _selectedIndex = _highlightIndex;
-                OnItemSelect?.Invoke(Items[_selectedIndex]);
+                SelectedItem = _highlightIndex;
+                OnItemSelect?.Invoke(Items[SelectedItem]);
             }
         }
     }
@@ -71,7 +71,7 @@ public class ListBox : Element
                 Area.Width, 
                 ItemTextSize
                 );
-            if (i == _selectedIndex)
+            if (i == SelectedItem)
             {
                 SelectionBrush?.FillArea(area);
             }
