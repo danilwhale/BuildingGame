@@ -66,3 +66,8 @@ menu_button: "menu"
 block_ui_title: "Select a tile"
 
 reset_button: "reset"
+
+default_world_title: "select world pls"
+play_time_format: "played {0}" # {0} - TimeSpan
+create_world_button: "create"
+delete_world_button: "delete"

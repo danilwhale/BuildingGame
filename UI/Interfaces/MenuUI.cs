@@ -35,7 +35,7 @@ public class MenuUI : UIInterface
         };
         _playButton.OnClick += () =>
         {
-            ScreenManager.Switch(new GameScreen());
+            ScreenManager.Switch(new WorldSelectionScreen());
         };
         Elements.Add(_playButton);
 

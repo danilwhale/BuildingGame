@@ -14,7 +14,7 @@ public class World
     public readonly int ChunkHeight;
 
     public Vector2 PlayerPosition;
-    public float PlayerZoom;
+    public float PlayerZoom = 1.0f;
 
     private Chunk[][] _chunks;
 
@@ -75,9 +75,9 @@ public class World
         return new ChunkPosition(cx, cy);
     }
 
-    public void Load()
+    public void Load(string path)
     {
-        if (!WorldIO.TryDeserializeWorld("level.dat", out var world)) return;
+        if (!WorldIO.TryDeserializeWorld(path, out var world)) return;
         if (Width != world.Width || Height != world.Height) return;
 
         PlayerPosition = world.PlayerPosition;
@@ -92,9 +92,9 @@ public class World
         }
     }
 
-    public void Save()
+    public void Save(string path)
     {
-        WorldIO.TrySerializeWorld<BGWorld21Format.Serializer>("level.dat", this);
+        WorldIO.TrySerializeWorld<BGWorld21Format.Serializer>(path, this);
     }
 
     public TileInfo this[int x, int y]

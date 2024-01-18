@@ -55,7 +55,15 @@ public class ListBox : Element
             if (_highlightIndex >= 0)
             {
                 SelectedItem = _highlightIndex;
-                OnItemSelect?.Invoke(Items[SelectedItem]);
+
+                if (SelectedItem >= 0 && SelectedItem < Items.Count)
+                {
+                    OnItemSelect?.Invoke(Items[SelectedItem]);
+                }
+                else
+                {
+                    OnItemSelect?.Invoke(string.Empty);
+                }
             }
         }
     }
