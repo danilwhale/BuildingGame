@@ -36,13 +36,18 @@ public class ListBox : Element
             _highlightIndex = index;
 
             // list scrolling
-            float boxHeight = Items.Count * ItemTextSize - Area.Height + ItemPadding;
+            float boxHeight = Items.Count * ItemTextSize + Items.Count * ItemPadding;
             float wheel = GetMouseWheelMove();
             float wheelAxis = wheel * ScrollSpeed * GetFrameTime();
 
-            _scroll += wheelAxis;
-            if (_scroll > 0) _scroll = 0;
-            if (_scroll <= -boxHeight) _scroll = -boxHeight;
+            if (boxHeight > Area.Height)
+            {
+                _scroll += wheelAxis;
+                if (_scroll > 0) _scroll = 0;
+                if (_scroll <= -boxHeight / 2) _scroll = -boxHeight / 2;
+            }
+
+            Console.WriteLine(_scroll);
         }
 
         if (IsClicked())
