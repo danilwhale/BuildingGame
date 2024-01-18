@@ -1,7 +1,10 @@
-﻿<img src="Assets/IconLarge.png" width="42" align="left">
+﻿﻿<img src="Assets/IconLarge.png" width="96" align="left">
 
-**building game**
+### building game
+
 a game, where you just place tiles
+
+---
 
 ![the world](Assets/TheWorld.png)
 
