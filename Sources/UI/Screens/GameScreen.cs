@@ -45,7 +45,9 @@ public class GameScreen : Screen
         if (!Program.Paused)
         {
             _playTime += TimeSpan.FromSeconds(GetFrameTime());
-            
+
+            Tiles.Tiles.Update();
+
             _player.Update();
             _world.Update();
         }

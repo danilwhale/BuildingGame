@@ -34,6 +34,14 @@ public static class Tiles
         return _Tiles.Values.ToArray();
     }
 
+    public static void Update()
+    {
+        foreach (var kv in _Tiles)
+        {
+            kv.Value.StaticUpdate();
+        }
+    }
+
     public static void RegisterCustomTile<T>(string name, T tile) where T : Tile
     {
         var key = _Tiles.Keys.First(k => string.Equals(k.Name, name, StringComparison.CurrentCultureIgnoreCase));
@@ -49,6 +57,12 @@ public static class Tiles
     public static void RegisterCustomTile<T>(byte id, T tile) where T : Tile
     {
         var key = _Tiles.Keys.First(k => k.Id == id);
+        var value = _Tiles[key];
+
+        tile.Size = value.Size;
+        tile.TexCoord = value.TexCoord;
+        tile.TranslationKey = value.TranslationKey;
+
         _Tiles[key] = tile;
     }
 }

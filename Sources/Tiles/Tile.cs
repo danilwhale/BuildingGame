@@ -46,6 +46,11 @@ public class Tile
     {
     }
 
+    public virtual void StaticUpdate()
+    {
+
+    }
+
     public virtual void Draw(World world, TileInfo info, float x, float y, Color tint)
     {
         DrawTexturePro(Resources.GetTexture("Atlas.png"),
