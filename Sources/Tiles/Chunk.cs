@@ -31,9 +31,9 @@ public struct Chunk
 
     public void Update()
     {
-        for (int x = 0; x < Size; x++)
+        for (int x = Size - 1; x >= 0; x--)
         {
-            for (int y = 0; y < Size; y++)
+            for (int y = Size - 1; y >= 0; y--)
             {
                 TileInfo tile = _tiles[x][y];
                 if (tile == 0) continue;

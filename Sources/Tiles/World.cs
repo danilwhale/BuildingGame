@@ -44,9 +44,9 @@ public class World
 
     public void Update()
     {
-        for (int x = 0; x < ChunkWidth; x++)
+        for (int x = ChunkWidth - 1; x >= 0; x--)
         {
-            for (int y = 0; y < ChunkHeight; y++)
+            for (int y = ChunkHeight - 1; y >= 0; y--)
             {
                 _chunks[x][y].Update();
             }
