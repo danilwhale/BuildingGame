@@ -10,9 +10,9 @@ public class Tile
     public const float RealTileSize = TileSize * TileUpscale;
     public const float AtlasFraction = 0.25f;
 
-    public readonly Vector2 TexCoord;
-    public readonly Vector2 Size = Vector2.One;
-    public readonly string TranslationKey = "";
+    public Vector2 TexCoord;
+    public Vector2 Size = Vector2.One;
+    public string TranslationKey = "";
 
     public Tile()
     {
