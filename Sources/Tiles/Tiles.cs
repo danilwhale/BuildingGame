@@ -23,6 +23,12 @@ public static class Tiles
         return _Tiles.First(kv => string.Equals(kv.Key.Name, name, StringComparison.CurrentCultureIgnoreCase)).Value;
     }
 
+    public static byte GetId(Tile tile)
+    {
+        var key = _Tiles.FirstOrDefault(kv => kv.Value == tile).Key;
+        return key.Id;
+    }
+
     public static Tile[] GetTiles()
     {
         return _Tiles.Values.ToArray();
