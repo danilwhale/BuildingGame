@@ -78,7 +78,7 @@ public class Tile
 
     public override bool Equals(object? obj)
     {
-        return obj is Tile t && t.TexCoord == TexCoord && t.Size == Size;
+        return obj is Tile t && t.TexCoord == TexCoord && t.Size == Size && string.Equals(t.TranslationKey, TranslationKey, StringComparison.CurrentCultureIgnoreCase);
     }
 
     public override int GetHashCode()
