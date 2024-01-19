@@ -46,8 +46,6 @@ public class ListBox : Element
                 if (_scroll > 0) _scroll = 0;
                 if (_scroll <= -boxHeight / 2) _scroll = -boxHeight / 2;
             }
-
-            Console.WriteLine(_scroll);
         }
 
         if (IsClicked())
