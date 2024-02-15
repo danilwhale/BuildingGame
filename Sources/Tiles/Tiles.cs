@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using BuildingGame.Tiles.Atlas;
 using BuildingGame.Translation;
 
@@ -12,15 +13,28 @@ public static class Tiles
         _Tiles = AtlasLoader.ConvertTiles(AtlasLoader.LoadTiles());
     }
     
+    [Obsolete("use TryGetTile instead pls ty", true)]
     public static Tile GetTile(byte id)
     {
-        if (id < 1) throw new ArgumentException("Id mustn't be an air (0)", nameof(id));
-        return _Tiles.First(kv => kv.Key.Id == id).Value;
+        throw new Exception("use TryGetTile instead pls ty");
     }
-
+    
+    [Obsolete("use TryGetTile instead pls ty", true)]
     public static Tile GetTile(string name)
     {
-        return _Tiles.First(kv => string.Equals(kv.Key.Name, name, StringComparison.CurrentCultureIgnoreCase)).Value;
+        throw new Exception("use TryGetTile instead pls ty");
+    }
+
+    public static bool TryGetTile(byte id, [NotNullWhen(true)] out Tile? tile)
+    {
+        tile = _Tiles.FirstOrDefault(kv => kv.Key.Id == id).Value;
+        return tile != null;
+    }
+
+    public static bool TryGetTile(string name, [NotNullWhen(true)] out Tile? tile)
+    {
+        tile = _Tiles.FirstOrDefault(kv => string.Equals(kv.Key.Name, name, StringComparison.CurrentCultureIgnoreCase)).Value;
+        return tile != null;
     }
 
     public static byte GetId(Tile tile)

@@ -68,9 +68,9 @@ public class Player
 
     public void Draw()
     {
-        if (!GuiManager.IsMouseOverElement())
+        if (!GuiManager.IsMouseOverElement() && Tiles.Tiles.TryGetTile(CurrentTile.Id, out var tile))
         {
-            Tiles.Tiles.GetTile(CurrentTile.Id).DrawPreview(
+            tile.DrawPreview(
                 World, CurrentTile,
                 _tileX, _tileY
             );

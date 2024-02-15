@@ -52,8 +52,9 @@ public class GameUI : UIInterface
     {
         base.Update();
 
+        if (!Tiles.Tiles.TryGetTile(Player.CurrentTile, out var tile)) return;
+        
         var brush = (TextureBrush)_tileMenuButton.BackgroundBrush!;
-        var tile = Tiles.Tiles.GetTile(Player.CurrentTile);
         (brush.CropArea.X, brush.CropArea.Y) = (tile.TexCoord.X * Tile.TileSize, tile.TexCoord.Y * Tile.TileSize);
     }
 

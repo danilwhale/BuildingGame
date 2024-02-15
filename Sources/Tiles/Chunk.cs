@@ -31,13 +31,17 @@ public struct Chunk
 
     public void Update()
     {
+
+
         for (int x = Size - 1; x >= 0; x--)
         {
             for (int y = Size - 1; y >= 0; y--)
             {
-                TileInfo tile = _tiles[x][y];
-                if (tile == 0) continue;
-                Tiles.GetTile(tile).Update(World, tile, X * Size + x, Y * Size + y);
+                TileInfo info = _tiles[x][y];
+                if (info == 0) continue;
+                if (!Tiles.TryGetTile(info, out var tile)) continue;
+                
+                tile.Update(World, info, X * Size + x, Y * Size + y);
             }
         }
     }
@@ -48,9 +52,11 @@ public struct Chunk
         {
             for (int y = 0; y < Size; y++)
             {
-                TileInfo tile = _tiles[x][y];
-                if (tile == 0) continue;
-                Tiles.GetTile(tile).Draw(World, tile, X * Size + x, Y * Size + y, Color.WHITE);
+                TileInfo info = _tiles[x][y];
+                if (info== 0) continue;
+                if (!Tiles.TryGetTile(info, out var tile)) continue;
+                
+                tile.Draw(World, info, X * Size + x, Y * Size + y, Color.WHITE);
             }
         }
     }
@@ -67,6 +73,7 @@ public struct Chunk
         {
             if (x < 0 || x >= Size || y < 0 || y >= Size)
                 return;
+
             _tiles[x][y] = value;
         }
     }
