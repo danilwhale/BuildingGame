@@ -35,7 +35,7 @@ public class SettingsUI : UIInterface
         _skyColorLine = new ColorLine(new ElementId("settings", "skyColorLine"))
         {
             Color = Settings.SkyColor,
-            DefaultColor = Color.SKYBLUE,
+            DefaultColor = Color.SkyBlue,
             Parent = _skyColorLineText,
             LocalPosition = new Vector2(_skyColorLineText.Size.X + 16.0f, 2.0f)
         };

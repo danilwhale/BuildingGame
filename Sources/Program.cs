@@ -22,10 +22,10 @@ internal class Program
     
     public static void Main(string[] args)
     {
-        SetConfigFlags(ConfigFlags.FLAG_VSYNC_HINT);
-        SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
+        SetConfigFlags(ConfigFlags.VSyncHint);
+        SetConfigFlags(ConfigFlags.ResizableWindow);
         InitWindow(1024, 768, "building game");
-        SetExitKey(KeyboardKey.KEY_NULL);
+        SetExitKey(KeyboardKey.Null);
 
         // set window icon
         Image icon = LoadImage("Assets/Icon.png");

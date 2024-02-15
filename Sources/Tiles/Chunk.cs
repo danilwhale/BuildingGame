@@ -56,7 +56,7 @@ public struct Chunk
                 if (info== 0) continue;
                 if (!Tiles.TryGetTile(info, out var tile)) continue;
                 
-                tile.Draw(World, info, X * Size + x, Y * Size + y, Color.WHITE);
+                tile.Draw(World, info, X * Size + x, Y * Size + y, Color.White);
             }
         }
     }

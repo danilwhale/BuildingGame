@@ -26,7 +26,7 @@ public class PauseUI : UIInterface
         
         _background = new Panel(new ElementId("pauseScreen", "background"))
         {
-            Brush = new GradientBrush(Color.BLANK, Color.BLACK),
+            Brush = new GradientBrush(Color.Blank, Color.Black),
             IgnorePause = true,
             ZIndex = 100
         };
@@ -110,7 +110,7 @@ public class PauseUI : UIInterface
     {
         base.Update();
 
-        if (IsKeyPressed(KeyboardKey.KEY_ESCAPE))
+        if (IsKeyPressed(KeyboardKey.Escape))
         {
             Visible = !Visible;
             Program.Paused = !Program.Paused;

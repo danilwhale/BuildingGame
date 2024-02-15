@@ -7,7 +7,7 @@ public class TextElement : Element
 {
     public IBrush? BackgroundBrush;
 
-    public Color TextColor = Color.WHITE;
+    public Color TextColor = Color.White;
     public string Text = string.Empty;
     public float TextSize = 10;
     public Alignment TextAlignment = Alignment.TopLeft;

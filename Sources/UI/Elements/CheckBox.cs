@@ -7,12 +7,12 @@ public class CheckBox : Element
 {
     public bool Checked;
 
-    public IBrush? CheckBoxBrush = new OutlineBrush(Color.GRAY, Color.LIGHTGRAY);
+    public IBrush? CheckBoxBrush = new OutlineBrush(Color.Gray, Color.LightGray);
     public float BoxScale = 1f;
 
     public string Text = string.Empty;
     public float TextSize = 12;
-    public Color TextColor = Color.WHITE;
+    public Color TextColor = Color.White;
 
 
     public CheckBox(ElementId id) : base(id)
@@ -39,7 +39,7 @@ public class CheckBox : Element
                 Resources.GetTexture("Checkmark.png"), 
                 new Rectangle(0, 0, 18, 18), 
                 boxArea, 
-                Vector2.Zero, 0, Color.WHITE);
+                Vector2.Zero, 0, Color.White);
         }
 
         DrawText(Text, 8 + 18 * BoxScale, Area.Height / 2 - TextSize / 2f, TextSize, TextColor);

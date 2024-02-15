@@ -54,7 +54,7 @@ public class ColorLine : Element
         set => (R, G, B) = (value.R, value.G, value.B);
     }
 
-    public Color DefaultColor = Color.WHITE;
+    public Color DefaultColor = Color.White;
     
     private Panel _colorPreview;
     private TextBox _redBox;
@@ -70,7 +70,7 @@ public class ColorLine : Element
         
         _colorPreview = new Panel(new ElementId(id, "colorPreview"))
         {
-            Brush = new OutlineBrush(Color.DARKGRAY, DefaultColor),
+            Brush = new OutlineBrush(Color.DarkGray, DefaultColor),
             LocalPosition = new Vector2(0, 0),
             Parent = this,
             Size = new Vector2(40.0f, 20.0f)

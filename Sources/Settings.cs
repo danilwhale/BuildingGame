@@ -17,7 +17,7 @@ public static class Settings
         .WithNamingConvention(UnderscoredNamingConvention.Instance)
         .Build();
     
-    public static Color SkyColor = Color.SKYBLUE;
+    public static Color SkyColor = Color.SkyBlue;
 
     public static void Load()
     {

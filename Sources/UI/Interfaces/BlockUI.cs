@@ -29,7 +29,7 @@ public class BlockUI : UIInterface
         _menuTitle = new TextElement(new ElementId("blockMenu", "title"))
         {
             Text = translation.GetTranslatedName("block_ui_title"),
-            TextColor = Color.WHITE,
+            TextColor = Color.White,
             TextSize = 32,
             TextAlignment = Alignment.Center,
             Parent = _background,
@@ -121,8 +121,8 @@ public class BlockUI : UIInterface
     {
         base.Update();
 
-        if (IsKeyPressed(KeyboardKey.KEY_B)) Visible = !Visible;
-        if (IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT) && !_background.IsUnderMouse() &&
+        if (IsKeyPressed(KeyboardKey.B)) Visible = !Visible;
+        if (IsMouseButtonPressed(MouseButton.Left) && !_background.IsUnderMouse() &&
             GuiManager.GetElementUnderMouse()?.Id != "gameHud::tileMenuButton") // 🤟😏
             Visible = false;
     }

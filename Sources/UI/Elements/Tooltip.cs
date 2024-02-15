@@ -38,6 +38,6 @@ public class Tooltip : Element
     protected override void Render()
     {
         _brush.FillArea(new Rectangle(0, 0, Size.X, Size.Y));
-        DrawText(Text, 8.0f, 8.0f, TextSize, Color.WHITE);
+        DrawText(Text, 8.0f, 8.0f, TextSize, Color.White);
     }
 }

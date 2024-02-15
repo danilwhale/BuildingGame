@@ -45,17 +45,17 @@ public class Player
         if (scrollDelta > 0) ZoomIn(Speed * 0.075f);
         
         // get speed depending if user is sprinting or not
-        float speed = IsKeyDown(KeyboardKey.KEY_LEFT_CONTROL) || IsKeyDown(KeyboardKey.KEY_LEFT_SHIFT)
+        float speed = IsKeyDown(KeyboardKey.LeftControl) || IsKeyDown(KeyboardKey.LeftShift)
             ? Speed * 1.25f
             : Speed * 0.5f;
         speed /= Camera.Zoom;
         speed = Math.Clamp(speed, 0, Speed * 2);
         
         // move camera
-        if (IsKeyDown(KeyboardKey.KEY_W) && !GuiManager.IsFocused) Move(0, -speed);
-        if (IsKeyDown(KeyboardKey.KEY_S) && !GuiManager.IsFocused) Move(0, speed);
-        if (IsKeyDown(KeyboardKey.KEY_A) && !GuiManager.IsFocused) Move(-speed, 0);
-        if (IsKeyDown(KeyboardKey.KEY_D) && !GuiManager.IsFocused) Move(speed, 0);
+        if (IsKeyDown(KeyboardKey.W) && !GuiManager.IsFocused) Move(0, -speed);
+        if (IsKeyDown(KeyboardKey.S) && !GuiManager.IsFocused) Move(0, speed);
+        if (IsKeyDown(KeyboardKey.A) && !GuiManager.IsFocused) Move(-speed, 0);
+        if (IsKeyDown(KeyboardKey.D) && !GuiManager.IsFocused) Move(speed, 0);
         
         // adapt camera center when windows is resized
         if (IsWindowResized())
@@ -84,24 +84,24 @@ public class Player
         _tileX = (int)(worldMousePos.X / Tile.RealTileSize);
         _tileY = (int)(worldMousePos.Y / Tile.RealTileSize);
 
-        if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT) && !GuiManager.IsMouseOverElement())
+        if (IsMouseButtonDown(MouseButton.Left) && !GuiManager.IsMouseOverElement())
         {
             World[_tileX, _tileY] = CurrentTile;
         }
 
-        if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_RIGHT) && !GuiManager.IsMouseOverElement())
+        if (IsMouseButtonDown(MouseButton.Right) && !GuiManager.IsMouseOverElement())
         {
             World[_tileX, _tileY] = 0;
         }
 
-        if (IsKeyReleased(KeyboardKey.KEY_R))
+        if (IsKeyReleased(KeyboardKey.R))
         {
             CurrentTile.Flags.Rotation = (TileRotation)(CurrentTile.Flags.Rotation + 1);
             if ((int)CurrentTile.Flags.Rotation > (int)TileRotation.Right)
                 CurrentTile.Flags.Rotation = TileRotation.Up;
         }
 
-        if (IsKeyReleased(KeyboardKey.KEY_T))
+        if (IsKeyReleased(KeyboardKey.T))
         {
             CurrentTile.Flags.FlipRotation();
         }

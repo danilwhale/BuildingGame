@@ -16,7 +16,7 @@ public class ListBox : Element
 
     public float ItemTextSize = 12;
     public float ItemPadding = 4;
-    public Color ItemColor = Color.WHITE;
+    public Color ItemColor = Color.White;
     public int SelectedItem = -1;
 
     private float _scroll = 0;

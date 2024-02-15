@@ -189,7 +189,7 @@ public class Element : IDisposable
         };
 
         BeginTextureMode(_controlTexture);
-        ClearBackground(Color.BLANK);
+        ClearBackground(Color.Blank);
 
         Render();
 
@@ -202,14 +202,14 @@ public class Element : IDisposable
                 _Area.Width - 0.25f, -_Area.Height + 0.25f // we need to negate render texture height because opengl uses bottom-left instead of top-left
             ), 
             _Area, offset, Rotation,
-            Color.WHITE
+            Color.White
         );
     }
 
     protected virtual void Render()
     {
-        ClearBackground(Color.BLACK);
-        DrawText(":(", 0, 0, 16, Color.WHITE);
+        ClearBackground(Color.Black);
+        DrawText(":(", 0, 0, 16, Color.White);
     }
 
     public bool IsUnderMouse()
@@ -219,12 +219,12 @@ public class Element : IDisposable
 
     public bool IsClicked()
     {
-        return IsUnderMouse() && IsMouseButtonReleased(MouseButton.MOUSE_BUTTON_LEFT) && Visible && Active;
+        return IsUnderMouse() && IsMouseButtonReleased(MouseButton.Left) && Visible && Active;
     }
 
     public bool IsPressed()
     {
-        return IsUnderMouse() && IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT) && Visible && Active;
+        return IsUnderMouse() && IsMouseButtonDown(MouseButton.Left) && Visible && Active;
     }
 
     public void Dispose()

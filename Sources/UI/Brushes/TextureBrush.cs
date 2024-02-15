@@ -5,7 +5,7 @@ namespace BuildingGame.UI.Brushes;
 public class TextureBrush : IBrush
 {
     public Texture2D Texture;
-    public Color Tint = Color.WHITE;
+    public Color Tint = Color.White;
     public Rectangle CropArea;
 
     public TextureBrush(Texture2D texture)

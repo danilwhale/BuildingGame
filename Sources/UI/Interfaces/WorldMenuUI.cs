@@ -32,7 +32,7 @@ public class WorldMenuUI : UIInterface
             ItemTextSize = 20.0f,
             GlobalPosition = new Vector2(0.0f, 0.0f),
             BackgroundBrush = null,
-            ItemColor = Color.WHITE,
+            ItemColor = Color.White,
             Items = WorldManager.Worlds.Select(w => $"{w.Info.Name} ['{Path.GetFileName(w.Path)}']").ToList()
         };
         _worldList.OnItemSelect += (item) =>

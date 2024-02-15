@@ -39,7 +39,7 @@ public class GameScreen : Screen
     {
         base.Update();
         
-        if (IsKeyPressed(KeyboardKey.KEY_R))
+        if (IsKeyPressed(KeyboardKey.R))
             Tiles.Tiles.Reload();
         
         if (!Program.Paused)

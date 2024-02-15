@@ -16,18 +16,18 @@ public class TextBox : TextElement
     
     public TextBox(ElementId id) : base(id)
     {
-        _brush = new OutlineBrush(Color.BLACK, Color.LIGHTGRAY);
-        TextColor = Color.BLACK;
+        _brush = new OutlineBrush(Color.Black, Color.LightGray);
+        TextColor = Color.Black;
     }
 
     public override void Update()
     {
         base.Update();
         
-        if (IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
+        if (IsMouseButtonPressed(MouseButton.Left))
         {
             _focused = IsUnderMouse();
-            _brush.LineColor = _focused ? Color.GRAY : Color.BLACK;
+            _brush.LineColor = _focused ? Color.Gray : Color.Black;
             // _brush.LineThick = _focused ? 1.5f : 1;
 
             GuiManager.IsFocused = _focused;
@@ -46,7 +46,7 @@ public class TextBox : TextElement
         if (c >= CharacterRange.Start.Value && c <= CharacterRange.End.Value && Text.Length < MaxCharacters)
             Text += char.ConvertFromUtf32(c);
         
-        if (IsKeyPressed(KeyboardKey.KEY_BACKSPACE) && Text.Length > 0)
+        if (IsKeyPressedRepeat(KeyboardKey.Backspace) && Text.Length > 0)
             Text = Text.Remove(Text.Length - 1);
         
         OnTextUpdate?.Invoke(Text);
