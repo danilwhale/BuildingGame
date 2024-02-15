@@ -83,6 +83,6 @@ public class Tile
 
     public override int GetHashCode()
     {
-        return TexCoord.GetHashCode() ^ Size.GetHashCode();
+        return HashCode.Combine(TexCoord, Size, TranslationKey);
     }
 }
