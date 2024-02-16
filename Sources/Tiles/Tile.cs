@@ -43,14 +43,20 @@ public class Tile
         TexCoord = new Vector2(tx, ty);
     }
 
-    public virtual void Update(World world, TileInfo info, int x, int y)
     public virtual void OnPlace(World world, TileInfo info, int x, int y)
     {
     }
 
     public virtual void OnUpdate(World world, TileInfo info, int x, int y)
     {
+        info.Data.TickTimer -= GetFrameTime();
+        
+        if (info.Data.TickTimer > 0.0f) return;
 
+        info.Data.TickTimer = 1.0f / TickCount;
+        info.Data.CurrentTick--;
+        if (info.Data.CurrentTick < 0) info.Data.CurrentTick = TickCount;
+        OnTick(world, info, x, y);
     }
 
     public virtual void OnRandomUpdate(World world, TileInfo info, int x, int y)

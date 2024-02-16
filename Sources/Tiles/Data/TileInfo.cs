@@ -4,6 +4,7 @@ public struct TileInfo
 {
     public byte Id;
     public TileFlags Flags;
+    public TileData Data = new TileData();
 
     public TileInfo(byte id, TileFlags flags)
     {
