@@ -4,7 +4,7 @@ using BuildingGame.Tiles.IO;
 
 namespace BuildingGame.Tiles;
 
-public class World
+public partial class World
 {
     public const int DefaultSize = 256;
     
