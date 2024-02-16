@@ -41,8 +41,20 @@ public struct Chunk
                 if (info == 0) continue;
                 if (!Tiles.TryGetTile(info, out var tile)) continue;
                 
-                tile.Update(World, info, X * Size + x, Y * Size + y);
+                tile.OnUpdate(World, info, X * Size + x, Y * Size + y);
             }
+        }
+
+        for (var i = 0; i < Size * Size; i++)
+        {
+            var x = Random.Shared.Next(0, Size);
+            var y = Random.Shared.Next(0, Size);
+            
+            TileInfo info = _tiles[x][y];
+            if (info == 0) continue;
+            if (!Tiles.TryGetTile(info, out var tile)) continue;
+            
+            tile.OnRandomUpdate(World, info, x, y);
         }
     }
 
@@ -67,6 +79,7 @@ public struct Chunk
         {
             if (x < 0 || x >= Size || y < 0 || y >= Size)
                 return 0;
+            
             return _tiles[x][y];
         }
         set
@@ -74,7 +87,37 @@ public struct Chunk
             if (x < 0 || x >= Size || y < 0 || y >= Size)
                 return;
 
+            var oldTileInfo = _tiles[x][y];
+            
             _tiles[x][y] = value;
+
+            if (!Tiles.TryGetTile(oldTileInfo, out var oldTile)) return;
+            if (!Tiles.TryGetTile(value, out var tile)) return;
+            
+            oldTile.OnInfoUpdate(World, oldTileInfo, value, x, y);
+            tile.OnPlace(World, value, x, y);
+
+            NotifyTileInfoUpdate(value, oldTileInfo, x, y, x - 1, y);
+            NotifyTileInfoUpdate(value, oldTileInfo, x, y, x + 1, y);
+            NotifyTileInfoUpdate(value, oldTileInfo, x, y, x, y - 1);
+            NotifyTileInfoUpdate(value, oldTileInfo, x, y, x, y + 1);
         }
+    }
+
+    private void NotifyTileInfoUpdate(TileInfo newInfo, TileInfo oldInfo, int x, int y, int nx, int ny)
+    {
+        var tileInfo = World[Size * X + nx, Size * Y + ny];
+
+        if (!Tiles.TryGetTile(tileInfo, out var tile)) return;
+        
+        tile.OnNeighbourInfoUpdate(
+            World, 
+            oldInfo, 
+            newInfo, 
+            Size * X + nx, 
+            Size * Y + ny, 
+            Size * X + x, 
+            Size * Y + y
+            );
     }
 }

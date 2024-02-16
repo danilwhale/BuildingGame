@@ -46,8 +46,6 @@ public class GameScreen : Screen
         {
             _playTime += TimeSpan.FromSeconds(GetFrameTime());
 
-            Tiles.Tiles.Update();
-
             _player.Update();
             _world.Update();
         }

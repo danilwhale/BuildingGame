@@ -5,6 +5,7 @@ namespace BuildingGame.Tiles;
 
 public class Tile
 {
+    public const int TickCount = 20;
     public const int TileSize = 16;
     public const float TileUpscale = 3;
     public const float RealTileSize = TileSize * TileUpscale;
@@ -43,12 +44,30 @@ public class Tile
     }
 
     public virtual void Update(World world, TileInfo info, int x, int y)
+    public virtual void OnPlace(World world, TileInfo info, int x, int y)
     {
     }
 
-    public virtual void StaticUpdate()
+    public virtual void OnUpdate(World world, TileInfo info, int x, int y)
     {
 
+    }
+
+    public virtual void OnRandomUpdate(World world, TileInfo info, int x, int y)
+    {
+    }
+
+    protected virtual void OnTick(World world, TileInfo info, int x, int y)
+    {
+    }
+
+    public virtual void OnNeighbourInfoUpdate(World world, TileInfo oldInfo, TileInfo newInfo, int x, int y,
+        int neighbourX, int neighbourY)
+    {
+    }
+
+    public virtual void OnInfoUpdate(World world, TileInfo oldInfo, TileInfo newInfo, int x, int y)
+    {
     }
 
     public virtual void Draw(World world, TileInfo info, float x, float y, Color tint)
