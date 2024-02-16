@@ -13,7 +13,7 @@ public class CheckBox : Element
     public string Text = string.Empty;
     public float TextSize = 12;
     public Color TextColor = Color.White;
-
+    public event Action<bool>? OnCheck;
 
     public CheckBox(ElementId id) : base(id)
     {
@@ -21,7 +21,11 @@ public class CheckBox : Element
 
     public override void Update()
     {
-        if (IsClicked()) Checked = !Checked;
+        if (IsClicked())
+        {
+            Checked = !Checked;
+            OnCheck?.Invoke(Checked);
+        }
     }
 
     protected override void Render()
