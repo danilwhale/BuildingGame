@@ -10,6 +10,7 @@ public class SettingsUI : UIInterface
     private Panel _background;
     private TextElement _skyColorLineText;
     private ColorLine _skyColorLine;
+    private CheckBox _enableDynamicTilesBox;
     
     public override void Initialize()
     {
@@ -44,6 +45,20 @@ public class SettingsUI : UIInterface
             Settings.SkyColor = color;
         };
         Elements.Add(_skyColorLine);
+
+        _enableDynamicTilesBox = new CheckBox(new ElementId("settings", "enableDynamicTilesBox"))
+        {
+            Text = translation.GetTranslatedName("enable_dynamic_tiles"),
+            Size = new Vector2(512.0f, 20.0f),
+            TextSize = 16.0f,
+            ZIndex = 1,
+            Parent = _background
+        };
+        _enableDynamicTilesBox.OnCheck += @checked =>
+        {
+            Settings.EnableDynamicTiles = @checked;
+        };
+        Elements.Add(_enableDynamicTilesBox);
         
         Configure();
         Visible = false;
@@ -57,6 +72,7 @@ public class SettingsUI : UIInterface
     public override void Configure()
     {
         _background.Area = new Rectangle(50.0f, 50.0f, GetScreenWidth() - 100.0f, GetScreenHeight() - 100.0f);
-        _skyColorLineText.GlobalPosition = _background.GlobalPosition + new Vector2(8.0f, 16.0f); 
+        _skyColorLineText.GlobalPosition = _background.GlobalPosition + new Vector2(8.0f, 16.0f);
+        _enableDynamicTilesBox.GlobalPosition = _skyColorLineText.GlobalPosition + new Vector2(0.0f, _skyColorLineText.Size.Y + 8.0f);
     }
 }

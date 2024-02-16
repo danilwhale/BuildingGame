@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using BuildingGame;
 using BuildingGame.Tiles;
+using BuildingGame.Tiles.Dynamic;
 using BuildingGame.Tiles.IO;
 using BuildingGame.UI;
 using BuildingGame.UI.Brushes;
@@ -54,6 +55,10 @@ internal class Program
 
         WorldIO.AddDeserializerAsBackupable(new BGWorld2Format.Deserializer());
         WorldIO.AddDeserializerAsBackupable(new LvlFormat.Deserializer());
+        
+        Tiles.RegisterCustomTile("sand", new SandTile());
+        Tiles.RegisterCustomTile("water", new WaterTile());
+        Tiles.RegisterCustomTile("lava", new LavaTile());
 
         ScreenManager.CurrentScreen = new MenuScreen();
         

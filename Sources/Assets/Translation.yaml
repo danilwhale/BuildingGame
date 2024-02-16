@@ -59,6 +59,7 @@ packs_button: "packs"
 exit_button: "exit"
 
 sky_color_line: "sky color (RGB): "
+enable_dynamic_tiles: "enable dynamic tiles"
 
 resume_button: "resume"
 menu_button: "menu"
