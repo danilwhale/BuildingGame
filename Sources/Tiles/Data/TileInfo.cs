@@ -11,6 +11,11 @@ public struct TileInfo
         Id = id;
         Flags = flags;
     }
+
+    public TileInfo Clone()
+    {
+        return new TileInfo(Id, Flags);
+    }
     
     public static implicit operator TileInfo(byte id) => new TileInfo(id, TileFlags.Default);
     public static implicit operator byte(TileInfo info) => info.Id;
