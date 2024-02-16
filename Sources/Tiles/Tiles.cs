@@ -43,6 +43,11 @@ public static class Tiles
         return key.Id;
     }
 
+    public static byte GetId(string name)
+    {
+        return !TryGetTile(name, out var tile) ? (byte)0 : GetId(tile);
+    }
+
     public static Tile[] GetTiles()
     {
         return _Tiles.Values.ToArray();
