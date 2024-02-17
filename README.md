@@ -14,8 +14,8 @@ a game, where you just place tiles
 - [x] settings
 - [x] main menu
 - [ ] tile packs
-- [ ] dynamic tiles
-- [ ] infection ~~block~~ tile
+- [x] dynamic tiles
+- [x] infection ~~block~~ tile
 
 ### new features
 - bugs
