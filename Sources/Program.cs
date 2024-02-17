@@ -59,6 +59,7 @@ internal class Program
         Tiles.RegisterCustomTile("sand", new SandTile());
         Tiles.RegisterCustomTile("water", new WaterTile());
         Tiles.RegisterCustomTile("lava", new LavaTile());
+        Tiles.RegisterCustomTile("infection_block", new InfectionTile());
 
         ScreenManager.CurrentScreen = new MenuScreen();
         

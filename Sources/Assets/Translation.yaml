@@ -60,6 +60,7 @@ exit_button: "exit"
 
 sky_color_line: "sky color (RGB): "
 enable_dynamic_tiles: "enable dynamic tiles"
+enable_infection_tile: "enable infection tile"
 
 resume_button: "resume"
 menu_button: "menu"

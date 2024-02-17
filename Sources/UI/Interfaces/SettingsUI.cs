@@ -11,6 +11,7 @@ public class SettingsUI : UIInterface
     private TextElement _skyColorLineText;
     private ColorLine _skyColorLine;
     private CheckBox _enableDynamicTilesBox;
+    private CheckBox _enableInfectionTileBox;
     
     public override void Initialize()
     {
@@ -52,6 +53,7 @@ public class SettingsUI : UIInterface
             Size = new Vector2(512.0f, 20.0f),
             TextSize = 16.0f,
             ZIndex = 1,
+            Checked = Settings.EnableDynamicTiles,
             Parent = _background
         };
         _enableDynamicTilesBox.OnCheck += @checked =>
@@ -59,6 +61,21 @@ public class SettingsUI : UIInterface
             Settings.EnableDynamicTiles = @checked;
         };
         Elements.Add(_enableDynamicTilesBox);
+
+        _enableInfectionTileBox = new CheckBox(new ElementId("settings", "enableInfectionTileBox"))
+        {
+            Text = translation.GetTranslatedName("enable_infection_tile"),
+            Size = new Vector2(512.0f, 20.0f),
+            TextSize = 16.0f,
+            ZIndex = 1,
+            Checked = Settings.EnableInfectionTile,
+            Parent = _background
+        };
+        _enableInfectionTileBox.OnCheck += @checked =>
+        {
+            Settings.EnableInfectionTile = @checked;
+        };
+        Elements.Add(_enableInfectionTileBox);
         
         Configure();
         Visible = false;
@@ -74,5 +91,7 @@ public class SettingsUI : UIInterface
         _background.Area = new Rectangle(50.0f, 50.0f, GetScreenWidth() - 100.0f, GetScreenHeight() - 100.0f);
         _skyColorLineText.GlobalPosition = _background.GlobalPosition + new Vector2(8.0f, 16.0f);
         _enableDynamicTilesBox.GlobalPosition = _skyColorLineText.GlobalPosition + new Vector2(0.0f, _skyColorLineText.Size.Y + 8.0f);
+        _enableInfectionTileBox.GlobalPosition = _enableDynamicTilesBox.GlobalPosition +
+                                                 new Vector2(0.0f, _enableInfectionTileBox.Size.Y + 8.0f);
     }
 }

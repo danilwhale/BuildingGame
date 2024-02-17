@@ -5,7 +5,7 @@ namespace BuildingGame;
 
 public static class Settings
 {
-    public record struct Record(Color SkyColor, bool EnableDynamicTiles);
+    public record struct Record(Color SkyColor, bool EnableDynamicTiles, bool EnableInfectionTile);
 
     public const string SettingsFile = "Settings.yaml";
     
@@ -19,6 +19,7 @@ public static class Settings
     
     public static Color SkyColor = Color.SkyBlue;
     public static bool EnableDynamicTiles = true;
+    public static bool EnableInfectionTile = true;
 
     public static void Load()
     {
@@ -43,7 +44,7 @@ public static class Settings
     {
         try
         {
-            var record = new Record(SkyColor, EnableDynamicTiles);
+            var record = new Record(SkyColor, EnableDynamicTiles, EnableInfectionTile);
 
             var content = _serializer.Serialize(record);
             File.WriteAllText(SettingsFile, content);
