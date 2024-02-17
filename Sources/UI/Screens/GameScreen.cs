@@ -32,7 +32,7 @@ public class GameScreen : Screen
 
         _blockUi = new BlockUI();
         _ui = new GameUI(_blockUi);
-        _pause = new PauseUI();
+        _pause = new PauseUI(_blockUi);
     }
 
     public override void Update()

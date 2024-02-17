@@ -52,6 +52,11 @@ public class GameUI : UIInterface
     {
         base.Update();
 
+        if (!_blockUi.Visible && IsKeyPressed(KeyboardKey.Escape))
+        {
+            _blockUi.Visible = false;
+        }
+        
         if (!Tiles.Tiles.TryGetTile(Player.CurrentTile, out var tile)) return;
         
         var brush = (TextureBrush)_tileMenuButton.BackgroundBrush!;

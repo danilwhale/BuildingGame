@@ -14,10 +14,12 @@ public class PauseUI : UIInterface
     private Button _settingsButton;
 
     private SettingsUI _settingsUi = new SettingsUI();
+    private BlockUI _blockUi;
 
-    public PauseUI()
+    public PauseUI(BlockUI blockUi)
     {
         IgnorePause = true;
+        _blockUi = blockUi;
     }
     
     public override void Initialize()
@@ -110,10 +112,21 @@ public class PauseUI : UIInterface
     {
         base.Update();
 
-        if (IsKeyPressed(KeyboardKey.Escape))
+        if (!IsKeyPressed(KeyboardKey.Escape)) return;
+
+        if (Visible && _settingsUi.Visible)
         {
-            Visible = !Visible;
-            Program.Paused = !Program.Paused;
+            _settingsUi.Visible = false;
+            return;
         }
+
+        if (!Visible && _blockUi.Visible)
+        {
+            _blockUi.Visible = false;
+            return;
+        }
+        
+        Visible = !Visible;
+        Program.Paused = !Program.Paused;
     }
 }
