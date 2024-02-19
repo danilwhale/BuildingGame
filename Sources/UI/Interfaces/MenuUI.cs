@@ -57,6 +57,10 @@ public class MenuUI : UIInterface
             TextSize = 24.0f,
             Size = new Vector2(100.0f, 28.0f)
         };
+        _packsButton.OnClick += () =>
+        {
+            ScreenManager.Switch(new TilePacksScreen());
+        };
         Elements.Add(_packsButton);
 
         _exitButton = new Button(new ElementId("menuUi", "exitButton"))

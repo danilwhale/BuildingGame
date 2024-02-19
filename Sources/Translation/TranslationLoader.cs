@@ -6,7 +6,7 @@ namespace BuildingGame.Translation;
 
 public static class TranslationLoader
 {
-    public const string DefaultTranslationPath = "Assets/Translation.yaml";
+    public static readonly string TranslationPath = "Translation.yaml";
     
     private static readonly IDeserializer _yaml = new DeserializerBuilder()
         .WithNamingConvention(UnderscoredNamingConvention.Instance)
@@ -17,9 +17,9 @@ public static class TranslationLoader
     {
         translation = new TranslationContainer();
 
-        if (!File.Exists(path)) return false;
+        if (!File.Exists(Resources.GetPath(path))) return false;
 
-        var content = File.ReadAllText(path);
+        var content = Resources.GetText(path);
         var translationMap = _yaml.Deserialize<Dictionary<string, string>>(content);
         translation = new TranslationContainer(translationMap);
         

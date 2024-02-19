@@ -5,7 +5,7 @@ namespace BuildingGame;
 
 public static class Settings
 {
-    public record struct Record(Color SkyColor, bool EnableDynamicTiles, bool EnableInfectionTile);
+    public record struct Record(Color SkyColor, bool EnableDynamicTiles, bool EnableInfectionTile, string CurrentTilePack);
 
     public const string SettingsFile = "Settings.yaml";
     
@@ -20,6 +20,7 @@ public static class Settings
     public static Color SkyColor = Color.SkyBlue;
     public static bool EnableDynamicTiles = true;
     public static bool EnableInfectionTile = true;
+    public static string CurrentTilePack = "Default";
 
     public static void Load()
     {
@@ -31,6 +32,7 @@ public static class Settings
             SkyColor = record.SkyColor;
             EnableDynamicTiles = record.EnableDynamicTiles;
             EnableInfectionTile = record.EnableInfectionTile;
+            CurrentTilePack = record.CurrentTilePack;
         }
         catch (FileNotFoundException)
         {
@@ -46,7 +48,7 @@ public static class Settings
     {
         try
         {
-            var record = new Record(SkyColor, EnableDynamicTiles, EnableInfectionTile);
+            var record = new Record(SkyColor, EnableDynamicTiles, EnableInfectionTile, CurrentTilePack);
 
             var content = _serializer.Serialize(record);
             File.WriteAllText(SettingsFile, content);

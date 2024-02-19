@@ -7,6 +7,7 @@ using BuildingGame;
 using BuildingGame.Tiles;
 using BuildingGame.Tiles.Dynamic;
 using BuildingGame.Tiles.IO;
+using BuildingGame.Tiles.Packs;
 using BuildingGame.UI;
 using BuildingGame.UI.Brushes;
 using BuildingGame.UI.Elements;
@@ -27,14 +28,10 @@ internal class Program
         SetConfigFlags(ConfigFlags.ResizableWindow);
         InitWindow(1024, 768, "building game");
         SetExitKey(KeyboardKey.Null);
-
-        // set window icon
-        Image icon = LoadImage("Assets/Icon.png");
-        SetWindowIcon(icon);
-        UnloadImage(icon);
-
+        
         Initialize();
 
+        
         while (Running && !WindowShouldClose())
         {
             Update();
@@ -45,9 +42,25 @@ internal class Program
         CloseWindow();
     }
 
+    public static void LoadWindowIcon()
+    {
+        var icon = Resources.GetImage("Icon.png");
+        SetWindowIcon(icon);
+    }
+
     private static void Initialize()
     {
         Settings.Load();
+        
+        TilePackManager.Load();
+        
+        var pack = TilePackManager.Find(Settings.CurrentTilePack);
+        if (string.IsNullOrWhiteSpace(pack.Path))
+        {
+            pack = TilePackManager.Find("Default");
+        }
+        
+        TilePackManager.Apply(pack);
         
         BGWorld21Format.Register();
         BGWorld2Format.Register();

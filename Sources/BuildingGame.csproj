@@ -44,4 +44,10 @@
     <_DeploymentManifestIconFile Remove="assets\icon.ico" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TilePacks\Default\Pack.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

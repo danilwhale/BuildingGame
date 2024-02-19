@@ -1,8 +1,8 @@
 namespace BuildingGame.Translation;
 
-public readonly struct TranslationContainer
+public class TranslationContainer
 {
-    private static TranslationContainer _default;
+    private static TranslationContainer _default = new();
 
     public static TranslationContainer Default
     {
@@ -10,12 +10,17 @@ public readonly struct TranslationContainer
         {
             if (!_default.IsEmpty()) return _default;
 
-            TranslationLoader.TryLoadTranslation(TranslationLoader.DefaultTranslationPath, out _default);
+            TranslationLoader.TryLoadTranslation(TranslationLoader.TranslationPath, out _default);
             return _default;
         }
     }
-    private readonly Dictionary<string, string> _translations = new Dictionary<string, string>();
+    private Dictionary<string, string> _translations;
 
+    public TranslationContainer()
+    {
+        _translations = new Dictionary<string, string>();
+    }
+    
     public TranslationContainer(Dictionary<string, string> translations)
     {
         _translations = translations;
@@ -26,8 +31,14 @@ public readonly struct TranslationContainer
         return _translations.GetValueOrDefault(name) ?? name;
     }
 
-    public bool IsEmpty()
+    public void Reload(string path)
     {
-        return _translations == null || _translations.Count < 1;
+        TranslationLoader.TryLoadTranslation(path, out var translation);
+        _translations = translation._translations;
+    }
+
+    private bool IsEmpty()
+    {
+        return _translations is { Count: > 0 };
     }
 }
