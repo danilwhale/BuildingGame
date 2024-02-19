@@ -1,5 +1,4 @@
 using BuildingGame.Tiles;
-using BuildingGame.UI.Elements;
 using BuildingGame.UI.Interfaces;
 
 namespace BuildingGame.UI.Screens;
@@ -19,7 +18,7 @@ public class WorldSelectionScreen : Screen
     public override void Draw()
     {
         ClearBackground(new Color(20, 20, 20, 255));
-        
+
         base.Draw();
     }
 }

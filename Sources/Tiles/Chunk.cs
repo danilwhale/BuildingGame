@@ -10,7 +10,7 @@ public struct Chunk
     public World World;
     public readonly int X, Y;
 
-    private TileInfo[][] _tiles;
+    private readonly TileInfo[][] _tiles;
 
     public Chunk(World world, int x, int y)
     {
@@ -19,57 +19,48 @@ public struct Chunk
         Y = y;
 
         _tiles = new TileInfo[Size][];
-        for (int i = 0; i < Size; i++)
+        for (var i = 0; i < Size; i++)
         {
             _tiles[i] = new TileInfo[Size];
-            for (int j = 0; j < Size; j++)
-            {
-                _tiles[i][j] = 0;
-            }
+            for (var j = 0; j < Size; j++) _tiles[i][j] = 0;
         }
     }
 
     public void Update()
     {
-
-
-        for (int x = Size - 1; x >= 0; x--)
+        for (var x = Size - 1; x >= 0; x--)
+        for (var y = Size - 1; y >= 0; y--)
         {
-            for (int y = Size - 1; y >= 0; y--)
-            {
-                TileInfo info = _tiles[x][y];
-                if (info == 0) continue;
-                if (!Tiles.TryGetTile(info, out var tile)) continue;
-                
-                tile.OnUpdate(World, info, X * Size + x, Y * Size + y);
-            }
+            var info = _tiles[x][y];
+            if (info == 0) continue;
+            if (!Tiles.TryGetTile(info, out var tile)) continue;
+
+            tile.OnUpdate(World, info, X * Size + x, Y * Size + y);
         }
 
         for (var i = 0; i < Size * Size; i++)
         {
             var x = Random.Shared.Next(0, Size);
             var y = Random.Shared.Next(0, Size);
-            
-            TileInfo info = _tiles[x][y];
+
+            var info = _tiles[x][y];
             if (info == 0) continue;
             if (!Tiles.TryGetTile(info, out var tile)) continue;
-            
+
             tile.OnRandomUpdate(World, info, x, y);
         }
     }
 
     public void Draw()
     {
-        for (int x = 0; x < Size; x++)
+        for (var x = 0; x < Size; x++)
+        for (var y = 0; y < Size; y++)
         {
-            for (int y = 0; y < Size; y++)
-            {
-                TileInfo info = _tiles[x][y];
-                if (info== 0) continue;
-                if (!Tiles.TryGetTile(info, out var tile)) continue;
-                
-                tile.Draw(World, info, X * Size + x, Y * Size + y, Color.White);
-            }
+            var info = _tiles[x][y];
+            if (info == 0) continue;
+            if (!Tiles.TryGetTile(info, out var tile)) continue;
+
+            tile.Draw(World, info, X * Size + x, Y * Size + y, Color.White);
         }
     }
 
@@ -79,7 +70,7 @@ public struct Chunk
         {
             if (x < 0 || x >= Size || y < 0 || y >= Size)
                 return 0;
-            
+
             return _tiles[x][y];
         }
         set
@@ -88,12 +79,12 @@ public struct Chunk
                 return;
 
             var oldTileInfo = _tiles[x][y];
-            
+
             _tiles[x][y] = value;
 
             if (!Tiles.TryGetTile(oldTileInfo, out var oldTile)) return;
             if (!Tiles.TryGetTile(value, out var tile)) return;
-            
+
             oldTile.OnInfoUpdate(World, oldTileInfo, value, x, y);
             tile.OnPlace(World, value, x, y);
 
@@ -109,15 +100,15 @@ public struct Chunk
         var tileInfo = World[Size * X + nx, Size * Y + ny];
 
         if (!Tiles.TryGetTile(tileInfo, out var tile)) return;
-        
+
         tile.OnNeighbourInfoUpdate(
-            World, 
-            oldInfo, 
-            newInfo, 
-            Size * X + nx, 
-            Size * Y + ny, 
-            Size * X + x, 
+            World,
+            oldInfo,
+            newInfo,
+            Size * X + nx,
+            Size * Y + ny,
+            Size * X + x,
             Size * Y + y
-            );
+        );
     }
 }

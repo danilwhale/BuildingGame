@@ -4,7 +4,35 @@ namespace BuildingGame.UI;
 
 public class Element : IDisposable
 {
+    private bool _active = true;
     private Rectangle _Area;
+
+    private RenderTexture2D _controlTexture;
+
+    private bool _ignorePause;
+
+    private Vector2 _localPosition;
+
+    private Element? _parent;
+
+    private bool _visible = true;
+
+    private short _zIndex;
+
+    public List<Element> Children = new();
+
+    public ElementId Id;
+
+    public Alignment Origin = Alignment.TopLeft;
+    public float Rotation = 0;
+    public string TooltipText = string.Empty;
+
+    public Element(ElementId id)
+    {
+        Id = id;
+        Area = new Rectangle(0, 0, 128, 128);
+        GuiManager.Add(this);
+    }
 
     public Rectangle Area
     {
@@ -20,30 +48,26 @@ public class Element : IDisposable
 
     public Vector2 GlobalPosition
     {
-        get => new Vector2(_Area.X, _Area.Y);
+        get => new(_Area.X, _Area.Y);
         set
         {
             _Area = new Rectangle(value.X, value.Y, _Area.Width, _Area.Height);
 
-            foreach (var child in Children)
-            {
-                child.GlobalPosition = GlobalPosition + child.LocalPosition;
-            }
+            foreach (var child in Children) child.GlobalPosition = GlobalPosition + child.LocalPosition;
         }
     }
 
     public Vector2 Size
     {
-        get => new Vector2(_Area.Width, _Area.Height);
+        get => new(_Area.Width, _Area.Height);
         set
         {
             if (value == new Vector2(Area.Width, Area.Height)) return;
-            
+
             Area = new Rectangle(_Area.X, _Area.Y, value.X, value.Y);
         }
     }
 
-    private Vector2 _localPosition;
     public Vector2 LocalPosition
     {
         get => Parent != null ? _localPosition : GlobalPosition;
@@ -61,31 +85,18 @@ public class Element : IDisposable
         }
     }
 
-    private Element? _parent;
-
     public Element? Parent
     {
         get => _parent;
         set
         {
             if (value == null && _parent != null)
-            {
                 _parent.Children.Remove(this);
-            }
-            else if (value != null && _parent == null)
-            {
-                value.Children.Add(this);
-            }
+            else if (value != null && _parent == null) value.Children.Add(this);
 
             _parent = value;
         }
     }
-
-    public List<Element> Children = new List<Element>();
-
-    public ElementId Id;
-
-    private short _zIndex;
 
     public short ZIndex
     {
@@ -103,69 +114,45 @@ public class Element : IDisposable
             }
 
             _zIndex = (short)(Parent.ZIndex + value);
-            return;
         }
     }
-
-    private bool _active = true;
 
     public bool Active
     {
         get => _active;
         set
         {
-            foreach (var child in Children)
-            {
-                child.Active = value;
-            }
+            foreach (var child in Children) child.Active = value;
 
             _active = value;
         }
     }
-
-    private bool _visible = true;
 
     public bool Visible
     {
         get => _visible;
         set
         {
-            foreach (var child in Children)
-            {
-                child.Visible = value;
-            }
+            foreach (var child in Children) child.Visible = value;
 
             _visible = value;
         }
     }
-
-    public Alignment Origin = Alignment.TopLeft;
-    public float Rotation = 0;
-    public string TooltipText = string.Empty;
-
-    private bool _ignorePause = false;
 
     public bool IgnorePause
     {
         get => _ignorePause;
         set
         {
-            foreach (var child in Children)
-            {
-                child.IgnorePause = value;
-            }
+            foreach (var child in Children) child.IgnorePause = value;
 
             _ignorePause = value;
         }
     }
 
-    private RenderTexture2D _controlTexture;
-
-    public Element(ElementId id)
+    public void Dispose()
     {
-        Id = id;
-        Area = new Rectangle(0, 0, 128, 128);
-        GuiManager.Add(this);
+        UnloadRenderTexture(_controlTexture);
     }
 
     public virtual void Update()
@@ -174,7 +161,7 @@ public class Element : IDisposable
 
     public void Draw()
     {
-        Vector2 offset = Origin switch
+        var offset = Origin switch
         {
             Alignment.TopLeft => new Vector2(0, 0),
             Alignment.TopRight => new Vector2(_Area.Width, 0),
@@ -194,13 +181,15 @@ public class Element : IDisposable
         Render();
 
         EndTextureMode();
-            
+
         DrawTexturePro(
             _controlTexture.Texture,
             new Rectangle(
-                0.25f, 0.25f, 
-                _Area.Width - 0.25f, -_Area.Height + 0.25f // we need to negate render texture height because opengl uses bottom-left instead of top-left
-            ), 
+                0.25f, 0.25f,
+                _Area.Width - 0.25f,
+                -_Area.Height +
+                0.25f // we need to negate render texture height because opengl uses bottom-left instead of top-left
+            ),
             _Area, offset, Rotation,
             Color.White
         );
@@ -225,10 +214,5 @@ public class Element : IDisposable
     public bool IsPressed()
     {
         return IsUnderMouse() && IsMouseButtonDown(MouseButton.Left) && Visible && Active;
-    }
-
-    public void Dispose()
-    {
-        UnloadRenderTexture(_controlTexture);
     }
 }

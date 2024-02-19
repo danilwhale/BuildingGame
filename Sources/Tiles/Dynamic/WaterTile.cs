@@ -17,14 +17,11 @@ public class WaterTile : LiquidTile
     {
         SpreadSpeed = 10;
     }
-    
+
     protected override void OnTick(World world, TileInfo info, int x, int y)
     {
         base.OnTick(world, info, x, y);
 
-        if (world.IsTileNear(x, y, LavaId))
-        {
-            world[x, y] = ObsidianId;
-        }
+        if (world.IsTileNear(x, y, LavaId)) world[x, y] = ObsidianId;
     }
 }

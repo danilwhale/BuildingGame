@@ -5,10 +5,8 @@ namespace BuildingGame;
 
 public static class Settings
 {
-    public record struct Record(Color SkyColor, bool EnableDynamicTiles, bool EnableInfectionTile, string CurrentTilePack);
-
     public const string SettingsFile = "Settings.yaml";
-    
+
     private static readonly IDeserializer _deserializer = new DeserializerBuilder()
         .WithNamingConvention(UnderscoredNamingConvention.Instance)
         .Build();
@@ -16,7 +14,7 @@ public static class Settings
     private static readonly ISerializer _serializer = new SerializerBuilder()
         .WithNamingConvention(UnderscoredNamingConvention.Instance)
         .Build();
-    
+
     public static Color SkyColor = Color.SkyBlue;
     public static bool EnableDynamicTiles = true;
     public static bool EnableInfectionTile = true;
@@ -40,7 +38,7 @@ public static class Settings
         }
         catch (Exception ex)
         {
-            Console.WriteLine("whoops: " + ex.ToString());
+            Console.WriteLine("whoops: " + ex);
         }
     }
 
@@ -58,4 +56,10 @@ public static class Settings
             Console.WriteLine("whoops: " + ex);
         }
     }
+
+    public record struct Record(
+        Color SkyColor,
+        bool EnableDynamicTiles,
+        bool EnableInfectionTile,
+        string CurrentTilePack);
 }

@@ -67,15 +67,33 @@ public struct ElementId
             builder.Append(Root);
             builder.Append("::");
         }
+
         builder.Append(Name);
         return builder.ToString();
     }
 
-    public static implicit operator string(ElementId id) => id.ToString();
+    public static implicit operator string(ElementId id)
+    {
+        return id.ToString();
+    }
 
-    public static bool operator ==(ElementId a, ElementId b) => a.Equals(b);
-    public static bool operator !=(ElementId a, ElementId b) => !(a == b);
+    public static bool operator ==(ElementId a, ElementId b)
+    {
+        return a.Equals(b);
+    }
 
-    public static bool operator ==(ElementId a, string b) => a.Equals(b);
-    public static bool operator !=(ElementId a, string b) => !(a == b);
+    public static bool operator !=(ElementId a, ElementId b)
+    {
+        return !(a == b);
+    }
+
+    public static bool operator ==(ElementId a, string b)
+    {
+        return a.Equals(b);
+    }
+
+    public static bool operator !=(ElementId a, string b)
+    {
+        return !(a == b);
+    }
 }

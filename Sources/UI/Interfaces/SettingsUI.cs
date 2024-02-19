@@ -8,15 +8,15 @@ namespace BuildingGame.UI.Interfaces;
 public class SettingsUI : UIInterface
 {
     private Panel _background;
-    private TextElement _skyColorLineText;
-    private ColorLine _skyColorLine;
     private CheckBox _enableDynamicTilesBox;
     private CheckBox _enableInfectionTileBox;
-    
+    private ColorLine _skyColorLine;
+    private TextElement _skyColorLineText;
+
     public override void Initialize()
     {
         var translation = TranslationContainer.Default;
-        
+
         _background = new Panel(new ElementId("settings", "background"))
         {
             Brush = new SolidBrush(new Color(0, 0, 0, 100)),
@@ -41,10 +41,7 @@ public class SettingsUI : UIInterface
             Parent = _skyColorLineText,
             LocalPosition = new Vector2(_skyColorLineText.Size.X + 16.0f, 2.0f)
         };
-        _skyColorLine.OnColorUpdate += color =>
-        {
-            Settings.SkyColor = color;
-        };
+        _skyColorLine.OnColorUpdate += color => { Settings.SkyColor = color; };
         Elements.Add(_skyColorLine);
 
         _enableDynamicTilesBox = new CheckBox(new ElementId("settings", "enableDynamicTilesBox"))
@@ -56,10 +53,7 @@ public class SettingsUI : UIInterface
             Checked = Settings.EnableDynamicTiles,
             Parent = _background
         };
-        _enableDynamicTilesBox.OnCheck += @checked =>
-        {
-            Settings.EnableDynamicTiles = @checked;
-        };
+        _enableDynamicTilesBox.OnCheck += @checked => { Settings.EnableDynamicTiles = @checked; };
         Elements.Add(_enableDynamicTilesBox);
 
         _enableInfectionTileBox = new CheckBox(new ElementId("settings", "enableInfectionTileBox"))
@@ -71,12 +65,9 @@ public class SettingsUI : UIInterface
             Checked = Settings.EnableInfectionTile,
             Parent = _background
         };
-        _enableInfectionTileBox.OnCheck += @checked =>
-        {
-            Settings.EnableInfectionTile = @checked;
-        };
+        _enableInfectionTileBox.OnCheck += @checked => { Settings.EnableInfectionTile = @checked; };
         Elements.Add(_enableInfectionTileBox);
-        
+
         Configure();
         Visible = false;
     }
@@ -90,7 +81,8 @@ public class SettingsUI : UIInterface
     {
         _background.Area = new Rectangle(50.0f, 50.0f, GetScreenWidth() - 100.0f, GetScreenHeight() - 100.0f);
         _skyColorLineText.GlobalPosition = _background.GlobalPosition + new Vector2(8.0f, 16.0f);
-        _enableDynamicTilesBox.GlobalPosition = _skyColorLineText.GlobalPosition + new Vector2(0.0f, _skyColorLineText.Size.Y + 8.0f);
+        _enableDynamicTilesBox.GlobalPosition =
+            _skyColorLineText.GlobalPosition + new Vector2(0.0f, _skyColorLineText.Size.Y + 8.0f);
         _enableInfectionTileBox.GlobalPosition = _enableDynamicTilesBox.GlobalPosition +
                                                  new Vector2(0.0f, _enableInfectionTileBox.Size.Y + 8.0f);
     }

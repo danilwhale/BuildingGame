@@ -4,7 +4,7 @@ public struct TileInfo
 {
     public byte Id;
     public TileFlags Flags;
-    public TileData Data = new TileData();
+    public TileData Data = new();
 
     public TileInfo(byte id, TileFlags flags)
     {
@@ -16,7 +16,14 @@ public struct TileInfo
     {
         return new TileInfo(Id, Flags);
     }
-    
-    public static implicit operator TileInfo(byte id) => new TileInfo(id, TileFlags.Default);
-    public static implicit operator byte(TileInfo info) => info.Id;
+
+    public static implicit operator TileInfo(byte id)
+    {
+        return new TileInfo(id, TileFlags.Default);
+    }
+
+    public static implicit operator byte(TileInfo info)
+    {
+        return info.Id;
+    }
 }

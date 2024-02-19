@@ -8,7 +8,7 @@ public class SolidBrush : IBrush
     {
         Color = color;
     }
-    
+
     public void FillArea(Rectangle area)
     {
         Rlgl.SetBlendMode(0);

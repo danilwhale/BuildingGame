@@ -5,10 +5,10 @@ namespace BuildingGame.Tiles.IO;
 
 public static class WorldIO
 {
-    private static List<IWorldDeserializer> _deserializers = new List<IWorldDeserializer>();
-    private static List<IWorldSerializer> _serializers = new List<IWorldSerializer>();
+    private static readonly List<IWorldDeserializer> _deserializers = new();
+    private static readonly List<IWorldSerializer> _serializers = new();
 
-    private static List<IWorldDeserializer> _backupDeserializers = new List<IWorldDeserializer>();
+    private static readonly List<IWorldDeserializer> _backupDeserializers = new();
 
     public static void RegisterDeserializer<T>(T deserializer) where T : IWorldDeserializer
     {
@@ -35,22 +35,20 @@ public static class WorldIO
             using var gzipStream = new GZipStream(fileStream, CompressionMode.Decompress);
             using var reader = new BinaryReader(gzipStream);
 
-            string header = reader.ReadString();
-            IWorldDeserializer deserializer =
+            var header = reader.ReadString();
+            var deserializer =
                 _deserializers.Find(d => string.Equals(d.Header, header, StringComparison.CurrentCultureIgnoreCase))
                 ?? throw new IOException("Unknown or corrupted world header: " + header);
 
             if (_backupDeserializers.FindIndex(d => d.GetType() == deserializer.GetType()) >= 0)
-            {
                 File.Copy(path, path + ".old");
-            }
-            
+
             if (deserializer.TryDeserialize(reader, out var outWorld, out var log))
             {
                 world = outWorld;
                 return true;
             }
-            
+
             // TODO: print log from deserializer
             return false;
         }
@@ -68,18 +66,15 @@ public static class WorldIO
             using var fileStream = File.OpenWrite(path);
             using var gzipStream = new GZipStream(fileStream, CompressionMode.Compress);
             using var writer = new BinaryWriter(gzipStream);
-            
-            IWorldSerializer serializer =
+
+            var serializer =
                 _serializers.Find(d => d.GetType() == typeof(TSerializer))
                 ?? throw new IOException("Unable to find serializer of type " + typeof(TSerializer));
-            
+
             writer.Write(serializer.Header);
 
-            if (serializer.TrySerialize(writer, world, out var log))
-            {
-                return true;
-            }
-            
+            if (serializer.TrySerialize(writer, world, out var log)) return true;
+
             // TODO: print log from serializer
             return false;
         }

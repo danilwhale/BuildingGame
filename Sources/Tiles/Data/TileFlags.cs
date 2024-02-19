@@ -2,10 +2,10 @@ namespace BuildingGame.Tiles.Data;
 
 public struct TileFlags
 {
-    public static TileFlags Default => new TileFlags(TileRotation.Up);
+    public static TileFlags Default => new(TileRotation.Up);
 
     public TileRotation Rotation;
-    
+
     public TileFlags(TileRotation rotation)
     {
         Rotation = rotation;
@@ -43,7 +43,7 @@ public struct TileFlags
         if (rotation is > 0 and <= 90) return TileRotation.Left;
         if (rotation is > 90 and <= 180) return TileRotation.Down;
         if (rotation is > 180 and <= 270) return TileRotation.Right;
-        
+
         return TileRotation.Up;
     }
 }

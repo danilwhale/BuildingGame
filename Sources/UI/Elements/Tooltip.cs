@@ -5,10 +5,10 @@ namespace BuildingGame.UI.Elements;
 
 public class Tooltip : Element
 {
+    private readonly GradientBrush _brush;
     public string Text;
     public float TextSize;
-    private GradientBrush _brush;
-    
+
     public Tooltip(ElementId id) : base(id)
     {
         _brush = new GradientBrush(new Color(0, 0, 0, 50), new Color(16, 0, 16, 127));
@@ -18,15 +18,18 @@ public class Tooltip : Element
     public override void Update()
     {
         base.Update();
-        
-        Element? el = GuiManager.GetElementUnderMouse(el => el.IsUnderMouse() && !string.IsNullOrWhiteSpace(el.TooltipText));
+
+        var el = GuiManager.GetElementUnderMouse(el => el.IsUnderMouse() && !string.IsNullOrWhiteSpace(el.TooltipText));
 
         if (el != null)
         {
             Text = el.TooltipText;
             Visible = true;
         }
-        else Visible = false;
+        else
+        {
+            Visible = false;
+        }
 
         var pos = GetMousePosition() + new Vector2(0, 16);
         var size = MeasureTextEx(GetFontDefault(), Text, TextSize, GetSpacing(TextSize));

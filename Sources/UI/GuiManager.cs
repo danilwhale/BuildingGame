@@ -8,7 +8,7 @@ public static class GuiManager
 
     public static readonly Font Font = GetFontDefault();
     public static readonly int FontSize = 10;
-    
+
     public static void Add(Element element)
     {
         ScreenManager.CurrentScreen?.Elements.Add(element);
@@ -22,8 +22,8 @@ public static class GuiManager
     public static void Remove(ElementId id)
     {
         if (ScreenManager.CurrentScreen == null) return;
-        
-        int index = ScreenManager.CurrentScreen.Elements.FindIndex(e => e.Id == id);
+
+        var index = ScreenManager.CurrentScreen.Elements.FindIndex(e => e.Id == id);
         if (index < 0) return;
         ScreenManager.CurrentScreen.Elements.RemoveAt(index);
     }
@@ -32,7 +32,7 @@ public static class GuiManager
     {
         if (ScreenManager.CurrentScreen == null) return null;
 
-        int index = ScreenManager.CurrentScreen.Elements.FindIndex(e => e.Id == id);
+        var index = ScreenManager.CurrentScreen.Elements.FindIndex(e => e.Id == id);
         if (index < 0) return null;
         return ScreenManager.CurrentScreen.Elements[index];
     }
@@ -40,8 +40,8 @@ public static class GuiManager
     public static TElement? GetAs<TElement>(ElementId id) where TElement : Element
     {
         if (ScreenManager.CurrentScreen == null) return default;
-        
-        int index = ScreenManager.CurrentScreen.Elements.FindIndex(e =>
+
+        var index = ScreenManager.CurrentScreen.Elements.FindIndex(e =>
             e.GetType() == typeof(TElement) && e.Id == id);
         if (index < 0) return default;
         return ScreenManager.CurrentScreen.Elements[index] as TElement;
@@ -74,8 +74,12 @@ public static class GuiManager
     }
 
     [Obsolete("Use ScreenManager.Draw instead")]
-    public static void Draw() { }
-    
+    public static void Draw()
+    {
+    }
+
     [Obsolete("Use ScreenManager.Update instead")]
-    public static void Update() { }
+    public static void Update()
+    {
+    }
 }

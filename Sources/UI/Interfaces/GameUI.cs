@@ -10,10 +10,10 @@ public class GameUI : UIInterface
     private const float TileButtonOffset = Tile.RealTileSize / 2;
     private const float TileButtonSize = Tile.RealTileSize * 2;
 
-    private BlockUI _blockUi;
-    private Tooltip _tooltip;
-    
+    private readonly BlockUI _blockUi;
+
     private Button _tileMenuButton = null!;
+    private Tooltip _tooltip;
 
     public GameUI(BlockUI blockUi)
     {
@@ -32,16 +32,13 @@ public class GameUI : UIInterface
             },
             ShowHoverText = false
         };
-        _tileMenuButton.OnClick += () =>
-        {
-            _blockUi.Visible = !_blockUi.Visible;
-        };
+        _tileMenuButton.OnClick += () => { _blockUi.Visible = !_blockUi.Visible; };
         Elements.Add(_tileMenuButton);
 
         _tooltip = new Tooltip(new ElementId("gameHud", "tooltip"))
         {
             TextSize = 16.0f,
-            Size = new Vector2(0.0f, 36.0f),
+            Size = new Vector2(0.0f, 36.0f)
         };
         Elements.Add(_tooltip);
 
@@ -52,13 +49,10 @@ public class GameUI : UIInterface
     {
         base.Update();
 
-        if (!_blockUi.Visible && IsKeyPressed(KeyboardKey.Escape))
-        {
-            _blockUi.Visible = false;
-        }
-        
+        if (!_blockUi.Visible && IsKeyPressed(KeyboardKey.Escape)) _blockUi.Visible = false;
+
         if (!Tiles.Tiles.TryGetTile(Player.CurrentTile, out var tile)) return;
-        
+
         var brush = (TextureBrush)_tileMenuButton.BackgroundBrush!;
         (brush.CropArea.X, brush.CropArea.Y) = (tile.TexCoord.X * Tile.TileSize, tile.TexCoord.Y * Tile.TileSize);
     }
@@ -66,7 +60,7 @@ public class GameUI : UIInterface
     public override void Configure()
     {
         base.Configure();
-        
+
         _tileMenuButton.Area = new Rectangle(
             GetScreenWidth() - TileButtonSize - TileButtonOffset, TileButtonOffset,
             TileButtonSize, TileButtonSize
@@ -76,7 +70,7 @@ public class GameUI : UIInterface
     public override void Resized()
     {
         base.Resized();
-        
+
         Configure();
     }
 }

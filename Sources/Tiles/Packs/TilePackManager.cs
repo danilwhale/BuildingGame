@@ -19,7 +19,7 @@ public static class TilePackManager
     public static void Load()
     {
         TilePacks.Clear();
-        
+
         if (!Directory.Exists(TilePacksPath))
         {
             Directory.CreateDirectory(TilePacksPath);
@@ -49,12 +49,12 @@ public static class TilePackManager
     {
         Resources.Reload(Path.Join(pack.Path, pack.Info.AssetsPath));
         TranslationContainer.Default.Reload(TranslationLoader.TranslationPath);
-        
+
         Settings.CurrentTilePack = pack.Path.Split('/', '\\').Last();
-        
+
         Program.LoadWindowIcon();
     }
-    
+
     public static TilePack Find(string path)
     {
         return TilePacks.FirstOrDefault(i =>

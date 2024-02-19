@@ -10,7 +10,7 @@ public class TilePacksScreen : Screen
     public override void Initialize()
     {
         base.Initialize();
-        
+
         TilePackManager.Load();
         _tilePacksMenu = new TilePacksMenuUI();
     }
@@ -18,7 +18,7 @@ public class TilePacksScreen : Screen
     public override void Draw()
     {
         ClearBackground(new Color(20, 20, 20, 255));
-        
+
         base.Draw();
     }
 }

@@ -3,6 +3,17 @@ namespace BuildingGame.Translation;
 public class TranslationContainer
 {
     private static TranslationContainer _default = new();
+    private Dictionary<string, string> _translations;
+
+    public TranslationContainer()
+    {
+        _translations = new Dictionary<string, string>();
+    }
+
+    public TranslationContainer(Dictionary<string, string> translations)
+    {
+        _translations = translations;
+    }
 
     public static TranslationContainer Default
     {
@@ -13,17 +24,6 @@ public class TranslationContainer
             TranslationLoader.TryLoadTranslation(TranslationLoader.TranslationPath, out _default);
             return _default;
         }
-    }
-    private Dictionary<string, string> _translations;
-
-    public TranslationContainer()
-    {
-        _translations = new Dictionary<string, string>();
-    }
-    
-    public TranslationContainer(Dictionary<string, string> translations)
-    {
-        _translations = translations;
     }
 
     public string GetTranslatedName(string name)

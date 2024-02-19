@@ -9,23 +9,23 @@ namespace BuildingGame.UI.Interfaces;
 public class PauseUI : UIInterface
 {
     private Panel _background;
-    private Button _resumeButton;
+    private readonly BlockUI _blockUi;
     private Button _menuButton;
+    private Button _resumeButton;
     private Button _settingsButton;
 
-    private SettingsUI _settingsUi = new SettingsUI();
-    private BlockUI _blockUi;
+    private readonly SettingsUI _settingsUi = new();
 
     public PauseUI(BlockUI blockUi)
     {
         IgnorePause = true;
         _blockUi = blockUi;
     }
-    
+
     public override void Initialize()
     {
         var translation = TranslationContainer.Default;
-        
+
         _background = new Panel(new ElementId("pauseScreen", "background"))
         {
             Brush = new GradientBrush(Color.Blank, Color.Black),
@@ -60,10 +60,7 @@ public class PauseUI : UIInterface
             Size = new Vector2(148, 24),
             Parent = _background
         };
-        _settingsButton.OnClick += () =>
-        {
-            _settingsUi.Visible = !_settingsUi.Visible;
-        };
+        _settingsButton.OnClick += () => { _settingsUi.Visible = !_settingsUi.Visible; };
         Elements.Add(_settingsButton);
 
         _menuButton = new Button(new ElementId("pauseScreen", "menuButton"))
@@ -82,7 +79,7 @@ public class PauseUI : UIInterface
             ScreenManager.Switch(new MenuScreen());
         };
         Elements.Add(_menuButton);
-        
+
         Configure();
         Visible = false;
     }
@@ -94,17 +91,19 @@ public class PauseUI : UIInterface
         _background.Area = new Rectangle(-1, -1, GetScreenWidth() + 2, GetScreenHeight() + 2);
 
         float buttonsOriginX = 16;
-        float buttonsOriginY = GetScreenHeight() / 2 - _resumeButton.TextSize;
-        
+        var buttonsOriginY = GetScreenHeight() / 2 - _resumeButton.TextSize;
+
         _resumeButton.Area = new Rectangle(buttonsOriginX, buttonsOriginY, 148, 24);
-        _settingsButton.GlobalPosition = new Vector2(buttonsOriginX, _resumeButton.GlobalPosition.Y + _resumeButton.TextSize + 16);
-        _menuButton.GlobalPosition = new Vector2(buttonsOriginX, _settingsButton.GlobalPosition.Y + _settingsButton.TextSize + 16);
+        _settingsButton.GlobalPosition =
+            new Vector2(buttonsOriginX, _resumeButton.GlobalPosition.Y + _resumeButton.TextSize + 16);
+        _menuButton.GlobalPosition =
+            new Vector2(buttonsOriginX, _settingsButton.GlobalPosition.Y + _settingsButton.TextSize + 16);
     }
 
     public override void Resized()
     {
         base.Resized();
-        
+
         Configure();
     }
 
@@ -125,7 +124,7 @@ public class PauseUI : UIInterface
             _blockUi.Visible = false;
             return;
         }
-        
+
         Visible = !Visible;
         Program.Paused = !Program.Paused;
     }

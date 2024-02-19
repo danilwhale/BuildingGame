@@ -4,16 +4,25 @@ namespace BuildingGame.UI.Interfaces;
 
 public class UIInterface
 {
+    private bool _active = true;
+    private bool _visible = true;
+
+    protected List<Element> Elements = new();
+    protected bool IgnorePause;
+    protected Vector2 Position;
+
+    public UIInterface()
+    {
+        UIInterfaceManager.Add(this);
+    }
+
     public bool Visible
     {
         get => _visible;
         set
         {
             _visible = value;
-            foreach (var el in Elements)
-            {
-                el.Visible = value;
-            }
+            foreach (var el in Elements) el.Visible = value;
         }
     }
 
@@ -23,49 +32,39 @@ public class UIInterface
         set
         {
             _active = value;
-            foreach (var el in Elements)
-            {
-                el.Active = value;
-            }
+            foreach (var el in Elements) el.Active = value;
         }
     }
 
     public bool CanIgnorePause => IgnorePause;
 
-    protected List<Element> Elements = new List<Element>();
-    protected Vector2 Position;
-    protected bool IgnorePause;
-    private bool _visible = true;
-    private bool _active = true;
-
-    public UIInterface()
+    public virtual void Initialize()
     {
-        UIInterfaceManager.Add(this);
     }
 
-    public virtual void Initialize() { }
-    
-    public virtual void Configure() { }
+    public virtual void Configure()
+    {
+    }
 
     public virtual void Update()
     {
         if (IsWindowResized()) Resized();
         if (!_active) return;
     }
-    public virtual void Resized() { }
+
+    public virtual void Resized()
+    {
+    }
 
     public virtual void Destroy()
     {
         DestroyElements();
     }
-    
+
     protected void DestroyElements()
     {
-        foreach (var el in Elements)
-        {
-            GuiManager.Remove(el);
-        }
-        
+        foreach (var el in Elements) GuiManager.Remove(el);
+
         Elements.Clear();
     }
 }

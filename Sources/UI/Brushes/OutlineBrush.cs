@@ -2,8 +2,8 @@ namespace BuildingGame.UI.Brushes;
 
 public class OutlineBrush : IBrush
 {
-    public Color LineColor;
     public Color FillColor;
+    public Color LineColor;
     public float LineThick = 1;
 
     public OutlineBrush(Color lineColor, Color fillColor)
@@ -11,7 +11,7 @@ public class OutlineBrush : IBrush
         LineColor = lineColor;
         FillColor = fillColor;
     }
-    
+
     public void FillArea(Rectangle area)
     {
         DrawRectangleRec(area, FillColor);

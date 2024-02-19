@@ -5,15 +5,15 @@ namespace BuildingGame.UI.Elements;
 
 public class TextElement : Element
 {
+    public bool AutoExtend = true;
     public IBrush? BackgroundBrush;
 
-    public Color TextColor = Color.White;
-    public string Text = string.Empty;
-    public float TextSize = 10;
-    public Alignment TextAlignment = Alignment.TopLeft;
-    public bool AutoExtend = true;
-
     public float Padding = 0;
+    public string Text = string.Empty;
+    public Alignment TextAlignment = Alignment.TopLeft;
+
+    public Color TextColor = Color.White;
+    public float TextSize = 10;
 
     public TextElement(ElementId id) : base(id)
     {
@@ -27,26 +27,23 @@ public class TextElement : Element
     public override void Update()
     {
         var textSize = GetTextSize();
-        if (AutoExtend && (Size.X < textSize.X || Size.Y < textSize.Y))
-        {
-            Size = textSize + new Vector2(Padding + 4.0f);
-        }
+        if (AutoExtend && (Size.X < textSize.X || Size.Y < textSize.Y)) Size = textSize + new Vector2(Padding + 4.0f);
     }
 
     protected override void Render()
     {
         var textSize = GetTextSize();
-        float width = Area.Width - Padding - 1;
-        float height = Area.Height - Padding - 1;
+        var width = Area.Width - Padding - 1;
+        var height = Area.Height - Padding - 1;
 
-        float xLeft = Padding + 4;
-        float xRight = Area.Width - textSize.X - Padding * 2;
-        float xCenter = Area.Width / 2 - textSize.X / 2;
-        float yTop = Padding + 4;
-        float yBottom = Area.Height - textSize.Y - Padding * 2;
-        float yCenter = Area.Height / 2 - textSize.Y / 2;
+        var xLeft = Padding + 4;
+        var xRight = Area.Width - textSize.X - Padding * 2;
+        var xCenter = Area.Width / 2 - textSize.X / 2;
+        var yTop = Padding + 4;
+        var yBottom = Area.Height - textSize.Y - Padding * 2;
+        var yCenter = Area.Height / 2 - textSize.Y / 2;
 
-        Vector2 xy = TextAlignment switch
+        var xy = TextAlignment switch
         {
             Alignment.TopLeft => new Vector2(xLeft, yTop),
             Alignment.TopRight => new Vector2(xRight, yTop),
