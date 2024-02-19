@@ -54,7 +54,17 @@ public static class Resources
     {
         ResourcesPath = newResourcesPath;
 
-        foreach (var texture in _textures) _textures[texture.Key] = LoadTexture(GetPath(texture.Key));
+        foreach (var texture in _textures)
+        {
+            UnloadTexture(texture.Value);
+            _textures[texture.Key] = LoadTexture(GetPath(texture.Key));
+        }
+
+        foreach (var image in _images)
+        {
+            UnloadImage(image.Value);
+            _images[image.Key] = LoadImage(GetPath(image.Key));
+        }
 
         foreach (var image in _images) _images[image.Key] = LoadImage(GetPath(image.Key));
 
