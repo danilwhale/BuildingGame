@@ -29,6 +29,8 @@ public static class Settings
             var record = _deserializer.Deserialize<Record>(content);
 
             SkyColor = record.SkyColor;
+            EnableDynamicTiles = record.EnableDynamicTiles;
+            EnableInfectionTile = record.EnableInfectionTile;
         }
         catch (FileNotFoundException)
         {
