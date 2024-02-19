@@ -10,7 +10,7 @@ public static class ScreenManager
     {
         UIInterfaceManager.Destroy();
         Free();
-        
+
         newScreen.IsCurrent = true;
         Initialize();
         UIInterfaceManager.Initialize();
@@ -36,5 +36,4 @@ public static class ScreenManager
         CurrentScreen?.Dispose();
         CurrentScreen = null;
     }
-
 }

@@ -2,7 +2,7 @@
 
 public static class UIInterfaceManager
 {
-    private static List<UIInterface> _interfaces = new List<UIInterface>();
+    private static readonly List<UIInterface> _interfaces = new();
 
     public static int Add(UIInterface uiInterface)
     {

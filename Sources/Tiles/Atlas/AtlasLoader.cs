@@ -17,16 +17,16 @@ public static class AtlasLoader
         if (!File.Exists(AtlasFile))
             throw new InvalidOperationException("Can't load Atlas.json because it doesn't exists");
 
-        string yamlText = File.ReadAllText(AtlasFile);
+        var yamlText = File.ReadAllText(AtlasFile);
 
         return _yaml.Deserialize<Dictionary<string, AtlasTile>>(yamlText) ??
-               throw new InvalidOperationException("Atlas.yaml is empty");;
+               throw new InvalidOperationException("Atlas.yaml is empty");
     }
 
     public static Dictionary<AtlasTileKey, Tile> ConvertTiles(Dictionary<string, AtlasTile> tiles)
     {
         byte i = 1;
-        Dictionary<AtlasTileKey, Tile> flatTiles = new Dictionary<AtlasTileKey, Tile>();
+        var flatTiles = new Dictionary<AtlasTileKey, Tile>();
 
         foreach (var kv in tiles)
         {

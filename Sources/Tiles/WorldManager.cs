@@ -1,5 +1,4 @@
 using BuildingGame.Tiles.Data;
-using BuildingGame.Tiles.IO;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -10,9 +9,9 @@ public static class WorldManager
     public const string WorldsPath = "Worlds";
     public const string WorldInfoFile = "Info";
     public const string WorldLevelFile = "Level.dat";
-    
-    public static readonly List<WorldInfo> Worlds = new List<WorldInfo>();
-    
+
+    public static readonly List<WorldInfo> Worlds = new();
+
     private static readonly IDeserializer _deserializer = new DeserializerBuilder()
         .WithNamingConvention(UnderscoredNamingConvention.Instance)
         .IgnoreUnmatchedProperties()
@@ -27,33 +26,31 @@ public static class WorldManager
         Worlds.Clear();
 
         foreach (var dir in Directory.EnumerateDirectories(WorldsPath))
+        foreach (var file in Directory.EnumerateFiles(dir))
         {
-            foreach (var file in Directory.EnumerateFiles(dir))
+            var fileName = Path.GetFileNameWithoutExtension(file).ToLower();
+            if (fileName != WorldInfoFile.ToLower()) continue;
+
+            var ext = Path.GetExtension(file).ToLower();
+
+            var content = File.ReadAllText(file);
+
+            switch (ext)
             {
-                var fileName = Path.GetFileNameWithoutExtension(file).ToLower();
-                if (fileName != WorldInfoFile.ToLower()) continue;
+                case ".txt":
+                    Worlds.Add(new WorldInfo(dir, new WorldInfo.InfoRecord(content, TimeSpan.Zero)));
+                    break;
 
-                var ext = Path.GetExtension(file).ToLower();
-                
-                var content = File.ReadAllText(file);
+                case ".yaml":
+                    var deserialized = _deserializer.Deserialize<WorldInfo.InfoRecord>(content);
+                    Worlds.Add(new WorldInfo(dir, deserialized));
+                    break;
 
-                switch (ext)
-                {
-                    case ".txt":
-                        Worlds.Add(new WorldInfo(dir, new WorldInfo.InfoRecord(content, TimeSpan.Zero)));
-                        break;
-                    
-                    case ".yaml":
-                        var deserialized = _deserializer.Deserialize<WorldInfo.InfoRecord>(content);
-                        Worlds.Add(new WorldInfo(dir, deserialized));
-                        break;
-                        
-                    default:
-                        continue;
-                }
-
-                break;
+                default:
+                    continue;
             }
+
+            break;
         }
     }
 
@@ -62,9 +59,9 @@ public static class WorldManager
         var invalidChars = Path.GetInvalidPathChars();
         var pathChars = name.Select(c => Array.IndexOf(invalidChars, c) >= 0 ? ' ' : c);
         var path = Path.Join(WorldsPath, new string(pathChars.ToArray()));
-        
+
         var info = new WorldInfo(path, new WorldInfo.InfoRecord(name, TimeSpan.Zero));
-        
+
         return info;
     }
 
@@ -78,7 +75,7 @@ public static class WorldManager
     {
         var info = Find(name);
         if (string.IsNullOrWhiteSpace(info.Path)) return;
-        
+
         world.Load(Path.Join(info.Path, WorldLevelFile));
     }
 

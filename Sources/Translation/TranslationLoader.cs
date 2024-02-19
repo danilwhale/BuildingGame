@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -7,7 +6,7 @@ namespace BuildingGame.Translation;
 public static class TranslationLoader
 {
     public static readonly string TranslationPath = "Translation.yaml";
-    
+
     private static readonly IDeserializer _yaml = new DeserializerBuilder()
         .WithNamingConvention(UnderscoredNamingConvention.Instance)
         .IgnoreUnmatchedProperties()
@@ -22,7 +21,7 @@ public static class TranslationLoader
         var content = Resources.GetText(path);
         var translationMap = _yaml.Deserialize<Dictionary<string, string>>(content);
         translation = new TranslationContainer(translationMap);
-        
+
         return true;
     }
 }

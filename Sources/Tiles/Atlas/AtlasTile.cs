@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 namespace BuildingGame.Tiles.Atlas;
 
 public struct AtlasTile
@@ -10,7 +8,5 @@ public struct AtlasTile
     }
 
     public AtlasVec2 Atlas { get; set; }
-    public AtlasVec2 Size { get; set; } = new AtlasVec2(1, 1);
-    
-    
+    public AtlasVec2 Size { get; set; } = new(1, 1);
 }

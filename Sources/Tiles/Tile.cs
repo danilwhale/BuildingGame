@@ -10,9 +10,9 @@ public class Tile
     public const float TileUpscale = 3;
     public const float RealTileSize = TileSize * TileUpscale;
     public const float AtlasFraction = 0.25f;
+    public Vector2 Size = Vector2.One;
 
     public Vector2 TexCoord;
-    public Vector2 Size = Vector2.One;
     public string TranslationKey = "";
 
     public Tile()
@@ -30,7 +30,7 @@ public class Tile
         TexCoord = texCoord;
         Size = size;
     }
-    
+
     public Tile(Vector2 texCoord, Vector2 size, string translationKey)
     {
         TexCoord = texCoord;
@@ -50,7 +50,7 @@ public class Tile
     public virtual void OnUpdate(World world, TileInfo info, int x, int y)
     {
         info.Data.TickTimer -= GetFrameTime();
-        
+
         if (info.Data.TickTimer > 0.0f) return;
 
         info.Data.TickTimer = 1.0f / TickCount;
@@ -103,7 +103,8 @@ public class Tile
 
     public override bool Equals(object? obj)
     {
-        return obj is Tile t && t.TexCoord == TexCoord && t.Size == Size && string.Equals(t.TranslationKey, TranslationKey, StringComparison.CurrentCultureIgnoreCase);
+        return obj is Tile t && t.TexCoord == TexCoord && t.Size == Size && string.Equals(t.TranslationKey,
+            TranslationKey, StringComparison.CurrentCultureIgnoreCase);
     }
 
     public override int GetHashCode()

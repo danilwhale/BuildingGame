@@ -6,14 +6,14 @@ namespace BuildingGame.UI.Screens;
 
 public class GameScreen : Screen
 {
-    private World _world;
-    private WorldInfo _info;
-    
-    private Player _player;
     private BlockUI _blockUi;
-    private GameUI _ui;
+    private WorldInfo _info;
     private PauseUI _pause;
-    private TimeSpan _playTime = TimeSpan.Zero;
+
+    private Player _player;
+    private TimeSpan _playTime;
+    private GameUI _ui;
+    private World _world;
 
     public GameScreen(string worldPath)
     {
@@ -24,7 +24,7 @@ public class GameScreen : Screen
     public override void Initialize()
     {
         base.Initialize();
-        
+
         _world = new World();
         WorldManager.LoadWorld(ref _world, _info.Path);
 
@@ -38,10 +38,10 @@ public class GameScreen : Screen
     public override void Update()
     {
         base.Update();
-        
+
         if (IsKeyPressed(KeyboardKey.R))
             Tiles.Tiles.Reload();
-        
+
         if (!Program.Paused)
         {
             _playTime += TimeSpan.FromSeconds(GetFrameTime());
@@ -61,7 +61,7 @@ public class GameScreen : Screen
             _player.Draw();
         }
         EndMode2D();
-        
+
         base.Draw();
     }
 
@@ -70,7 +70,7 @@ public class GameScreen : Screen
         base.Dispose(disposing);
 
         if (!disposing) return;
-        
+
         _player.PushCameraInfo();
 
         _info.Info = new WorldInfo.InfoRecord(_info.Info.Name, _playTime);

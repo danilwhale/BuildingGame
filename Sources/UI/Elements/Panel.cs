@@ -6,7 +6,7 @@ public class Panel : Element
 {
     public IBrush? Brush;
     public int Padding = 0;
-    
+
     public Panel(ElementId id) : base(id)
     {
     }

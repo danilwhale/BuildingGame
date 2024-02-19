@@ -5,19 +5,20 @@ namespace BuildingGame.UI.Elements;
 
 public class CheckBox : Element
 {
-    public bool Checked;
-
-    public IBrush? CheckBoxBrush = new OutlineBrush(Color.Gray, Color.LightGray);
     public float BoxScale = 1f;
 
+    public IBrush? CheckBoxBrush = new OutlineBrush(Color.Gray, Color.LightGray);
+    public bool Checked;
+
     public string Text = string.Empty;
-    public float TextSize = 12;
     public Color TextColor = Color.White;
-    public event Action<bool>? OnCheck;
+    public float TextSize = 12;
 
     public CheckBox(ElementId id) : base(id)
     {
     }
+
+    public event Action<bool>? OnCheck;
 
     public override void Update()
     {
@@ -30,7 +31,7 @@ public class CheckBox : Element
 
     protected override void Render()
     {
-        Rectangle boxArea = new Rectangle(
+        var boxArea = new Rectangle(
             0,
             0 + Area.Height / 2 - 18 * BoxScale / 2,
             18 * BoxScale,
@@ -38,13 +39,11 @@ public class CheckBox : Element
         );
         CheckBoxBrush?.FillArea(boxArea);
         if (Checked)
-        {
             DrawTexturePro(
-                Resources.GetTexture("Checkmark.png"), 
-                new Rectangle(0, 0, 18, 18), 
-                boxArea, 
+                Resources.GetTexture("Checkmark.png"),
+                new Rectangle(0, 0, 18, 18),
+                boxArea,
                 Vector2.Zero, 0, Color.White);
-        }
 
         DrawText(Text, 8 + 18 * BoxScale, Area.Height / 2 - TextSize / 2f, TextSize, TextColor);
     }

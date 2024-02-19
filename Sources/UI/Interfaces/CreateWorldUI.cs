@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 using BuildingGame.Tiles;
 using BuildingGame.UI.Elements;
 using BuildingGame.UI.Screens;
 
 namespace BuildingGame.UI.Interfaces;
+
 public class CreateWorldUI : UIInterface
 {
-    private TextBox _worldNameTextBox;
-    private TextElement _maxCharacterText;
-    private Button _createButton;
     private Button _backButton;
+    private Button _createButton;
+    private TextElement _maxCharacterText;
+    private TextBox _worldNameTextBox;
 
     public override void Initialize()
     {
@@ -61,10 +57,7 @@ public class CreateWorldUI : UIInterface
             Size = _worldNameTextBox.Size with { Y = 28.0f },
             TextAlignment = Alignment.Center
         };
-        _backButton.OnClick += () =>
-        {
-            ScreenManager.Switch(new WorldSelectionScreen());
-        };
+        _backButton.OnClick += () => { ScreenManager.Switch(new WorldSelectionScreen()); };
         Elements.Add(_backButton);
 
         Configure();
@@ -72,8 +65,10 @@ public class CreateWorldUI : UIInterface
 
     public override void Configure()
     {
-        _worldNameTextBox.GlobalPosition = new Vector2(GetScreenWidth() / 2 - _worldNameTextBox.Size.X / 2, GetScreenHeight() / 2 - 64.0f);
-        _maxCharacterText.GlobalPosition = _worldNameTextBox.GlobalPosition + new Vector2(0.0f, _worldNameTextBox.Size.Y);
+        _worldNameTextBox.GlobalPosition = new Vector2(GetScreenWidth() / 2 - _worldNameTextBox.Size.X / 2,
+            GetScreenHeight() / 2 - 64.0f);
+        _maxCharacterText.GlobalPosition =
+            _worldNameTextBox.GlobalPosition + new Vector2(0.0f, _worldNameTextBox.Size.Y);
         _createButton.GlobalPosition = _maxCharacterText.GlobalPosition + new Vector2(0.0f, 40.0f);
         _backButton.GlobalPosition = _createButton.GlobalPosition + new Vector2(0.0f, _createButton.Size.Y);
     }

@@ -13,5 +13,8 @@ public struct AtlasVec2
     public float X { get; set; }
     public float Y { get; set; }
 
-    public static implicit operator Vector2(AtlasVec2 vec) => new Vector2(vec.X, vec.Y);
+    public static implicit operator Vector2(AtlasVec2 vec)
+    {
+        return new Vector2(vec.X, vec.Y);
+    }
 }

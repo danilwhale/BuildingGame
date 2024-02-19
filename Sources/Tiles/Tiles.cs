@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using BuildingGame.Tiles.Atlas;
-using BuildingGame.Translation;
 
 namespace BuildingGame.Tiles;
 
@@ -12,13 +11,13 @@ public static class Tiles
     {
         _Tiles = AtlasLoader.ConvertTiles(AtlasLoader.LoadTiles());
     }
-    
+
     [Obsolete("use TryGetTile instead pls ty", true)]
     public static Tile GetTile(byte id)
     {
         throw new Exception("use TryGetTile instead pls ty");
     }
-    
+
     [Obsolete("use TryGetTile instead pls ty", true)]
     public static Tile GetTile(string name)
     {
@@ -33,7 +32,8 @@ public static class Tiles
 
     public static bool TryGetTile(string name, [NotNullWhen(true)] out Tile? tile)
     {
-        tile = _Tiles.FirstOrDefault(kv => string.Equals(kv.Key.Name, name, StringComparison.CurrentCultureIgnoreCase)).Value;
+        tile = _Tiles.FirstOrDefault(kv => string.Equals(kv.Key.Name, name, StringComparison.CurrentCultureIgnoreCase))
+            .Value;
         return tile != null;
     }
 

@@ -5,21 +5,21 @@ public class GradientBrush : IBrush
     public Color ColorA;
     public Color ColorB;
     public GradientDirection Direction;
-    
+
     public GradientBrush(Color colorA, Color colorB, GradientDirection direction = GradientDirection.Vertical)
     {
         ColorA = colorA;
         ColorB = colorB;
         Direction = direction;
     }
-    
+
     public void FillArea(Rectangle area)
     {
-        int x = (int)area.X;
-        int y = (int)area.Y;
-        int width = (int)area.Width;
-        int height = (int)area.Height;
-        
+        var x = (int)area.X;
+        var y = (int)area.Y;
+        var width = (int)area.Width;
+        var height = (int)area.Height;
+
         switch (Direction)
         {
             case GradientDirection.Vertical:

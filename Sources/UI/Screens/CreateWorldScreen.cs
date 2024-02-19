@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BuildingGame.UI.Interfaces;
+﻿using BuildingGame.UI.Interfaces;
 
 namespace BuildingGame.UI.Screens;
+
 public class CreateWorldScreen : Screen
 {
     private CreateWorldUI _ui;

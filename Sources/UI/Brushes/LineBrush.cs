@@ -9,7 +9,7 @@ public class LineBrush : IBrush
     {
         Color = color;
     }
-    
+
     public void FillArea(Rectangle area)
     {
         DrawRectangleLinesEx(area, LineThick, Color);

@@ -2,11 +2,11 @@ namespace BuildingGame;
 
 public static class Resources
 {
-    public static string ResourcesPath = FallbackResourcesPath;
     public const string FallbackResourcesPath = "Assets/";
-    
-    private static Dictionary<string, Texture2D> _textures = new Dictionary<string, Texture2D>();
-    private static Dictionary<string, Image> _images = new Dictionary<string, Image>();
+    public static string ResourcesPath = FallbackResourcesPath;
+
+    private static readonly Dictionary<string, Texture2D> _textures = new();
+    private static readonly Dictionary<string, Image> _images = new();
 
     public static Texture2D GetTexture(string key)
     {
@@ -43,29 +43,17 @@ public static class Resources
     {
         ResourcesPath = newResourcesPath;
 
-        foreach (var texture in _textures)
-        {
-            _textures[texture.Key] = LoadTexture(GetPath(texture.Key));
-        }
-        
-        foreach (var image in _images)
-        {
-            _images[image.Key] = LoadImage(GetPath(image.Key));
-        }
+        foreach (var texture in _textures) _textures[texture.Key] = LoadTexture(GetPath(texture.Key));
+
+        foreach (var image in _images) _images[image.Key] = LoadImage(GetPath(image.Key));
     }
 
     public static void Free()
     {
-        foreach (var texture in _textures)
-        {
-            UnloadTexture(texture.Value);
-        }
+        foreach (var texture in _textures) UnloadTexture(texture.Value);
         _textures.Clear();
 
-        foreach (var image in _images)
-        {
-            UnloadImage(image.Value);
-        }
+        foreach (var image in _images) UnloadImage(image.Value);
         _images.Clear();
     }
 }

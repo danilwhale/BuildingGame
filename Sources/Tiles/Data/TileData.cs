@@ -1,5 +1,3 @@
-using BuildingGame.Tiles.Dynamic;
-
 namespace BuildingGame.Tiles.Data;
 
 public class TileData

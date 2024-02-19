@@ -1,7 +1,6 @@
 using System.Numerics;
 using BuildingGame.Tiles.Packs;
 using BuildingGame.Translation;
-using BuildingGame.UI.Brushes;
 using BuildingGame.UI.Elements;
 using BuildingGame.UI.Screens;
 
@@ -9,17 +8,17 @@ namespace BuildingGame.UI.Interfaces;
 
 public class TilePacksMenuUI : UIInterface
 {
-    private ListBox _tilePacksList;
     private Button _menuButton;
 
     private string[] _paths;
-    
+    private ListBox _tilePacksList;
+
     public override void Initialize()
     {
         _paths = TilePackManager.TilePacks.Select(t => t.Path).ToArray();
-        
+
         var translation = TranslationContainer.Default;
-        
+
         _tilePacksList = new ListBox(new ElementId("tilePacksMenu", "tilePacksList"))
         {
             ItemTextSize = 24.0f,
@@ -30,12 +29,12 @@ public class TilePacksMenuUI : UIInterface
         _tilePacksList.OnItemSelect += item =>
         {
             var index = _tilePacksList.SelectedItem;
-            
+
             if (index < 0 || index >= _paths.Length) return;
 
             var oldTilePack = TilePackManager.Find(Settings.CurrentTilePack);
             SetTilePackActive(oldTilePack, false);
-            
+
             var tilePack = TilePackManager.Find(_paths[index]);
             TilePackManager.Apply(tilePack);
 
@@ -50,24 +49,21 @@ public class TilePacksMenuUI : UIInterface
             Size = new Vector2(256.0f, 32.0f),
             TextAlignment = Alignment.Center
         };
-        _menuButton.OnClick += () =>
-        {
-            ScreenManager.Switch(new MenuScreen());
-        };
+        _menuButton.OnClick += () => { ScreenManager.Switch(new MenuScreen()); };
         Elements.Add(_menuButton);
-        
+
         SetTilePackActive(TilePackManager.Find(Settings.CurrentTilePack), true);
-        
+
         Configure();
     }
 
     private void SetTilePackActive(TilePack tilePack, bool isActive)
     {
         if (string.IsNullOrWhiteSpace(tilePack.Path)) return;
-        
+
         var index = Array.IndexOf(_paths, tilePack.Path);
         if (index < 0) return;
-        
+
         _tilePacksList.Items[index] = (isActive ? "> " : string.Empty) + tilePack.Info.Name;
     }
 
