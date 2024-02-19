@@ -13,9 +13,11 @@ a game, where you just place tiles
 - [x] pause
 - [x] settings
 - [x] main menu
-- [ ] tile packs
+- [x] tile packs
 - [x] dynamic tiles
 - [x] infection ~~block~~ tile
+
+its finished!!!!!
 
 ### new features
 - bugs
