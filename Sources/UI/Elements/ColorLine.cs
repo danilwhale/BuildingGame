@@ -160,4 +160,14 @@ public class ColorLine : Element
 
         OnColorUpdate?.Invoke(Color);
     }
+
+    public override void Update()
+    {
+        
+    }
+
+    protected override void Render()
+    {
+        
+    }
 }
