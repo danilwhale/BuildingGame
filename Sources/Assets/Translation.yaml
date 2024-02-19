@@ -1,0 +1,75 @@
+# layer 0 (x: 0-9, y: 0)
+smooth_stone: "Smooth Stone"
+wooden_planks: "Wooden Planks"
+dirt: "Dirt"
+grass_block: "Grass Block"
+grass: "Grass"
+sand: "Sand"
+water: "Water"
+lava: "Lava"
+obsidian: "Obsidian"
+door: "Door"
+
+# layer 1 (x: 0-8, y: 1)
+nature_stone: "Nature Stone"
+white_plate: "White Plate"
+green_plate: "Green Plate"
+red_plate: "Red Plate"
+blue_plate: "Blue Plate"
+chamomile: "Chamomile"
+red_tulip: "Red Tulip"
+chamomile_pot: "Chamomile in a Pot"
+red_tulip_pot: "Red Tulip in a Pot"
+
+# layer 2 (x: 0-9, y: 2)
+wooden_stairs: "Wooden Stairs"
+wooden_slab: "Wooden Slab"
+stone_stairs: "Stone Stairs"
+stone_slab: "Stone Slab"
+wooden_pole: "Wooden Pole"
+wooden_pole_handle: "Wooden Pole Handle"
+stone_pole: "Stone Pole"
+stone_pole_handle: "Stone Pole Handle"
+log: "Log"
+log_top: "Log Top"
+
+# layer 3 (x: 0-9, y: 3)
+foliage: "Foliage"
+glass: "Glass"
+white_wool: "White Wool"
+red_wool: "Red Wool"
+green_wool: "Green Wool"
+blue_wool: "Blue Wool"
+yellow_wool: "Yellow Wool"
+black_wool: "Black Wool"
+dark_gray_wool: "Dark Gray Wool"
+gray_wool: "Gray Wool"
+
+# layer 4 (x: 0-1, y: 4)
+sponge: "Sponge"
+infection_block: "Infection Block"
+
+# UI
+title: "building game rewritten"
+version_format: "v{0}.{1}.{2}" # {0} - major, {1} - minor, {2} - revision
+
+play_button: "play"
+settings_button: "settings"
+packs_button: "packs"
+exit_button: "exit"
+
+sky_color_line: "sky color (RGB): "
+enable_dynamic_tiles: "enable dynamic tiles"
+enable_infection_tile: "enable infection tile"
+
+resume_button: "resume"
+menu_button: "menu"
+
+block_ui_title: "Select a tile"
+
+reset_button: "reset"
+
+default_world_title: "select world pls"
+play_time_format: "played {0}" # {0} - TimeSpan
+create_world_button: "create"
+delete_world_button: "delete"

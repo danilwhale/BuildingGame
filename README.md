@@ -1,15 +1,31 @@
-# BuildingGame
-### a game, where you need to place tiles... and... this is all what you can...?
-![2023_03_12-11_41_50_938](https://user-images.githubusercontent.com/61111955/224536830-3f761bba-2c44-45ac-8648-445c988697bf.png)
+﻿﻿<img src="Assets/IconLarge.png" width="96" align="left">
 
-# tasks
-✓ add infection block (and it's toggle) <br/>
-✓ add tile packs (custom atlas.png + atlas.txt w/o changing game assets) <br/>
+### building game
 
-# build
-you need .net 7 sdk to build the game
-## cli
-- download source (download -> download zip)
-- unpack folder somewhere
-- open cmd in it
-- dotnet build
+a game, where you just place tiles
+
+---
+
+![the world](Assets/TheWorld.png)
+
+### rewriting progress
+- [x] the world!!!
+- [x] pause
+- [x] settings
+- [x] main menu
+- [x] tile packs
+- [x] dynamic tiles
+- [x] infection ~~block~~ tile
+
+its finished!!!!!
+
+### new features
+- bugs
+- better camera
+- localization
+- bad, but more stable than previous, ui framework
+- dynamic tile atlas (reloadable ingame)
+- world menu but better
+
+
+#### made with 🐛🐛🐛 by danilwhale (rooster) :3
