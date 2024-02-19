@@ -1,4 +1,5 @@
 using BuildingGame.Translation;
+using BuildingGame.UI;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -53,6 +54,7 @@ public static class TilePackManager
         Settings.CurrentTilePack = pack.Path.Split('/', '\\').Last();
 
         Program.LoadWindowIcon();
+        GuiManager.LoadFont();
     }
 
     public static TilePack Find(string path)

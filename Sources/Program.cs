@@ -53,8 +53,6 @@ internal class Program
         if (string.IsNullOrWhiteSpace(pack.Path)) pack = TilePackManager.Find("Default");
 
         TilePackManager.Apply(pack);
-        
-        GuiManager.LoadFont();
 
         BGWorld21Format.Register();
         BGWorld2Format.Register();
