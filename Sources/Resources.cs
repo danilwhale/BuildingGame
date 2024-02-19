@@ -7,6 +7,7 @@ public static class Resources
 
     private static readonly Dictionary<string, Texture2D> _textures = new();
     private static readonly Dictionary<string, Image> _images = new();
+    private static readonly Dictionary<string, Font> _fonts = new();
 
     public static Texture2D GetTexture(string key)
     {
@@ -28,6 +29,16 @@ public static class Resources
         return image;
     }
 
+    public static Font GetFont(string key)
+    {
+        key = key.ToLower();
+        if (_fonts.TryGetValue(key, out var font)) return font;
+
+        font = LoadFont(GetPath(key));
+        _fonts[key] = font;
+        return font;
+    }
+
     public static string GetText(string key)
     {
         return File.ReadAllText(GetPath(key));
@@ -46,6 +57,8 @@ public static class Resources
         foreach (var texture in _textures) _textures[texture.Key] = LoadTexture(GetPath(texture.Key));
 
         foreach (var image in _images) _images[image.Key] = LoadImage(GetPath(image.Key));
+
+        foreach (var font in _fonts) _fonts[font.Key] = LoadFont(GetPath(font.Key));
     }
 
     public static void Free()
@@ -55,5 +68,8 @@ public static class Resources
 
         foreach (var image in _images) UnloadImage(image.Value);
         _images.Clear();
+        
+        foreach (var font in _fonts) UnloadFont(font.Value);
+        _fonts.Clear();
     }
 }

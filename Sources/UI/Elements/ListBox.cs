@@ -75,7 +75,7 @@ public class ListBox : Element
                 SelectionBrush?.FillArea(area);
             else if (i == _highlightIndex) HighlightBrush?.FillArea(area);
 
-            DrawText(Items[i], area.X, area.Y, ItemTextSize, ItemColor);
+            DrawTextEx(GuiManager.Font, Items[i], area.Position, ItemTextSize, ItemTextSize / GuiManager.FontSize, ItemColor);
         }
     }
 }

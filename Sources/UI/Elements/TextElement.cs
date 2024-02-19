@@ -57,6 +57,6 @@ public class TextElement : Element
         };
 
         BackgroundBrush?.FillArea(new Rectangle(Padding, Padding, width, height));
-        DrawText(Text, xy.X, xy.Y, TextSize, TextColor);
+        DrawTextEx(GuiManager.Font, Text, xy, TextSize, TextSize / GuiManager.FontSize, TextColor);
     }
 }

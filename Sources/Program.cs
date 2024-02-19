@@ -1,5 +1,4 @@
 ﻿global using static Raylib_cs.Raylib;
-global using static BuildingGame.Raylib;
 global using Raylib_cs;
 using System.Runtime.CompilerServices;
 using BuildingGame;
@@ -7,6 +6,7 @@ using BuildingGame.Tiles;
 using BuildingGame.Tiles.Dynamic;
 using BuildingGame.Tiles.IO;
 using BuildingGame.Tiles.Packs;
+using BuildingGame.UI;
 using BuildingGame.UI.Interfaces;
 using BuildingGame.UI.Screens;
 
@@ -26,8 +26,7 @@ internal class Program
         SetExitKey(KeyboardKey.Null);
 
         Initialize();
-
-
+        
         while (Running && !WindowShouldClose())
         {
             Update();
@@ -54,6 +53,8 @@ internal class Program
         if (string.IsNullOrWhiteSpace(pack.Path)) pack = TilePackManager.Find("Default");
 
         TilePackManager.Apply(pack);
+        
+        GuiManager.LoadFont();
 
         BGWorld21Format.Register();
         BGWorld2Format.Register();
