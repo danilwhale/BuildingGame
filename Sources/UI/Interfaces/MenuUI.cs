@@ -70,7 +70,7 @@ public class MenuUI : UIInterface
             Text = string.Format(translation.GetTranslatedName("version_format"), version.Major, version.Minor,
                 version.Revision),
             TextSize = 18.0f,
-            Size = new Vector2(100.0f, 18.0f)
+            Size = new Vector2(100.0f, 20.0f)
         };
         Elements.Add(_versionText);
 

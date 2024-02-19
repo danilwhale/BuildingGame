@@ -45,6 +45,6 @@ public class CheckBox : Element
                 boxArea,
                 Vector2.Zero, 0, Color.White);
         
-        DrawTextEx(GuiManager.Font, Text, new Vector2(8 + 18 * BoxScale, Area.Height / 2 - TextSize / 2f), TextSize, TextSize / GuiManager.FontSize, TextColor);
+        UI.Text.Draw(Text, new Vector2(8 + 18 * BoxScale, Area.Height / 2 - TextSize / 2f), TextSize, TextColor);
     }
 }

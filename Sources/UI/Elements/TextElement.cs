@@ -21,7 +21,7 @@ public class TextElement : Element
 
     public Vector2 GetTextSize()
     {
-        return MeasureTextEx(GuiManager.Font, Text, TextSize, TextSize / GuiManager.FontSize);
+        return MeasureTextEx(UI.Text.Font, Text, TextSize, UI.Text.GetSpacing(TextSize));
     }
 
     public override void Update()
@@ -57,6 +57,6 @@ public class TextElement : Element
         };
 
         BackgroundBrush?.FillArea(new Rectangle(Padding, Padding, width, height));
-        DrawTextEx(GuiManager.Font, Text, xy, TextSize, TextSize / GuiManager.FontSize, TextColor);
+        UI.Text.Draw(Text, xy, TextSize, TextColor);
     }
 }

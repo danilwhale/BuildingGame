@@ -32,7 +32,7 @@ public class Tooltip : Element
         }
 
         var pos = GetMousePosition() + new Vector2(0, 16);
-        var size = MeasureTextEx(GetFontDefault(), Text, TextSize, TextSize / GuiManager.FontSize);
+        var size = MeasureTextEx(UI.Text.Font, Text, TextSize, UI.Text.GetSpacing(TextSize));
 
         GlobalPosition = pos with { X = pos.X - 16.0f };
         Size = size + new Vector2(16);
@@ -41,6 +41,6 @@ public class Tooltip : Element
     protected override void Render()
     {
         _brush.FillArea(new Rectangle(0, 0, Size.X, Size.Y));
-        DrawTextEx(GuiManager.Font, Text, new Vector2(8.0f), TextSize, TextSize / GuiManager.FontSize, Color.White);
+        UI.Text.Draw(Text, new Vector2(8.0f), TextSize, Color.White);
     }
 }

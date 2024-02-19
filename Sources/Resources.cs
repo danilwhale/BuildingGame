@@ -28,13 +28,23 @@ public static class Resources
         _images[key] = image;
         return image;
     }
-
+    
     public static Font GetFont(string key)
     {
         key = key.ToLower();
         if (_fonts.TryGetValue(key, out var font)) return font;
 
         font = LoadFont(GetPath(key));
+        _fonts[key] = font;
+        return font;
+    }
+
+    public static Font GetFont(string key, int fontSize, int[] codepoints)
+    {
+        key = key.ToLower();
+        if (_fonts.TryGetValue(key, out var font)) return font;
+
+        font = LoadFontEx(GetPath(key), fontSize, codepoints, codepoints.Length);
         _fonts[key] = font;
         return font;
     }
@@ -50,7 +60,7 @@ public static class Resources
         return Path.Join(root, key);
     }
 
-    public static void Reload(string newResourcesPath)
+    public static unsafe void Reload(string newResourcesPath)
     {
         ResourcesPath = newResourcesPath;
 
@@ -66,9 +76,19 @@ public static class Resources
             _images[image.Key] = LoadImage(GetPath(image.Key));
         }
 
-        foreach (var image in _images) _images[image.Key] = LoadImage(GetPath(image.Key));
+        foreach (var font in _fonts)
+        {
+            var codepoints = new int[font.Value.GlyphCount];
+            for (var i = 0; i < font.Value.GlyphCount; i++)
+            {
+                codepoints[i] = font.Value.Glyphs[i].Value;
+            }
 
-        foreach (var font in _fonts) _fonts[font.Key] = LoadFont(GetPath(font.Key));
+            var fontSize = font.Value.BaseSize;
+            
+            UnloadFont(font.Value);
+            _fonts[font.Key] = LoadFontEx(GetPath(font.Key), fontSize, codepoints, codepoints.Length);
+        }
     }
 
     public static void Free()

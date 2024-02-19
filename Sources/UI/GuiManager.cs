@@ -6,12 +6,9 @@ public static class GuiManager
 {
     public static bool IsFocused = false;
 
-    public static Font Font;
-    public static readonly int FontSize = 12;
-
     public static void LoadFont()
     {
-        Font = Resources.GetFont("Font.ttf");
+        Text.LoadFont("Font.ttf", 32);
     }
 
     public static void Add(Element element)
